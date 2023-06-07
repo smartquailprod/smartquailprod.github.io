@@ -1,2 +1,2 @@
 # smartquailprod.github.io
-SmartQUail Page
+SmartQauil. ArchsV1.0
