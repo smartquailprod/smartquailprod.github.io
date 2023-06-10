@@ -1,0 +1,31 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: {{ .Values.qnodename }}-pv-volume
+  namespace: {{ .Values.qnodenamespace }}
+  labels:
+    type: local
+    app: {{ .Values.qnodename }}
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 5Gi
+  accessModes:
+    - ReadWriteMany
+  hostPath:
+    path: "/mnt/data"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.qnodename }}-pv-claim
+  namespace: {{ .Values.qnodenamespace }}
+  labels:
+    app: {{ .Values.qnodename }}
+spec:
+  storageClassName: manual
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

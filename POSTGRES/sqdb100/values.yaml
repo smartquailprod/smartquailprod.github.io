@@ -1,0 +1,20 @@
+# Default values for sqdb100.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+qnodename: smartquaildb
+qnodenamespace: postgres
+databasename: QND40STGDB
+databaseusername: sqadmindb
+
+image:
+  repository: postgres
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "alpine3.18"
+
+service:
+  type: ClusterIP
+  port: 5432
+
