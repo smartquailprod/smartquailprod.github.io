@@ -6,11 +6,12 @@ metadata:
   labels:
     app: {{ .Values.qnodename }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   selector:
-    app: {{ .Values.qnodename }} 
+    app: {{ .Values.qnodename }}
   ports:
-  - port: {{ .Values.service.port }}
+  - port: 80
+    targetPort: 9000
     protocol: TCP
 
 
