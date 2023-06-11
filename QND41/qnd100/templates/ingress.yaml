@@ -8,11 +8,11 @@ metadata:
 spec:
   ingressClassName: ingress-nginx
   rules:
-  - host: "app.juansilvaphoto.com"
+  - host: "app.smartquail.io"
     http:
       paths:
       - pathType: Prefix
-        path: "/"
+        path: "/qnd41"
         backend:
           service:
             name: qnd41-pro
