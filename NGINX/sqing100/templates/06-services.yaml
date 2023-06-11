@@ -34,7 +34,7 @@ spec:
     app.kubernetes.io/name: ingress-nginx
   type: LoadBalancer
   externalIPs:
-    - 192.168.100.45 
+    -  192.168.100.184
 
 ---
 apiVersion: v1
