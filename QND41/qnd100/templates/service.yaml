@@ -6,13 +6,14 @@ metadata:
   labels:
     app: {{ .Values.qnodename }}
 spec:
-  type: ClusterIP
+  type: LoadBalancer
   selector:
     app: {{ .Values.qnodename }}
   ports:
-  - port: 80
-    targetPort: 9000
-    protocol: TCP
+     - name: http
+       port: 80
+       targetPort: 9000
+       protocol: TCP
 
 
 
