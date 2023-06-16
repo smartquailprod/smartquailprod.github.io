@@ -3,15 +3,13 @@ kind: Ingress
 metadata:
   name: qnd41-pro-app-ingress
   namespace: qnd41-app
-  annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: ingress-nginx
   rules:
   - http:
       paths:
       - pathType: Prefix
-        path: "/qnd41"
+        path: /
         backend:
           service:
             name: {{ .Values.qnodename }}
