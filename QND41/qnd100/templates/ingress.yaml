@@ -8,14 +8,13 @@ metadata:
 spec:
   ingressClassName: ingress-nginx
   rules:
-  - host: "app.smartquail.io"
-    http:
+  - http:
       paths:
       - pathType: Prefix
         path: "/qnd41"
         backend:
           service:
-            name: qnd41-pro
+            name: {{ .Values.qnodename }}
             port:
               number: 80
 
