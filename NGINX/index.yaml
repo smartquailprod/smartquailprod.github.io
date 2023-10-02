@@ -3,12 +3,12 @@ entries:
   sqing100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2023-10-02T12:00:32.994011-05:00"
+    created: "2023-10-02T12:53:02.23781-05:00"
     description: A Helm chart for Kubernetes
-    digest: 6ea3ef0fe5bbcce3ff2339c4c37f7a5a9fbce27780c15fb72e4a832dd729453f
+    digest: 3501039d00f09a1193f0c9d210831bafd089d68c39fc4db8ca1c7f9137868efc
     name: sqing100
     type: application
     urls:
     - sqing100-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-02T12:00:32.991438-05:00"
+generated: "2023-10-02T12:53:02.234733-05:00"
