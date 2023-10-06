@@ -1,9 +1,6 @@
-# Default values for sqing100.
+# Default values for sqrmq100.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
-
-# NGINX Deployment Variables
-
 
 replicaCount: 1
 
@@ -74,7 +71,7 @@ resources: {}
 autoscaling:
   enabled: false
   minReplicas: 1
-  maxReplicas: 3
+  maxReplicas: 100
   targetCPUUtilizationPercentage: 80
   # targetMemoryUtilizationPercentage: 80
 
