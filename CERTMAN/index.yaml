@@ -3,12 +3,12 @@ entries:
   sqcerman100:
   - apiVersion: v2
     appVersion: 1.16.0
-    created: "2023-10-06T15:02:30.169286-05:00"
+    created: "2023-10-06T16:52:14.733936-05:00"
     description: A Helm chart for Kubernetes
-    digest: 29e5bd822fc3af89d2720c10b2e732dced698fdc9d476c5c30d14fd47c2f3fd5
+    digest: 37fdb96396193cc6c2c036a5a87961619924475839eaf6ffc385d3e1a447d273
     name: sqcerman100
     type: application
     urls:
     - sqcerman100-1.0.0.tgz
     version: 1.0.0
-generated: "2023-10-06T15:02:30.16576-05:00"
+generated: "2023-10-06T16:52:14.729089-05:00"

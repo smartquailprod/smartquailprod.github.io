@@ -1,14 +1,14 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-prod
+  name: letsencrypt-staging
 spec:
   acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
-    email: phys.mauricio.silva@gmail.com  # Reemplaza con tu dirección de correo electrónico
+    email: phys.mauricio.silva@gmail.com
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-prod-private-key
+      name: letsencrypt-staging
     solvers:
-      - http01:
-          ingress:
-            class: nginx  # Reemplaza con la clase de tu Ingress Controlle
+    - http01:
+        ingress:
+          class: nginx
