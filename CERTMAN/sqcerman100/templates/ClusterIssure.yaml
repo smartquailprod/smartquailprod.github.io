@@ -1,0 +1,14 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-prod
+spec:
+  acme:
+    server: https://acme-v02.api.letsencrypt.org/directory
+    email: phys.mauricio.silva@gmail.com  # Reemplaza con tu dirección de correo electrónico
+    privateKeySecretRef:
+      name: letsencrypt-prod-private-key
+    solvers:
+      - http01:
+          ingress:
+            class: nginx  # Reemplaza con la clase de tu Ingress Controlle
