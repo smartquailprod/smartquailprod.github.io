@@ -6,7 +6,7 @@ metadata:
   labels:
     app: {{ .Values.qnodename }}
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: {{ .Values.qnodename }}
   ports:
