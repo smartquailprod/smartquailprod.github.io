@@ -4,15 +4,15 @@ metadata:
   name: qnd41-pro-ingress
   namespace: qnd41-app
   annotations:
-    ingressClassName: nginx-ingress
+    ingressClassName: ingress-nginx
     cert-manager.io/issuer: letsencrypt-staging
 spec:
   tls:
     - hosts:
-        - app.smartquail.io   # Dominio de tu aplicación
+        - smartquail.smartquail.io   # Dominio de tu aplicación
       secretName: smartquail-io-tls-secret
   rules:
-    - host: app.smartquail.io   # Dominio de tu aplicación
+    - host: smartquail.smartquail.io   # Dominio de tu aplicación
       http:
         paths:
           - path: /
