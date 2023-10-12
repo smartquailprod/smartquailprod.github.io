@@ -4,10 +4,10 @@ metadata:
   name: qnd41-pro-app-ingress
   namespace: {{ .Values.qnodenamespace }}
   annotations:
-    ingressClassName: ingress-nginx
+    ingressClassName: nginx
     cert-manager.io/issuer: "letsencrypt-stage"
 spec:
-  ingressClassName: ingress-nginx
+  ingressClassName: nginx
   tls:
   - hosts:
     - smartquail.smartquail.io
@@ -24,7 +24,8 @@ spec:
             port:
               number: 80
 
-
+nodeSelector:
+  pool: nginx-ingress
 
 
 
