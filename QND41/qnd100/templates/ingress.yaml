@@ -10,10 +10,10 @@ spec:
   ingressClassName: nginx
   tls:
   - hosts:
-    - smartquail.smartquail.io
+    - www.smartquail.io
     secretName: smartquail-io-tls
   rules:
-  - host: smartquail.smartquail.io
+  - host: www.smartquail.io
     http:
       paths:
       - path: /
