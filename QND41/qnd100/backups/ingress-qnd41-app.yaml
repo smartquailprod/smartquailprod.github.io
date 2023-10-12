@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qnd41-pro-ingress
+  namespace: qnd41-app
+  annotations:
+    ingressClassName: nginx-ingress
+    cert-manager.io/issuer: letsencrypt-staging
+spec:
+  tls:
+    - hosts:
+        - app.smartquail.io   # Dominio de tu aplicación
+      secretName: smartquail-io-tls-secret
+  rules:
+    - host: app.smartquail.io   # Dominio de tu aplicación
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qnd41-pro
+                port:
+                  number: 80
