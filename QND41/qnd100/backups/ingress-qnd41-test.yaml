@@ -1,17 +1,13 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: qnd41-pro-app-ingress
+  name: qnd41-stg-app-ingress
   namespace: qnd41-app
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
     ingressClassName: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-staging
+  #  cert-manager.io/cluster-issuer: letsencrypt-staging
 spec:
-  tls:
-  - hosts:
-    - app.smartquail.io
-    secretName: letsencrypt-staging
   rules:
   - host: app.smartquail.io
     http:
