@@ -5,13 +5,13 @@ metadata:
   namespace: {{ .Values.qnodenamespace }}
   annotations:
     ingressClassName: nginx
-    cert-manager.io/issuer: "letsencrypt-staging"
+    cert-manager.io/issuer: letsencrypt-staging
 spec:
   ingressClassName: nginx
   tls:
   - hosts:
     - app.smartquail.io
-    secretName: smartquail-io-tls
+    secretName: letsencrypt-staging-ttl
   rules:
   - host: app.smartquail.io
     http:
@@ -24,8 +24,7 @@ spec:
             port:
               number: 80
 
-nodeSelector:
-  pool: nginx-ingress
+
 
 
 

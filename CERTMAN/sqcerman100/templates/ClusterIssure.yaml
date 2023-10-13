@@ -8,7 +8,7 @@ spec:
     email: phys.mauricio.silva@gmail.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-staging
+      name: letsencrypt-staging-ttl
     solvers:
     - http01:
         ingress:
