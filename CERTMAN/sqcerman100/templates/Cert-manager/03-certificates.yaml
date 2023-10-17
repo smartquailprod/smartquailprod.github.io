@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: smartquail-certificate
+spec:
+  secretName: smartquail-io-secrets
+  issuerRef:
+    name: ssl-issuer
+    kind: ClusterIssuer
+  dnsNames:
+    - smartquail.io
+  issuerRef:
+    name: smartquail-clusterissuer
+    kind: ClusterIssuer
+
+

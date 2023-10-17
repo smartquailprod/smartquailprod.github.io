@@ -1,5 +1,5 @@
 apiVersion: cert-manager.io/v1
-kind: ClusterIssuer
+kind: Issuer
 metadata:
   name: letsencrypt-staging
   namespace: qnd41-app
@@ -8,10 +8,8 @@ spec:
     email: phys.mauricio.silva@gmail.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name:  smartquail-io-tls
+      name: smartquail-io-tls
     solvers:
     - http01:
         ingress:
           class: nginx
-
-
