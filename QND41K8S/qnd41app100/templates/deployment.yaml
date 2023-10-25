@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.qnodename }}
+  namespace: {{ .Values.qnodenamespace }}
+  labels:
+    app: {{ .Values.qnodename }}
+
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.qnodename }}
+  replicas: {{ .Values.replicaCount }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.qnodename }}
+    spec:
+      containers:
+      - name: {{ .Values.qnodename }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: {{ .Values.qnodename }}
+          containerPort: 9000
+          protocol: TCP
+        envFrom:
+          - secretRef:
+              name: qnd41-app-secrets
+          - configMapRef:
+              name: qnd41-app-config
+        env:
+          - name: PORT
+            value: "9000"  
+        
+          

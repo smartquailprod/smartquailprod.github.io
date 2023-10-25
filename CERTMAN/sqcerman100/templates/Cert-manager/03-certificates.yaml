@@ -1,16 +1,24 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: smartquail-certificate
+  name: qnd41
 spec:
-  secretName: smartquail-io-secrets
+  secretName: smartquail-tls-cert-secrets
+  privateKey:
+    rotationPolicy: Always
+  commonName: qnd41.default.svc.cluster.local
+
   issuerRef:
     name: ssl-issuer
     kind: ClusterIssuer
   dnsNames:
-    - smartquail.io
+    - qnd41.default.svc.cluster.local
+  usages:
+   - digital signature
+   - key encipherment
+   - server auth
   issuerRef:
-    name: smartquail-clusterissuer
+    name: selfsigned
     kind: ClusterIssuer
 
 

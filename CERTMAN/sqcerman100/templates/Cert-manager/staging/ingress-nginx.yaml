@@ -13,10 +13,10 @@ spec:
   tls:
   - hosts:
     - smartquail.io
-    secretName: smartquail-io-secrets
+    secretName: letsencrypt-staging
   ingressClassName: nginx
   rules:
-   - host: www.smartquail.io
+   - host: app.smartquail.io
      http:
         paths:
           - pathType: Prefix
@@ -26,8 +26,3 @@ spec:
                 name: qnd41-pro
                 port:
                   number: 80
-  defaultBackend:
-    service:
-      name: qnd41-pro
-      port:
-        number: 80
