@@ -8,12 +8,12 @@ metadata:
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     kubernetes.io/ingress.class: "nginx" 
    # cert-manager.io/issuer: "letsencrypt-staging"
-    cert-manager.io/cluster-issuer: "letsencrypt-staging"
+    cert-manager.io/cluster-issuer: "letsencrypt-qnd41-issuer"
 spec:
   tls:
   - hosts:
-    - smartquail.io
-    secretName: letsencrypt-staging
+    - app.smartquail.io
+    secretName: qnd41-do-dns
   ingressClassName: nginx
   rules:
    - host: app.smartquail.io
@@ -26,3 +26,8 @@ spec:
                 name: qnd41-pro
                 port:
                   number: 80
+  defaultBackend:
+    service:
+      name: qnd41-pro
+      port:
+        number: 80

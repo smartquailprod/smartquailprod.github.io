@@ -1,0 +1,55 @@
+
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    kubernetes.digitalocean.com/load-balancer-id: 6c2a89a8-fcc0-4543-95d9-37ddff60bfc6
+    service.beta.kubernetes.io/do-loadbalancer-protocol: "http"
+    service.beta.kubernetes.io/do-loadbalancer-tls-ports: "443"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "c019bbf4-cad2-4884-8a20-410ddad7f54a"
+    meta.helm.sh/release-name: nginx-ingress
+    meta.helm.sh/release-namespace: nginx-ingress
+  creationTimestamp: "2023-10-27T15:32:35Z"
+  finalizers:
+  - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app.kubernetes.io/instance: nginx-ingress
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: nginx-ingress
+    app.kubernetes.io/version: 3.3.1
+    helm.sh/chart: nginx-ingress-1.0.1
+  name: nginx-ingress-controller
+  namespace: nginx-ingress
+  resourceVersion: "2779"
+  uid: 2e6ae1df-e3ea-48bf-a030-94aba8886ded
+spec:
+  allocateLoadBalancerNodePorts: true
+  clusterIP: 10.245.187.199
+  clusterIPs:
+  - 10.245.187.199
+  externalTrafficPolicy: Local
+  healthCheckNodePort: 32089
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - name: http
+    nodePort: 32177
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  - name: https
+    nodePort: 30153
+    port: 443
+    protocol: TCP
+    targetPort: 443
+  selector:
+    app.kubernetes.io/instance: nginx-ingress
+    app.kubernetes.io/name: nginx-ingress
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer:
+    ingress:
+    - ip: 159.89.220.44

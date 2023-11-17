@@ -1,9 +1,9 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: ssl-cert-smartquail-staging
+  name: ssl-smartquail-staging
 spec:
-  secretName: ssl-cert-smartquail-staging
+  secretName: ssl-smartquail-staging
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer

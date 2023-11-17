@@ -1,0 +1,32 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: qnd41-selfsigned
+  namespace: qnd41-app
+spec:
+  acme:
+   # The ACME server URL
+   server:  https://acme-v02.api.letsencrypt.org/directory
+   # Email address used for ACME registration
+   email: smartquail.stage@gmail.com
+   # Name of a secret used to store the ACME account private key
+   privateKeySecretRef:
+     name: selfsigned-cert-tls
+   # Enable the HTTP-01 challenge provider
+   solvers:
+   - http01:
+       ingress:
+         class:  nginx
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: selfsigned-cert
+  namespace: qnd41-app
+spec:
+  dnsNames:
+    - app.smartquail.io
+  secretName: selfsigned-cert-tls
+  issuerRef:
+    name: qnd41-selfsigned

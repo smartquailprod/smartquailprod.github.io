@@ -9,7 +9,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-  - host: app.smartquail.io
+  - host: www.smartquail.io
     http:
         paths:
         - pathType: Prefix
