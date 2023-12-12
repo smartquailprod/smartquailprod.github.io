@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: qnd41-app-ingress
+  namespace: qnd41-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/router.entrypoints: websecure
+    nginx.ingress.kubernetes.io/router.tls: "true"
+    #kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: letsencrypt-issuer
+
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: www.smartquail.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: qnd41-pro
+                port:
+                  number: 80
+  tls:
+    - secretName: smartquail-io-secrets
+      hosts:
+        - www.smartquail.io
