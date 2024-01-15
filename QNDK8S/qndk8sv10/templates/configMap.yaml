@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.qnode_type }}-config
+  namespace: {{ .Values.qnodenamespace }}
+data:
+  POSTGRES_DB: {{ .Values.qnodedbname}}
+  POSTGRES_HOST: {{ .Values.qnodedbservername}}
+  db_url: {{ .Values.databaseExternalName}}
