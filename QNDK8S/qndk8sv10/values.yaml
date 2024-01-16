@@ -1,9 +1,9 @@
 replicaCount: 1
-qnodename: qnd41-pro
-qnode_type: qnd41-app
-qnodenamespace: qnd41-app
-hostname: www.smartquail.io
-businessname: smartquail
+qnodename: qnd10-pro
+qnode_type: qnd10-app
+qnodenamespace: qnd10-app
+hostname: businessapp.smartquail.io
+businessname: businessapp
 qnodedbname: QND41STGDB
 qnodedbservername: smartquaildb
 databaseservicetype: ExternalName
@@ -11,10 +11,7 @@ databaseExternalName: smartquaildb.postgres.svc.cluster.local
 databaseport: 5432
 
 image:
-  repository: smartquail/qnd41app
+  repository: smartquail/qnd10app
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
-
-
-
