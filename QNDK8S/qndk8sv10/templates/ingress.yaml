@@ -29,7 +29,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: qnd41-pro
+                name: {{ .Values.qnodename}}
                 port:
                   number: 80
   tls:
