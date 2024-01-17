@@ -26,18 +26,18 @@ spec:
           protocol: TCP
         envFrom:
           - secretRef:
-              name: {{ .Values.qnode_type }}-secrets
+              name: qnd10-app-secrets
           - configMapRef:
-              name: {{ .Values.qnode_type }}-config
+              name: qnd10-app-config
         env:
           - name: PORT
             value: "9000"           
         resources:
           limits:
-            cpu: "0.5"
-            memory: "256Mi"
+            cpu: "{{ .Values.resources.limits.cpu }}"
+            memory: "{{ .Values.resources.limits.memory }}"
           requests:
-            cpu: "0.2"
-            memory: "128Mi"
+            cpu: "{{ .Values.resources.requests.cpu }}"
+            memory: "{{ .Values.resources.requests.memory }}"
         
           

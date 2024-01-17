@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.qnode_type }}-config
+  name: qnd10-app-config
   namespace: {{ .Values.qnodenamespace }}
 data:
   POSTGRES_DB: {{ .Values.qnodedbname}}

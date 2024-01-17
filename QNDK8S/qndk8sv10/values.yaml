@@ -15,3 +15,11 @@ image:
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
+
+resources: 
+   limits:
+     cpu: 100m
+     memory: 512Mi
+   requests:
+     cpu: 50m
+     memory: 256Mi
