@@ -17,17 +17,12 @@ image:
   tag: "latest"
 
 
-service:
-  type: LoadBalancer
-  port: 80
-  targetport: 9000
-
 resources: 
    limits:
-     cpu: 100m
-     memory: 150Mi
-   requests:
      cpu: 50m
-     memory: 100Mi
+     memory: 256Mi
+   requests:
+     cpu: 25m
+     memory: 128Mi
 
 
