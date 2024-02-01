@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: smartquaildb
+  namespace: qnd11-app
+  labels:
+    app: smartquaildb
+spec:
+  type: ExternalName
+  externalName: smartquaildb.postgres.svc.cluster.local
+  ports:
+  - port: 5432
+    protocol: TCP
