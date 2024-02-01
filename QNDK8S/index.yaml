@@ -3,7 +3,7 @@ entries:
   qndk8sv10:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-01-31T21:43:22.560307-05:00"
+    created: "2024-01-31T22:39:06.705336-05:00"
     description: Quail Nodes Apps for Kubernetes
     digest: 110288499173947bf17f00b06310b1a01f0f72719fafa55b2056cd262c616668
     name: qndk8sv10
@@ -14,12 +14,12 @@ entries:
   qndk8sv11:
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2024-01-31T21:43:22.560951-05:00"
+    created: "2024-01-31T22:39:06.706011-05:00"
     description: Quail Nodes 1.1 Apps for Kubernetes
-    digest: d5a70d79b0f684320a4be8d701ac132d4845ec4e957d29a7ec7a90e3da12f7dd
+    digest: bbc13fc5fe9349a026fee17daf61443f97b029be5418b18e27716c27e02fd7bd
     name: qndk8sv11
     type: application
     urls:
     - qndk8sv11-1.1.0.tgz
     version: 1.1.0
-generated: "2024-01-31T21:43:22.539134-05:00"
+generated: "2024-01-31T22:39:06.701188-05:00"
