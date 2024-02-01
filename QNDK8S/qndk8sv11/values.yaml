@@ -1,8 +1,8 @@
 replicaCount: 1
-qnodename: qnd10-pro
-qnode_type: qnd10-app
-qnodenamespace: qnd10-app
-hostname: businessapp.smartquail.io
+qnodename: qnd11-pro
+qnode_type: qnd11-app
+qnodenamespace: qnd11-app
+hostname: admin.smartquail.io
 businessname: businessapp
 qnodedbname: QND10STGDB
 qnodedbservername: smartquaildb
