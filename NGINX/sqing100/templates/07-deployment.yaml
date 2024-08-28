@@ -1,4 +1,4 @@
-#Creamos el pod de NGINX en el namespace de ingress-nginx.
+# Creamos el pod de NGINX en el namespace de ingress-nginx.
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -24,6 +24,8 @@ spec:
         app.kubernetes.io/instance: ingress-nginx
         app.kubernetes.io/name: ingress-nginx
     spec:
+      nodeSelector:
+        kubernetes.io/os: linux  # Sección nodeSelector añadida
       containers:
       - args:
         - /nginx-ingress-controller
@@ -100,8 +102,6 @@ spec:
           name: webhook-cert
           readOnly: true
       dnsPolicy: ClusterFirst
-      nodeSelector:
-        kubernetes.io/os: linux
       serviceAccountName: ingress-nginx
       terminationGracePeriodSeconds: 300
       volumes:

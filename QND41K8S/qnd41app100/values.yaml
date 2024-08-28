@@ -5,6 +5,7 @@
 replicaCount: 1
 qnodename: qnd41-pro
 qnodenamespace: qnd41-app
+nodeRole: app
 qnodedatabasename: smartquaildb
 databaseservicetype: ExternalName
 databaseExternalName: smartquaildb.postgres.svc.cluster.local

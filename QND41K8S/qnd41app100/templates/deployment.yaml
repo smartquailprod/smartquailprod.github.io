@@ -16,9 +16,11 @@ spec:
       labels:
         app: {{ .Values.qnodename }}
     spec:
+      nodeSelector:
+        role: {{ .Values.nodeRole }}  # Añadido nodeSelector
       containers:
       - name: {{ .Values.qnodename }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}" 
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
         ports:
         - name: {{ .Values.qnodename }}
@@ -31,7 +33,7 @@ spec:
               name: qnd41-app-config
         env:
           - name: PORT
-            value: "9000" 
+            value: "9000"
         resources:
           limits:
             cpu: "{{ .Values.resources.limits.cpu }}"
@@ -39,5 +41,3 @@ spec:
           requests:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
-        
-          

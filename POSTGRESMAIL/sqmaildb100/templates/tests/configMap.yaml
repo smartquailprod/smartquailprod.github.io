@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.qnodenamespace }}-config
+  namespace: {{ .Values.qnodenamespace }}
+  labels:
+    app: {{ .Values.qnodename }}
+data:
+  POSTGRES_DB: {{ .Values.databasename }}
+  POSTGRES_USER: {{ .Values.databaseusername }}

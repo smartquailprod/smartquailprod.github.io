@@ -5,9 +5,9 @@
 replicaCount: 1
 qnodename: smartquaildb
 qnodenamespace: postgres
-databasename: QND41STGDB
+databasename: POSFIXDB
 databaseusername: sqadmindb
-nodeRole: app
+nodeRole: mail
 
 image:
   repository: postgres

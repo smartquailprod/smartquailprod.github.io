@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postfix
+  namespace: postfix
+  labels:
+    app: postfix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postfix
+  template:
+    metadata:
+      labels:
+        app: postfix
+    spec:
+      nodeSelector:
+        role: mail # Etiqueta del nodo para Postfix
+      containers:
+      - name: postfix
+        image: postfix-image:latest  # Reemplaza con la imagen real de Postfix
+        ports:
+        - containerPort: 25
+        volumeMounts:
+        - name: mail-certs
+          mountPath: /etc/postfix/certs
+          readOnly: true  
+        - name: mail-storage
+          mountPath: /var/mail  # Ruta donde Postfix almacenará los correos
+        - name: postfix-config
+          mountPath: /etc/postfix
+          subPath: main.cf
+        - name: postfix-config
+          mountPath: /etc/postfix/master.cf
+          subPath: master.cf
+        - name: postfix-config
+          mountPath: /etc/postfix/virtual_mailbox_domains.cf
+          subPath: virtual_mailbox_domains.cf
+        - name: postfix-config
+          mountPath: /etc/postfix/virtual_alias_maps.cf
+          subPath: virtual_alias_maps.cf
+        - name: postfix-config
+          mountPath: /etc/postfix/virtual_mailbox_maps.cf
+          subPath: virtual_mailbox_maps.cf
+        - name: postfix-secrets
+          mountPath: /etc/postfix/secret
+          readOnly: true
+        env:
+        - name: POSTFIX_RELAY_USER
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: relay_user
+        - name: POSTFIX_RELAY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: relay_password
+      volumes:
+      - name: mail-storage
+        persistentVolumeClaim:
+          claimName: mail-pvc
+      - name: postfix-config
+        configMap:
+          name: postfix-config
+      - name: postfix-secrets
+        secret:
+          secretName: postfix-secrets
+      - name: mail-certs
+        secret:
+          secretName: mail-certificate-secret
