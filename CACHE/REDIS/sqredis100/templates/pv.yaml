@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: redis-pv
+  namespace: cache
+  labels:
+    app: redis
+spec:
+  capacity:
+    storage: 2Gi  # Tamaño del volumen
+  accessModes:
+    - ReadWriteOnce  # Modo de acceso del volumen
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: manual
+  hostPath:
+    path: /mnt/data/redis  # Ruta en el nodo para almacenamiento

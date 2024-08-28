@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: rabbitmq
+  namespace: brokers
+  labels:
+    app: rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: rabbitmq
+  template:
+    metadata:
+      labels:
+        app: rabbitmq
+    spec:
+      nodeSelector:
+        role: app  # Etiqueta del nodo para RabbitMQ
+      containers:
+      - name: rabbitmq
+        image: rabbitmq:3-management # Imagen de RabbitMQ con la interfaz de administración
+        ports:
+        - containerPort: 5672  # Puerto de RabbitMQ para conexiones
+        - containerPort: 15672 # Puerto para la interfaz de administración
+        volumeMounts:
+        - name: rabbitmq-data
+          mountPath: /var/lib/rabbitmq
+        env:
+        - name: RABBITMQ_DEFAULT_USER
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: rabbitmq_user
+        - name: RABBITMQ_DEFAULT_PASS
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: rabbitmq_password
+      volumes:
+      - name: rabbitmq-data
+        persistentVolumeClaim:
+          claimName: rabbitmq-pvc
