@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  sqpostfix100:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-08-29T17:11:13.890676-05:00"
+    description: A Helm chart for Kubernetes
+    digest: 4028a52801c9dd7b5252629642c6668f523ef32708ba2d973f476459a8f304c1
+    name: sqpostfix100
+    type: application
+    urls:
+    - sqpostfix100-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-08-29T17:11:13.889743-05:00"

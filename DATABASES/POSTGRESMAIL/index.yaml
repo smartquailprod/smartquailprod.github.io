@@ -3,12 +3,12 @@ entries:
   sqmaildb100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-08-27T18:19:17.850474-05:00"
+    created: "2024-08-29T17:09:53.36943-05:00"
     description: A Helm chart for Kubernetes
-    digest: 9e6cacb5e8981c3b69145cea127deac7b38231deebfea7e943ae92dfb6fa5931
+    digest: d6962748e99422033ca2f431792ae047d6133f0a967958c098b1c0b7f5af342c
     name: sqmaildb100
     type: application
     urls:
     - sqmaildb100-1.0.0.tgz
     version: 1.0.0
-generated: "2024-08-27T18:19:17.848949-05:00"
+generated: "2024-08-29T17:09:53.368838-05:00"

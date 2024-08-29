@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  sqdovecot100:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-08-29T17:10:41.410832-05:00"
+    description: A Helm chart for Kubernetes
+    digest: 6b3d5c005cba1fc1ed0c00fd31ccde1f1d33e3d3e2acf71d9c06febd4a402eaf
+    name: sqdovecot100
+    type: application
+    urls:
+    - sqdovecot100-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-08-29T17:10:41.406632-05:00"

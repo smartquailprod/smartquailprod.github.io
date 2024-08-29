@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postfix
-  namespace: postfix
+  namespace: mail-micro-servers
   labels:
     app: postfix
 spec:
@@ -19,7 +19,7 @@ spec:
         role: mail # Etiqueta del nodo para Postfix
       containers:
       - name: postfix
-        image: postfix-image:latest  # Reemplaza con la imagen real de Postfix
+        image: smartquail/qnd10postfix:prod  # Reemplaza con la imagen real de Postfix
         ports:
         - containerPort: 25
         volumeMounts:
