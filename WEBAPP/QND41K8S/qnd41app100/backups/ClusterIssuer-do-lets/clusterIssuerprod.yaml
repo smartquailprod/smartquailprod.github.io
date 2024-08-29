@@ -4,7 +4,7 @@ metadata:
   name: letsencrypt-issuer
 spec:
   acme:
-    email: smartquail.info@gmail.com
+    email: smartquail.prod@gmail.com
     server: https://acme-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
       name: letsencrypt-issuer-account-key

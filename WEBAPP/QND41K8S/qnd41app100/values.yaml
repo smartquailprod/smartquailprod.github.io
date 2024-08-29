@@ -6,10 +6,22 @@ replicaCount: 1
 qnodename: qnd41-pro
 qnodenamespace: qnd41-app
 nodeRole: app
+
+#Services
 qnodedatabasename: smartquaildb
 databaseservicetype: ExternalName
 databaseExternalName: smartquaildb.postgres.svc.cluster.local
 databaseport: 5432
+#redis
+qnodecachename: redis
+cacheservicetype: ExternalName
+cacheExternalName: redis.cache.svc.cluster.local
+cacheport: 6379
+#redis
+qnodebrokername: rabbitmq
+brokerservicetype: ExternalName
+brokerExternalName: rabbitmq.brokers.svc.cluster.local
+brokerport: 5672
 
 image:
   repository: smartquail/qnd41app
