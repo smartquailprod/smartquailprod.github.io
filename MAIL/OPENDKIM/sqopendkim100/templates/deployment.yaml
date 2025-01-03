@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: dovecot
-  namespace: mail-microservers
+  namespace: mail-micro-servers
 spec:
   replicas: 1
   selector:

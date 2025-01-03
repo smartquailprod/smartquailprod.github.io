@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: dovecot-config
-  namespace: mail-microservers
+  namespace: mail-micro-servers
 data:
   dovecot.conf: |
     # Dovecot configuration
