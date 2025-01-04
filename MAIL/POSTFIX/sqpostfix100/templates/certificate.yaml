@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: mailpost-certificates
+  name: mail-certificates
   namespace: mail-microservers
 spec:
   secretName: mail-smartquail-io-tls

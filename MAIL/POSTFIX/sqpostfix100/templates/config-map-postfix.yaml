@@ -125,6 +125,15 @@ data:
     smtpd_milters = unix:/var/spool/postfix/opendkim/opendkim.sock
     non_smtpd_milters = $smtpd_milters
 
+  transport.pcre: |
+    # /etc/postfix/transport
+    # Enviar correos a gmail.com a través de Google SMTP servers
+    /gmail\.com$/              smtp:[gmail-smtp-in.l.google.com]
+    # Direcciones locales en mail.smartquail.io
+    /mail\.smartquail\.io$/    :
+    /^support@mail.smartquail.io$/ local:
+    /@mail.smartquail.io$/     virtual
+
   master.cf: |
     # service type  private unpriv  chroot  wakeup  maxproc command + args
     #               (yes)   (yes)   (yes)   (never) (100)
@@ -184,10 +193,14 @@ data:
     local     unix  -       n       n       -       -       local
     virtual   unix  -       n       n       -       -       virtual
 
+  sasl_passwd: |
+    [smtp.mail.smartquail.io]:587    support:Ms95355672@
+
+
   virtual_mailbox_domains.cf: |
     user = sqadmindb
     password = ms95355672
-    dbname = POSFIXDB
+    dbname = POSTFIXDB
     hosts = smartquaildb
 
     # Query para obtener el dominio de un buzón de correo
@@ -196,7 +209,7 @@ data:
   virtual_alias_maps.cf: |
     user = sqadmindb
     password = ms95355672
-    dbname = POSFIXDB
+    dbname = POSTFIXDB
     hosts = smartquaildb
 
     # Query para obtener el destino de un alias
@@ -204,9 +217,10 @@ data:
 
   virtual_mailbox_maps.cf: |
     user = sqadmindb
-    password = sms95355672
-    dbname = POSFIXDB
+    password =  ms95355672
+    dbname = POSTFIXDB
     hosts = smartquaildb
 
-    # Query para verificar la existencia de un buzón de correo
-    query = SELECT 1 FROM virtual_users WHERE email='%s'
+    # Consulta para obtener la ruta del buzón de correo
+    query = SELECT CONCAT('/var/mail/', domain, '/', email, '/Maildir/') FROM virtual_users, virtual_domains WHERE virtual_users.domain_id = virtual_domains.id AND email='%s'
+

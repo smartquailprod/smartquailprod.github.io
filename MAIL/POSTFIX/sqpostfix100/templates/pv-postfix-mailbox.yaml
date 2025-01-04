@@ -1,13 +1,15 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: postfix-mailbox-pv
+  name: dovecot-mailbox
   namespace: mail-microservers
 spec:
   capacity:
-    storage: 5Gi  # Ajusta según tus necesidades
+    storage: 5Gi
   accessModes:
-    - ReadWriteOnce
-  storageClassName: manual  # Asegúrate de que esta clase de almacenamiento existe en tu clúster
-  hostPath:
-    path: /var/mail  # Ruta en el nodo del host para el almacenamiento
+    - ReadWriteMany  # Varios pods pueden acceder al mismo volumen a la vez
+  storageClassName: manual
+  volumeMode: Filesystem
+  nfs:
+    path: /nfsshare  # Ruta compartida en el servidor NFS
+    server: nfs-server.mail-microservers.svc.cluster.local  # Servicio NFS en el clúster

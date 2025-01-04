@@ -3,12 +3,12 @@ entries:
   sqpostfix100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-08-29T17:11:13.890676-05:00"
+    created: "2025-01-03T23:49:41.823911-05:00"
     description: A Helm chart for Kubernetes
-    digest: 4028a52801c9dd7b5252629642c6668f523ef32708ba2d973f476459a8f304c1
+    digest: c7eb9f4cc86d595dcf028d14a4309ab61aecb9c7f3cdaea10a917046ae7b192f
     name: sqpostfix100
     type: application
     urls:
-    - sqpostfix100-1.0.0.tgz
+    - https://smartquailprod.github.io/smartquailprod/sqpostfix100-1.0.0.tgz
     version: 1.0.0
-generated: "2024-08-29T17:11:13.889743-05:00"
+generated: "2025-01-03T23:49:41.821322-05:00"

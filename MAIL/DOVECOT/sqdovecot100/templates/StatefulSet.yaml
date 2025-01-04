@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dovecot
+  namespace: mail-microservers
+  labels:
+    app: dovecot
+spec:
+  replicas: 2
+  serviceName: "dovecot"
+  selector:
+    matchLabels:
+      app: dovecot
+  template:
+    metadata:
+      labels:
+        app: dovecot
+    spec:
+      containers:
+      - name: dovecot
+        image: dovecot/dovecot:latest  # Reemplaza con la imagen real de Dovecot
+        ports:
+        - containerPort: 143  # Puerto IMAP
+        - containerPort: 993  # Puerto IMAPS
+        volumeMounts:
+        - name: dovecot-mailbox
+          mountPath: /var/mail  # Ruta donde Dovecot almacenará los buzones
+        - name: dovecot-config
+          mountPath: /etc/dovecot  # Ruta de configuración de Dovecot
+        env:
+        - name: DOVECOT_TLS_CERT
+          value: /etc/dovecot/certs/tls.crt
+        - name: DOVECOT_TLS_KEY
+          value: /etc/dovecot/certs/tls.key
+  volumeClaimTemplates:
+  - metadata:
+      name: dovecot-mailbox
+    spec:
+      accessModes: ["ReadWriteMany"]  # Permitir acceso de lectura y escritura desde múltiples pods
+      resources:
+        requests:
+          storage: 10Gi  # Ajusta según el tamaño de almacenamiento necesario
+      storageClassName: standard  # Si usas un StorageClass en Kubernetes
+  volumes:
+  - name: dovecot-config
+    configMap:
+      name: dovecot-config  # ConfigMap que contiene la configuración de Dovecot
+  - name: dovecot-certs
+    secret:
+      secretName: dovecot-certs  # Certificados TLS gestionados por Kubernetes Secret
