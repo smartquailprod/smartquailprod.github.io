@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: dovecot-mailbox
+  namespace: {{ .Values.NamespaceCluster }}  # Corregido el uso de la variable para seguir la convención de nombres
+spec:
+  capacity:
+    storage: 5Gi  # Tamaño del volumen
+  accessModes:
+    - ReadWriteMany  # Permite el acceso simultáneo de múltiples pods
+  storageClassName: manual  # Clase de almacenamiento manual (puede ser modificada según el entorno)
+  volumeMode: Filesystem  # Modo de volumen (Filesystem para la mayoría de los casos)
+  nfs:
+    path: /nfsshare  # Ruta compartida en el servidor NFS
+    server: nfs-server.{{ .Values.NamespaceCluster }}.svc.cluster.local  # Nombre completo del servicio NFS en el clúster

@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dovecot
+  namespace: {{.Values.NameSpaceCluster }}
+  labels:
+    app: dovecot
+spec:
+  selector:
+    app: dovecot  # Debe coincidir con las etiquetas de los pods
+  ports:
+    - name: imap
+      protocol: TCP
+      port: 143  # Puerto IMAP
+      targetPort: 143
+    - name: imaps
+      protocol: TCP
+      port: 993  # Puerto IMAPS
+      targetPort: 993
+  type: ClusterIP  # Cambia a LoadBalancer o NodePort si necesitas acceso externo

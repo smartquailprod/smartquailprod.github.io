@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opendkim-config
+  namespace: {{ .Values.NameSpaceCluster }}
+data:
+  opendkim.conf: |
+    # OpenDKIM Configuration
+
+    Domain                 {{ .Values.hostname }}
+    KeyTable               /etc/opendkim/KeyTable
+    SigningTable           /etc/opendkim/SigningTable
+    ExternalIgnoreList     /etc/opendkim/TrustedHosts
+    InternalHosts          /etc/opendkim/TrustedHosts
+    Selector               mail
+
+    # Configuración del socket
+    Socket                 unix:/var/spool/postfix/opendkim/opendkim.sock
+
+    # Configuración adicional
+    AutoRestart            Yes
+    AutoRestartRate        10/1h
+    Background             Yes
+    Canonicalization       relaxed/simple
+    Mode                   sv
+    SignatureAlgorithm     rsa-sha256
+    UserID                 opendkim:opendkim
+    PidFile                /var/run/opendkim/opendkim.pid
+
+  KeyTable: |
+    # KeyTable configuration
+    {{ .Values.hostname }} mail._domainkey.{{ .Values.hostname }}:mail:/etc/opendkim/keys/mail.private
+
+  SigningTable: |
+    # SigningTable configuration
+    *@{{ .Values.hostname }} {{ .Values.hostname }}
+
+  TrustedHosts: |
+    # TrustedHosts configuration
+    127.0.0.1
+    ::1
+    {{ .Values.hostname }}
+    *.{{ .Values.hostname }}

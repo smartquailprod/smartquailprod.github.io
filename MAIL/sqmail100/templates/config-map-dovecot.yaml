@@ -1,0 +1,187 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: dovecot-config
+  namespace: mail-microservers
+data:
+  dovecot.conf: |
+    protocols = imap pop3 submission sieve lmtp
+    log_path = /var/log/dovecot/dovecot.log
+    info_log_path = /var/log/dovecot/dovecot-info.log
+    log_timestamp = "%Y-%m-%d %H:%M:%S"
+    mail_home = {{ .Values.mailHomePath }}
+    mail_privileged_group = mail
+    first_valid_uid = 1000
+
+    # SSL/TLS Configuration
+    !include 10-ssl.conf
+
+    # Authentication
+    disable_plaintext_auth = yes
+    auth_mechanisms = plain login
+    
+    passdb {
+      driver = sql
+      args = /etc/dovecot/dovecot-sql.conf.ext
+    }
+  
+    userdb {
+      driver = sql
+      args = /etc/dovecot/dovecot-sql.conf.ext
+    }
+
+    # LMTP Configuration (for Postfix)
+    service lmtp {
+      unix_listener /var/spool/postfix/private/dovecot-lmtp {
+        mode = 0600
+        user = postfix
+        group = postfix
+      }
+    }
+
+    # Logging
+    service imap-login {
+      process_min_avail = 1
+      process_limit = 10
+    }
+
+    # Mail Process Settings
+    service imap {
+      process_limit = 1024
+    }
+
+    # Namespaces
+    namespace inbox {
+      inbox = yes
+      separator = /
+      mailbox Drafts {
+        special_use = \Drafts
+      }
+      mailbox Junk { 
+        special_use = \Junk
+      }
+      mailbox Sent {
+        special_use = \Sent
+      }
+      mailbox "Sent Messages from Sent Messages from SmartQuail-MailServers" {
+        special_use = \Sent
+      }
+      mailbox Trash {
+        special_use = \Trash
+      }
+    }
+
+  10-mail.conf: |
+    mail_location = {{ .Values.mailLocationPath }}
+    namespace inbox {
+      inbox = yes
+      separator = /
+      mailbox Drafts {
+        special_use = \Drafts
+      }
+      mailbox Junk { 
+        special_use = \Junk
+      }
+      mailbox Sent {
+        special_use = \Sent
+      }
+      mailbox "Sent Messages from SmartQuail-MailServers" {
+        special_use = \Sent
+      }
+      mailbox Trash {
+        special_use = \Trash
+      }
+    }
+
+  10-auth.conf: |
+    auth_mechanisms = plain login
+    # Eliminado 'include auth-system.conf.ext', ya no es necesario
+
+  auth-system.conf.ext: |
+    passdb {
+      driver = sql
+      args = /etc/dovecot/dovecot-sql.conf.ext
+    }
+
+    userdb {
+      driver = sql
+      args = /etc/dovecot/dovecot-sql.conf.ext
+    }
+
+  10-ssl.conf: |
+    ssl = required
+    ssl_cert = </etc/dovecot/certs/${DOVECOT_TLS_CERT}
+    ssl_key = </etc/dovecot/certs/${DOVECOT_TLS_KEY}
+    ssl_min_protocol = TLSv1.2
+
+  dovecot-sql.conf.ext: |
+    driver = mysql
+    connect = host={{ .Values.dbHost }} port=5432 dbname={{ .Values.dbName }} user={{ .Values.dbUsername }} password={{ .Values.dbPassword }}
+    default_pass_scheme = SHA256-CRYPT
+    password_query = SELECT password FROM users WHERE username = '%u'
+    user_query = SELECT home, uid, gid FROM users WHERE username = '%u'
+
+  10-master.cf: |
+    # Configuración de los servicios
+    # Configuración para los servicios IMAP, POP3, y otros protocolos
+    service imap-login {
+      inet_listener imap {
+        port = 143
+        ssl = no
+      }
+      inet_listener imaps {
+        port = 993
+        ssl = yes
+      }
+    }
+
+    service pop3-login {
+      inet_listener pop3 {
+        port = 110
+        ssl = no  # Deshabilitar POP3 en puerto 0
+      }
+      inet_listener pop3s {
+        port = 995
+        ssl = yes
+      }
+    }
+
+    service submission-login {
+      inet_listener submission {
+        port = 587
+        ssl = yes
+      }
+    }
+
+    service lmtp {
+      unix_listener /var/spool/postfix/private/dovecot-lmtp {
+        user = postfix
+        group = postfix
+        mode = 0660
+      }
+    }
+
+    service auth {
+      unix_listener auth {
+        mode = 0660
+        user = dovecot
+        group = dovecot
+        path = /var/spool/postfix/private/auth
+      }
+      unix_listener auth-userdb {
+        mode = 0660
+        user = dovecot
+        group = dovecot
+      }
+      unix_listener auth-client {
+        mode = 0660
+        user = dovecot
+        group = dovecot
+      }
+    }
+
+    service auth-worker {
+      user = dovecot
+    }
+
+    mail_privileged_group = mail

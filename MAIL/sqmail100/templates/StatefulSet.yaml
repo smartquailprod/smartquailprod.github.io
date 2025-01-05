@@ -1,0 +1,72 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: dovecot
+  namespace: {{ .Values.NamespaceCluster }} 
+  labels:
+    app: dovecot
+spec:
+  replicas: 2
+  serviceName: "dovecot"
+  selector:
+    matchLabels:
+      app: dovecot
+  template:
+    metadata:
+      labels:
+        app: dovecot
+    spec:
+      containers:
+      - name: dovecot
+        image: {{ .Values.dovecoteimage }}  # Reemplaza con una imagen adecuada
+        ports:
+        - containerPort: 143 # Puerto IMAP
+        - containerPort: 993 # Puerto IMAPS
+        volumeMounts:
+        - name: dovecot-mailbox
+          mountPath: /var/mail  # Ruta para los buzones
+        - name: dovecot-config
+          mountPath: /etc/dovecot  # Ruta de configuración
+        - name: dovecot-certs
+          mountPath: /etc/dovecot/certs  # Certificados TLS
+          readOnly: true
+        - name: dovecot-postfix-socket
+          mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP
+        - name: dovecot-sql-config
+          mountPath: /etc/dovecot/dovecot-sql.conf.ext
+          subPath: dovecot-sql.conf.ext  # Monta el archivo de configuración SQL
+        env:
+        - name: DOVECOT_TLS_CERT
+          value: /etc/dovecot/certs/tls.crt
+        - name: DOVECOT_TLS_KEY
+          value: /etc/dovecot/certs/tls.key
+  volumeClaimTemplates:
+  - metadata:
+      name: dovecot-mailbox
+    spec:
+      accessModes:
+        - ReadWriteMany
+      resources:
+        requests:
+          storage: 5Gi
+      storageClassName: standard
+  volumes:
+  - name: dovecot-config
+    configMap:
+      name: dovecot-config
+  - name: dovecot-certs
+    projected:
+      sources:
+        - secret:
+            name: {{ .Values.tlsSecretName }}  # Usando la variable definida en values.yaml
+            items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+    defaultMode: 0440
+  - name: dovecot-postfix-socket
+    emptyDir: {}  # Volumen temporal que Dovecot usará para crear el socket
+  - name: dovecot-sql-config
+    configMap:
+      name: dovecot-config  # Asegúrate de que el configMap contenga el archivo `dovecot-sql.conf.ext`
