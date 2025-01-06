@@ -3,12 +3,12 @@ entries:
   sqclusterissure200:
   - apiVersion: v2
     appVersion: 2.0.0
-    created: "2025-01-05T01:36:33.410248-05:00"
+    created: "2025-01-06T16:48:36.208075-05:00"
     description: A Cluster Issure Manifest- ARCHV2.0.0
-    digest: 1655ba53f4631744a77f0389bc51e95c0c00f422a458ca4ddeb69117a8a60647
+    digest: 3f4e1210ca3a75a7d8a654f60cfa4bb54105d81c224be38f225f87648689e4e1
     name: sqclusterissure200
     type: application
     urls:
-    - https://smartquailprod.github.io/smartquailprod/sqclusterissure200-2.0.0.tgz
+    - sqclusterissure200-2.0.0.tgz
     version: 2.0.0
-generated: "2025-01-05T01:36:33.408312-05:00"
+generated: "2025-01-06T16:48:36.206928-05:00"
