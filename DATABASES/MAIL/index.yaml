@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  sqdb100:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-01-06T15:49:43.03285-05:00"
+    description: A Helm chart for Kubernetes
+    digest: 35512959f8b13cee7f844bce82b1be7e11633226004e3284026a95b63f5c2f30
+    name: sqdb100
+    type: application
+    urls:
+    - sqdb100-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-01-06T15:49:43.031778-05:00"
