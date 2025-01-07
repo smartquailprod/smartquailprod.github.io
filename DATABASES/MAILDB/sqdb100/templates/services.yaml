@@ -5,7 +5,7 @@ metadata:
   namespace: {{ .Values.postgres_namespace }}
 spec:
   selector:
-    app: {{ .Values.postgres_name }}
+    app: {{ .Values.nodeRole }}
   ports:
     - protocol: TCP
       port: 5432       # Puerto en el servicio
