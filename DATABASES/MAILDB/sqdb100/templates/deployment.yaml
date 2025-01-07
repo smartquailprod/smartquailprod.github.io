@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.postgres_name }}
-  namespace: {{ .Values.postgres_namespace }}
+  namespace: db-srv
   labels:
     app: {{ .Values.postgres_name }}
 spec:
