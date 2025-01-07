@@ -9,12 +9,12 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.postgres_name }}
+      app: {{ .Values.nodeRole }}
   template:
     metadata:
       namespace: {{ .Values.postgres_namespace }}
       labels:
-        app: {{ .Values.postgres_name }}
+        app: {{ .Values.nodeRole }}
     spec:
       nodeSelector:
         role: {{ .Values.nodeRole }}  # Añadido nodeSelector

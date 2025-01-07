@@ -7,7 +7,7 @@ image:
   pullPolicy: IfNotPresent
 configMap:
   name: postgres-config
-
+nodeRole: app
 postgres_secrets_name: postgres-secrets
 postgres_database: POSTFIXDB
 postgres_user: postgresuser
