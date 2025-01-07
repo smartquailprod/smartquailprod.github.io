@@ -1,16 +1,16 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: postgres-config
+  name: {{ .Values.configMap.name }}
   namespace: {{ .Values.postgres_namespace }}
   labels:
     app: {{ .Values.postgres_name }}
 data:
   # Configuraciones generales
-  POSTGRES_DB: {{ .Values.postgres_database }}
-  POSTGRES_USER: {{ .Values.postgres_user }}
-  POSTGRES_PASSWORD: {{ .Values.postgres_password }}
-  POSTGRES_PORT: {{ .Values.postgres_port }}
+  POSTGRES_DB: "{{ .Values.postgres_database }}"
+  POSTGRES_USER: "{{ .Values.postgres_user }}"
+  POSTGRES_PASSWORD: "{{ .Values.postgres_password }}"
+  POSTGRES_PORT: "{{ .Values.postgres_port }}"  # Asegúrate de convertirlo a string
 
   # Configuraciones de rendimiento y performance
   shared_buffers: "{{ .Values.shared_buffers }}"              # Tamaño de memoria compartida
@@ -22,7 +22,6 @@ data:
   wal_buffers: "{{ .Values.wal_buffers }}"                  # Buffers para registros WAL
   max_worker_processes: "{{ .Values.max_worker_processes }}"            # Procesos paralelos para consultas
   max_parallel_workers_per_gather: "{{ .Values.max_parallel_workers_per_gather }}" # Procesos paralelos por consulta
-
 
   # Script de inicialización adicional
   init.sql: |
