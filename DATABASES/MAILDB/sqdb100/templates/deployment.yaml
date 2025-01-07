@@ -19,9 +19,10 @@ spec:
         role: {{ .Values.nodeRole | default "app" }} # Valor por defecto para evitar fallos
       restartPolicy: Always
       containers:
-        - name: {{ .Values.postgres_name }}
-          image: {{ .Values.postgres_image }}
-          imagePullPolicy: {{ .Values.postgres_image_pullPolicy | default "IfNotPresent" }} # Valor por defecto
+       - name: {{ .Values.postgres_name }}
+         image: "{{ .Values.postgres_image | default 'postgres' }}:{{ .Values.postgres_tag_image | default 'latest' }}"
+         imagePullPolicy: {{ .Values.postgres_image_pullPolicy | default 'IfNotPresent' }}
+
           ports:
             - containerPort: 5432
           volumeMounts:

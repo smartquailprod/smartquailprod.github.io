@@ -1,10 +1,10 @@
 postgres_name: postgres
 postgres_namespace: db-srv
 replicaCount: 1
-image:
-  repository: postgres
-  tag: 14
-  pullPolicy: IfNotPresent
+postgres_image: postgres
+postgres_tag_image: alpine3.21
+pullPolicy: IfNotPresent
+
 configMap:
   name: postgres-config
 nodeRole: app
