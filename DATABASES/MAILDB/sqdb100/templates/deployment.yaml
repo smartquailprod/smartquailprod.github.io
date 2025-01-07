@@ -22,15 +22,12 @@ spec:
       containers:
         - name: {{ .Values.postgres_name }}
           image: "{{ .Values.postgres_image }}:{{ .Values.postgres_tag_image }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          imagePullPolicy: {{ .Values.postgres_image_pullPolicy  }}
           ports:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: {{ .Values.postgres_helm_name }}
-          envFrom:
-            - configMapRef:
-                name: {{ .Values.configMap.name }}
+              name: {{ .Values.postgres_helm_name }}             
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:

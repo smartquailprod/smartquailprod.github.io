@@ -1,14 +1,13 @@
-
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
-  name: letsencrypt-digitalocean-issure
+  name: letsencrypt-digitalocean-issuer
 spec:
   acme:
     email: smartquail.info@gmail.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-digitalocean-issure
+      name: letsencrypt-digitalocean-issuer
     solvers:
     - dns01:
         digitalocean:
