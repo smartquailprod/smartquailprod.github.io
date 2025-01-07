@@ -27,20 +27,34 @@ spec:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: {{ .Values.postgres_helm_name }}
+              name: {{ .Values.postgres_name }}
+            - mountPath: /docker-entrypoint-initdb.d/
+              name: init-scripts
+          envFrom:
+            - configMapRef:
+                name: postgres-config
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.postgres_secrets_name }}
                   key: POSTGRES_PASSWORD
-            - name: POSTGRES_USER
-              value: {{ .Values.postgres_user }}
             - name: POSTGRES_DB
-              value: {{ .Values.postgres_database }}
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-config
+                  key: POSTGRES_USER
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
       volumes:
         - name: {{ .Values.postgres_name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.postgres_helm_name }}-pv-claim
+            claimName: {{ .Values.postgres_name }}-pv-claim
+        - name: init-scripts
+          configMap:
+            name: postgres-config

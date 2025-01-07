@@ -1,0 +1,61 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: {{ .Values.postgres_namespace }}
+  labels:
+    app: {{ .Values.postgres_name }}
+data:
+  # Configuraciones generales
+  POSTGRES_DB: {{ .Values.postgres_database }}
+  POSTGRES_USER: {{ .Values.postgres_user }}
+  POSTGRES_PASSWORD: {{ .Values.postgres_password }}
+  POSTGRES_PORT: "{{ .Values.postgres_port }}"
+
+  # Configuraciones de rendimiento y performance
+  shared_buffers: "{{ .Values.shared_buffers }}"              # Tamaño de memoria compartida
+  work_mem: "{{ .Values.work_mem }}"                         # Memoria para operaciones de ordenamiento
+  maintenance_work_mem: "{{ .Values.maintenance_work_mem }}" # Memoria para tareas de mantenimiento
+  effective_cache_size: "{{ .Values.effective_cache_size }}" # Memoria disponible para caché
+  max_connections: "{{ .Values.max_connections }}"          # Máximo número de conexiones permitidas
+  checkpoint_completion_target: "{{ .Values.checkpoint_completion_target }}"  # Tiempo objetivo para completar checkpoints
+  wal_buffers: "{{ .Values.wal_buffers }}"                  # Buffers para registros WAL
+  max_worker_processes: "{{ .Values.max_worker_processes }}"            # Procesos paralelos para consultas
+  max_parallel_workers_per_gather: "{{ .Values.max_parallel_workers_per_gather }}" # Procesos paralelos por consulta
+
+
+  # Script de inicialización adicional
+  init.sql: |
+    CREATE TABLE IF NOT EXISTS virtual_domains (
+      id SERIAL PRIMARY KEY,
+      domain VARCHAR(255) NOT NULL UNIQUE
+    );
+
+    CREATE TABLE IF NOT EXISTS virtual_aliases (
+      id SERIAL PRIMARY KEY,
+      domain_id INT NOT NULL,
+      source VARCHAR(255) NOT NULL,
+      destination VARCHAR(255) NOT NULL,
+      FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE
+    );
+
+    CREATE TABLE IF NOT EXISTS virtual_users (
+      id SERIAL PRIMARY KEY,
+      domain_id INT NOT NULL,
+      password VARCHAR(106) NOT NULL,
+      email VARCHAR(255) NOT NULL UNIQUE,
+      FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE
+    );
+
+    INSERT INTO virtual_domains (domain) VALUES
+      ('smartquail.io'),
+      ('mail.smartquail.io')
+    ON CONFLICT DO NOTHING;
+
+    INSERT INTO virtual_users (domain_id, email, password) VALUES 
+      ((SELECT id FROM virtual_domains WHERE domain = 'smartquail.io'), 'support@smartquail.io', 'Support1719@') 
+    ON CONFLICT DO NOTHING;
+
+    INSERT INTO virtual_aliases (domain_id, source, destination) VALUES 
+      ((SELECT id FROM virtual_domains WHERE domain = 'smartquail.io'), 'support@mail.smartquail.io', 'support') 
+    ON CONFLICT DO NOTHING;
