@@ -10,7 +10,7 @@ data:
   POSTGRES_DB: {{ .Values.postgres_database }}
   POSTGRES_USER: {{ .Values.postgres_user }}
   POSTGRES_PASSWORD: {{ .Values.postgres_password }}
-  POSTGRES_PORT: "{{ .Values.postgres_port }}"
+  POSTGRES_PORT: {{ .Values.postgres_port }}
 
   # Configuraciones de rendimiento y performance
   shared_buffers: "{{ .Values.shared_buffers }}"              # Tamaño de memoria compartida
