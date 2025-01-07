@@ -22,18 +22,22 @@ spec:
       containers:
         - name: {{ .Values.postgres_name }}
           image: "{{ .Values.postgres_image }}:{{ .Values.postgres_tag_image }}"
-          imagePullPolicy: {{ .Values.postgres_image_pullPolicy  }}
+          imagePullPolicy: {{ .Values.postgres_image_pullPolicy }}
           ports:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: {{ .Values.postgres_helm_name }}             
+              name: {{ .Values.postgres_helm_name }}
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.postgres_secrets_name }}
                   key: POSTGRES_PASSWORD
+            - name: POSTGRES_USER
+              value: {{ .Values.postgres_user }}
+            - name: POSTGRES_DB
+              value: {{ .Values.postgres_database }}
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
       volumes:
