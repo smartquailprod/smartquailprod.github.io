@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: {{ .Values.postgres_name }}
-  namespace: db-srv
+  namespace: {{ .Values.postgres_namespace }}
   labels:
     app: {{ .Values.postgres_name }}
 spec:
@@ -32,7 +32,7 @@ spec:
               name: init-scripts
           envFrom:
             - configMapRef:
-                name: postgres-config
+                name: {{ .Values.configMap.name }}
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -42,12 +42,12 @@ spec:
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-config
+                  name: {{ .Values.configMap.name }}
                   key: POSTGRES_DB
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: postgres-config
+                  name: {{ .Values.configMap.name }}
                   key: POSTGRES_USER
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
@@ -57,4 +57,4 @@ spec:
             claimName: {{ .Values.postgres_name }}-pv-claim
         - name: init-scripts
           configMap:
-            name: postgres-config
+            name: {{ .Values.configMap.name }}

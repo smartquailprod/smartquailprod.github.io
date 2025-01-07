@@ -7,3 +7,10 @@ image:
   pullPolicy: IfNotPresent
 configMap:
   name: postgres-config
+
+postgres_secrets_name: postgres-secrets
+postgres_database: POSTFIXDB
+postgres_user: postgresuser
+postgres_password: "yourpassword"
+postgres_host: postgres-host
+postgres_port: 5432
