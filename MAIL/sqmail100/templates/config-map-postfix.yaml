@@ -4,6 +4,48 @@ metadata:
   name: postfix-config
   namespace: {{ .Values.NameSpaceCluster }}
 data:
+  add_user.sh: |
+    #!/bin/bash
+    set -e
+
+    # Función para registrar mensajes
+    log() {
+      echo "$(date +"%Y-%m-%d %H:%M:%S") - $1"
+    }
+
+    # Función para agregar un usuario
+    addUserInfo() {
+      local user_name="support"
+      local user_domain="smartquail.io"
+      local user_maildir="/var/mail/${user_domain}/${user_name}"
+
+      # Verifica si el usuario ya existe en el sistema
+      if ! id -u "$user_name" &>/dev/null; then
+        log "Adding user '${user_name}'"
+
+        # Añade el usuario como usuario de sistema (sin directorio home activo)
+        adduser --system --home "/home/$user_name" --no-create-home "$user_name"
+
+        # Crea el directorio Maildir para el usuario si no existe
+        mkdir -p "${user_maildir}/"{tmp,new,cur}
+
+        # Ajusta los permisos para el usuario de correo virtual
+        chown -R vmail:vmail "${user_maildir}"
+        chmod -R 700 "${user_maildir}"
+
+        log "User '${user_name}' added with maildir '${user_maildir}'"
+      else
+        log "User '${user_name}' already exists"
+      fi
+    }
+
+    # Llama a la función para agregar el usuario
+    addUserInfo
+
+    # Termina con un mensaje de éxito
+    log "User setup script completed successfully"
+
+
   main.cf: |
     ###############
     # General
