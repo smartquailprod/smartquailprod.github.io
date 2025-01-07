@@ -3,12 +3,12 @@ entries:
   sqclusterissure200:
   - apiVersion: v2
     appVersion: 2.0.0
-    created: "2025-01-06T16:48:36.208075-05:00"
+    created: "2025-01-06T19:06:44.487614-05:00"
     description: A Cluster Issure Manifest- ARCHV2.0.0
-    digest: 3f4e1210ca3a75a7d8a654f60cfa4bb54105d81c224be38f225f87648689e4e1
+    digest: 73d213a08eabfcd1efe25faeff1c26d738ef689dc536a56dd93639bbdd4203ee
     name: sqclusterissure200
     type: application
     urls:
     - sqclusterissure200-2.0.0.tgz
     version: 2.0.0
-generated: "2025-01-06T16:48:36.206928-05:00"
+generated: "2025-01-06T19:06:44.483499-05:00"
