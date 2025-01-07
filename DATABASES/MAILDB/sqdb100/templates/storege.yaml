@@ -1,5 +1,5 @@
-kind: PersistentVolume
 apiVersion: v1
+kind: PersistentVolume
 metadata:
   name: {{ .Values.postgres_name }}-pv-volume
   namespace: {{ .Values.postgres_namespace }}
@@ -11,12 +11,15 @@ spec:
   capacity:
     storage: 500Mi
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce  # Usamos ReadWriteOnce para volúmenes locales (cuidado si se va a compartir entre múltiples pods)
+  persistentVolumeReclaimPolicy: Retain  # Esto asegura que el volumen no se elimine accidentalmente
   hostPath:
-    path: "/mnt/data"
+    path: "/mnt/data"  # Asegúrate de que esta ruta exista en el nodo donde se va a montar el volumen
+    type: DirectoryOrCreate  # Esto garantiza que el directorio sea creado si no existe
+
 ---
-kind: PersistentVolumeClaim
 apiVersion: v1
+kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.postgres_name }}-pv-claim
   namespace: {{ .Values.postgres_namespace }}
@@ -25,7 +28,7 @@ metadata:
 spec:
   storageClassName: manual
   accessModes:
-    - ReadWriteMany
+    - ReadWriteOnce  # Debe coincidir con el PersistentVolume, por lo que se usa ReadWriteOnce aquí también
   resources:
     requests:
       storage: 500Mi
