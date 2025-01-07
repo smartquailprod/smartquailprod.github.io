@@ -1,45 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.postgresql.name }}
-  namespace: {{ .Values.postgresql.namespace }}
+  name: {{ .Values.postgres_name }}
+  namespace: {{ .Values.postgres_namespace }}
   labels:
-    app: {{ .Values.postgresql.name }}
+    app: {{ .Values.postgres_name }}
 spec:
-  replicas: {{ .Values.postgresql.replicaCount }}
+  replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.postgresql.name }}
+      app: {{ .Values.postgres_name }}
   template:
     metadata:
-      namespace: {{ .Values.postgresql.namespace }}
+      namespace: {{ .Values.postgres_namespace }}
       labels:
-        app: {{ .Values.postgresql.name }}
+        app: {{ .Values.postgres_name }}
     spec:
       nodeSelector:
-        role: {{ .Values.postgresql.nodeRole }}  # Añadido nodeSelector
+        role: {{ .Values.nodeRole }}  # Añadido nodeSelector
       restartPolicy: Always
       containers:
-        - name: {{ .Values.postgresql.name }}
-          image: "{{ .Values.postgresql.image.repository }}:{{ .Values.postgresql.image.tag }}"
-          imagePullPolicy: {{ .Values.postgresql.image.pullPolicy }}
+        - name: {{ .Values.postgres_name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: 5432
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: {{ .Values.postgresql.name }}
+              name: {{ .Values.postgres_helm_name }}
           envFrom:
             - configMapRef:
-                name: {{ .Values.postgresql.configMap.name }}
+                name: {{ .Values.configMap.name }}
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.postgresql.secrets.name }}
+                  name: {{ .Values.postgres_secrets_name }}
                   key: POSTGRES_PASSWORD
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata
       volumes:
-        - name: {{ .Values.postgresql.name }}
+        - name: {{ .Values.postgres_name }}
           persistentVolumeClaim:
-            claimName: {{ .Values.postgresql.name }}-pv-claim
+            claimName: {{ .Values.postgres_helm_name }}-pv-claim

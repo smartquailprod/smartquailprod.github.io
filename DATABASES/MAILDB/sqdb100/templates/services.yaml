@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.postgresql.name }}-service
-  namespace: {{ .Values.postgresql.namespace }}
+  name: {{ .Values.postgres_name }}-service
+  namespace: {{ .Values.postgres_namespace }}
 spec:
   selector:
-    app: {{ .Values.postgresql.name }}
+    app: {{ .Values.postgres_name }}
   ports:
     - protocol: TCP
       port: 5432  # Puerto en el servicio
