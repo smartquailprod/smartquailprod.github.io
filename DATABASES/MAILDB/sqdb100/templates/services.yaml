@@ -8,6 +8,6 @@ spec:
     app: {{ .Values.postgres_name }}
   ports:
     - protocol: TCP
-      port: 5432  # Puerto en el servicio
-      targetPort: 5432  # Puerto en el contenedor
+      port: 5432       # Puerto en el servicio
+      targetPort: 5432 # Puerto en el contenedor
   clusterIP: None  # Esto se puede modificar según las necesidades de acceso
