@@ -2,7 +2,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: dovecot-config
-  namespace: mail-microservers
+  namespace: {{.Values.NameSpaceCluster }}
 data:
   dovecot.conf: |
     protocols = imap pop3 submission sieve lmtp
