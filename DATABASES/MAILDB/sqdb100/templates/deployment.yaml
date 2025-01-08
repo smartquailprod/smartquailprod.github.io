@@ -32,22 +32,22 @@ spec:
               name: init-scripts
           envFrom:
             - configMapRef:
-                name: {{ .Values.configMap.name | default "postgres-config" }} # Valor por defecto
+                name: {{ .Values.postgres_configmap_name }} # Valor por defecto
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: {{ .Values.postgres_secrets_name | default "postgres-secrets" }} # Valor por defecto
+                  name: {{ .Values.postgres_secrets_name }} # Valor por defecto
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.configMap.name | default "postgres-config" }} # Valor por defecto
+                  name: {{ .Values.postgres_configmap_name }} # Valor por defecto
                   key: POSTGRES_DB
             - name: POSTGRES_USER
               valueFrom:
                 configMapKeyRef:
-                  name: {{ .Values.configMap.name | default "postgres-config" }} # Valor por defecto
+                  name: {{ .Values.postgres_configmap_name }} # Valor por defecto
                   key: POSTGRES_USER
             - name: PGDATA
               value: /var/lib/postgresql/data/pgdata

@@ -14,6 +14,7 @@ postgres_helm_name: sqdb100
 postgres_helm_repository: https://smartquailprod.github.io/POSTGRES/
 postgres_helm_version: 1.0.0
 postgres_service_type: ClusterIP
+postgres_configmap_name: postgres-configmap
 
 shared_buffers: 256MB
 work_mem: 64MB

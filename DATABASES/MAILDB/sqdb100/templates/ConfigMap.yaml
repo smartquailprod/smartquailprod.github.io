@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.postgres_helm_name }}-configmap
+  name: postgres-configmap
   namespace: {{ .Values.postgres_namespace }}
   labels:
     app: {{ .Values.postgres_name }}
