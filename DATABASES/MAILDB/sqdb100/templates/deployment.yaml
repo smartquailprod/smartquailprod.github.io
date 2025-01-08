@@ -57,4 +57,4 @@ spec:
             claimName: {{ .Values.postgres_name }}-pv-claim
         - name: init-scripts
           configMap:
-            name: {{ .Values.configMap.name | default "postgres-config" }} # Valor por defecto
+            name: {{ .Values.postgres_configmap_name }} # Valor por defecto
