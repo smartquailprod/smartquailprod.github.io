@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: {{ .Values.configMap.name }}
+  name: {{ .Values.postgres_helm_name }}-configmap
   namespace: {{ .Values.postgres_namespace }}
   labels:
     app: {{ .Values.postgres_name }}
@@ -10,7 +10,7 @@ data:
   POSTGRES_DB: "{{ .Values.postgres_database }}"
   POSTGRES_USER: "{{ .Values.postgres_user }}"
   POSTGRES_PASSWORD: "{{ .Values.postgres_password }}"
-  POSTGRES_PORT: "{{ .Values.postgres_port }}"  # Asegúrate de convertirlo a string
+  POSTGRES_PORT: "{{ .Values.postgres_port }}"  # Convertido a string automáticamente al usar template
 
   # Configuraciones de rendimiento y performance
   shared_buffers: "{{ .Values.shared_buffers }}"              # Tamaño de memoria compartida
