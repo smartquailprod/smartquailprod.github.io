@@ -15,8 +15,6 @@ spec:
       labels:
         app: {{ .Values.postgres_name }}
     spec:
-      nodeSelector:
-        role: app 
       restartPolicy: Always
       containers:
         - name: {{ .Values.postgres_name }}
