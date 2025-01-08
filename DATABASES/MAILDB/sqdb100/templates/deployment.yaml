@@ -19,10 +19,9 @@ spec:
         role: {{ .Values.nodeRole | default "app" }} # Valor por defecto para evitar fallos
       restartPolicy: Always
       containers:
-       - name: {{ .Values.postgres_name }}
-         image: "postgres:15.10-alpine3.20"
-         imagePullPolicy: always
-
+        - name: {{ .Values.postgres_name }}
+          image: "postgres:15.10-alpine3.20"
+          imagePullPolicy: always
           ports:
             - containerPort: 5432
           volumeMounts:
@@ -57,4 +56,4 @@ spec:
             claimName: {{ .Values.postgres_name }}-pv-claim
         - name: init-scripts
           configMap:
-            name: {{ .Values.postgres_configmap_name }} # Valor por defecto
+            name: postgres-configmap 
