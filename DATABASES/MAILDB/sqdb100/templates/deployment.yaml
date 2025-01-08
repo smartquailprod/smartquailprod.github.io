@@ -16,7 +16,7 @@ spec:
         app: {{ .Values.postgres_name }}
     spec:
       nodeSelector:
-        role: {{ .Values.nodeRole | default "app" }} # Valor por defecto para evitar fallos
+        role: {{ .Values.nodeRole }} # Valor por defecto para evitar fallos
       restartPolicy: Always
       containers:
         - name: {{ .Values.postgres_name }}
