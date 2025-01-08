@@ -1,11 +1,11 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: {{ .Values.qnodename }}-pv-volume
-  namespace: {{ .Values.qnodenamespace }}
+  name: {{ .Values.postgres_name }}-pv-volume
+  namespace: {{ .Values.postgres_namespace }}
   labels:
     type: local
-    app: {{ .Values.qnodename }}
+    app: {{ .Values.postgres_name }}
 spec:
   storageClassName: manual
   capacity:
@@ -18,10 +18,10 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ .Values.qnodename }}-pv-claim
-  namespace: {{ .Values.qnodenamespace }}
+  name: {{ .Values.postgres_name }}-pv-claim
+  namespace: {{ .Values.postgres_namespace }}
   labels:
-    app: {{ .Values.qnodename }}
+    app: {{ .Values.postgres_name }}
 spec:
   storageClassName: manual
   accessModes:
