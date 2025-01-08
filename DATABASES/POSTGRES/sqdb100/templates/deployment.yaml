@@ -21,7 +21,7 @@ spec:
       restartPolicy: Always
       containers:
         - name: {{ .Values.postgres_name }}
-          image: "{{ .Values.postgres_image }}:{{ .Values.postgres_tag_image }}"
+          image: {{ .Values.postgres_image }}:{{ .Values.postgres_tag_image }}
           imagePullPolicy: {{ .Values.postgres_image_pullPolicy }}
           ports:
             - containerPort: {{ .Values.postgres_port }}
