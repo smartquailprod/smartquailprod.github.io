@@ -2,7 +2,7 @@ postgres_name: smartquaildb
 postgres_namespace: db-srv
 postgres_image: postgres
 postgres_tag_image: 14.5
-postgres_image_pullPolicy: IfNotPresent
+postgres_image_pullPolicy: always
 postgres_secrets_name: postgres-secrets
 postgres_database: POSTFIXDB
 postgres_user: sqadmindb
