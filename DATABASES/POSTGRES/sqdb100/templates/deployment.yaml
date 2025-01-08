@@ -20,7 +20,7 @@ spec:
         role: {{ .Values.nodeRole }}  # Añadido nodeSelector
       restartPolicy: Always
       containers:
-        - name: {{ .Values.postgres_name }}
+        - name: "smartquaildb"
           image: {{ .Values.postgres_image }}:{{ .Values.postgres_tag_image }}
           imagePullPolicy: {{ .Values.postgres_image_pullPolicy }}
           ports:
