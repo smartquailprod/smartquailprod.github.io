@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: mail-certificate
+  name: certificate
   namespace: {{ .Values.NameSpaceCluster }}
 spec:
   secretName: {{ .Values.tlsSecretName }} 
