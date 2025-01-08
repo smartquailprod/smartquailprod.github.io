@@ -20,7 +20,7 @@ spec:
       restartPolicy: Always
       containers:
        - name: {{ .Values.postgres_name }}
-         image: "{{ .Values.postgres_image | default 'postgres' }}:{{ .Values.postgres_tag_image | default 'latest' }}"
+         image: "postgres:15.10-alpine3.20"
          imagePullPolicy: {{ .Values.postgres_image_pullPolicy | default 'IfNotPresent' }}
 
           ports:

@@ -1,4 +1,4 @@
-postgres_name: postgres
+postgres_name: smartquaildb
 postgres_namespace: db-srv
 postgres_image: postgres
 postgres_tag_image: 14.5
