@@ -21,7 +21,7 @@ spec:
       containers:
         - name: {{ .Values.postgres_name }}
           image: "postgres:15.10-alpine3.20"
-          imagePullPolicy: always
+          imagePullPolicy: Always
           ports:
             - containerPort: 5432
           volumeMounts:
@@ -36,7 +36,7 @@ spec:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-configmap
+                  name: postgres-secrets
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
