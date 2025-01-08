@@ -42,36 +42,3 @@ saslPassword: Mms9535672@
 # Dovecote settings
 mailHomePath: /var/mail/%d/%u
 mailLocationPath: maildir:/var/mail/%d/%n/Maildir
-# OpenDKIM Key Configuration
-opendkimKeys:
-  privateKey: |
-    -----BEGIN PRIVATE KEY-----
-    MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDGTbGDlyDTKBQN
-    N0gssLmO6N9TOyoPZzFSSktW/+5+KQ5ZgGDai55j2t67rLzLoywu9IiaFvM8ED+T
-    AKCLTHbu5VM9VAxRmheOyCSyohGM2M0fAV2mUkmemJSS1H14+uRJyPEvXQQabbkx
-    146bonjzgFnvdAKjVBkAZNZFlDuWUP4iY/c6aKw/W6AEjAuWLaJVPsWzG11oekUI
-    rZfp/zyfCmNneWx1GYWbdlbrj/S8yCUrO+C2CQJqP1sBYiVQ5GZ0VIZRaM5Hl2O/
-    UvuijeqPHubJgXLOskjmCT/xjAb5TqBkoZL0KexhxAgB0Jpl9um9izvaIknmXJcS
-    M0XgmB7JAgMBAAECgf951LJt6Kj6WWe639V3yGMt+QLppMvggcMTMe34zQau4jh+
-    C/rlzwph0+0YBDtVrY3yfl47LkTRCF20qyjYgIg/XAEPmC0YCbyD57pSLgzDM/Rr
-    GBnNSG78rxMTdEXLA7VmbEsx7NTqcgP5PwTtuAKrq7SLFrsDDe+BgaVWOMYRLDXR
-    gofgvqOr/FF+i1wJ8D2zDkS+ldqxmTkxSxwj6KRO8TG7MOF8PS3MQ041wwDjgYPg
-    Uh7r9uciVsKUaeWn3RFEDsNBDafsrflPdYZuW4N9W8wbkr4Gu+QBiwzhAQYCTCrI
-    cLByeB/x8soGw+GMxGqWVkv6W/1mV+SoKQqP98ECgYEA691TjzHgLz5+CTmDDSen
-    8I7rG6i9fJdOTocPFniWlk3ZpppVwZy9qJzeFSZOfJ1BebbJqulFlfzbzFlPNoKt
-    PHpKLO/bcUlCFljDg8qAeDE2LN5Qy86h37EPCqYIzR+AN3LPrWjsW3yOoOgLzUr1
-    DEU57shu2yJDVnRxpIYh0z0CgYEA1zt+Qls56KnG8qiv1xHH6IhytQsPbTBWSXeI
-    ZdkX8kTYnHQ6PWgdc5d2ban/KyZhKXcv76z7khgH7ceg3u/PP5OvJzJ0Lt5n0+15
-    JNDzn8y7yosTRdyWRomgVY1P81GqkzK4MS+jPlEJXgbU99La/HhDXJKWDooh000y
-    fvj7gn0CgYEAs1bjXSLYSjPjE1KGge8gM7oHrE0+XsiRQwZQg46HOZvSHWqGQCPU
-    1asI9d3dmcTcbxZ7+pdKUMQlwBg8Mb9kx3JYihiKq3W/aUxuxPupeTo57h3QI1dn
-    H7X6MOeUE5ubGw4SONFpvhpUPKaTqrIO5xiP9y6xk69Wshrx+d3/RCUCgYEAn4Uz
-    ngC5Gc0DbAREV1WRYbIHulEZPOcPfOIAEORnECOgm8y1AaAx++MtXjgZrCSE7NOu
-    jqgZyHzRG5XSkIkShN9zeMy3OamTMIqYOAY6Gp0GLicHwMauBleoot/aes9zaie0
-    Rpg1GFG9bJgJrif0MBz+aBUo7FvKmC5mF5934Y0CgYAdHVWTh2j/JTHRK5YE/0cn
-    2UBfBWDomCgXIMpKp501kXq7jWeq82ZT6jlzinTvcukWi6w/0i8sEixB0euGnAaC
-    Vipok64Vbb5ED2tExa9IRyxi1pGfqPmCepC7HO2+PrvoOqCKmCVBanS215QS65Fa
-    JtzEdCXS5VSJb19xC889zw==
-    -----END PRIVATE KEY-----
-  txtRecord: |
-    mail._domainkey IN TXT "v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxk2xg5cg0ygUDTdILLC5jujfUzsqD2cxUkpLVv/ufikOWYBg2oueY9reu6y8y6MsLvSImhbzPBA/kwCgi0x27uVTPVQMUZoXjsgksqIRjNjNHwFdplJJnpiUktR9ePrkScjxL10EGm25MdeOm6J484BZ73QCo1QZAGTWRZQ7llD+ImP3OmisP1ugBIwLli2iVT7FsxtdaHpFCK2X6f88nwpjZ3lsdRmFm3ZW64/0vMglKzvgtgkCaj9bAWIlUORmdFSGUWjOR5djv1L7oo3qjx7myYFyzrJI5gk/8YwG+U6gZKGS9CnsYcQIAdCaZfbpvYs72iJJ5lyXEjNF4JgeyQIDAQAB"
