@@ -9,14 +9,14 @@ spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.postgres_name }} # Corregido para que coincida con los labels
+      app: {{ .Values.postgres_name }} 
   template:
     metadata:
       labels:
         app: {{ .Values.postgres_name }}
     spec:
       nodeSelector:
-        role: {{ .Values.nodeRole }} # Valor por defecto para evitar fallos
+        role: app 
       restartPolicy: Always
       containers:
         - name: {{ .Values.postgres_name }}
