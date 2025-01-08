@@ -1,4 +1,4 @@
-NameSpaceCluster: mail-microservers
+NameSpaceCluster: mail-srv
 mailboxSize: 5Gi
 #POSTFIX IMAGE
 postfiximage: boky/postfix:edge-alpine 
