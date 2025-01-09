@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postfix
-  namespace: {{.Values.NameSpaceCluster }}
+  namespace: {{ .Values.NameSpaceCluster }}
   labels:
     app: postfix
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: postfix
-        image: {{  .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
+        image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
         securityContext:
           runAsUser: 1001    # UID del usuario postfix
           runAsGroup: 1001   # GID del grupo postfix
@@ -99,7 +99,7 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 10
           failureThreshold: 3
-      volumes:
+      volumeClaimTemplates:
       - name: mail-certificates
         projected:
           sources:
