@@ -12,8 +12,8 @@ spec:
   storageClassName: manual  # Debe coincidir con el `storageClassName` del PersistentVolumeClaim
   volumeMode: Filesystem  # Modo de volumen (Filesystem, adecuado para la mayoría de los casos)
   nfs:
-    path: /nfsshare/socket  # Ruta compartida en el servidor NFS (modificar según sea necesario)
-    server: nfs-server.mail-srv.svc.cluster.local   # Nombre completo del servicio NFS en el clúster
+    path: /nfsshare/postfixsocket  # Ruta compartida en el servidor NFS (modificar según sea necesario)
+    server: nfs-server   # Nombre completo del servicio NFS en el clúster
 
 ---
 apiVersion: v1

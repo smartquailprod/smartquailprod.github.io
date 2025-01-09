@@ -12,8 +12,8 @@ spec:
   storageClassName: manual  # Debe coincidir con el `storageClassName` del PersistentVolumeClaim
   volumeMode: Filesystem  # Volumen de tipo sistema de archivos
   nfs:
-    path: /nfsshare  # Ruta compartida en el servidor NFS
-    server: nfs-server.{{ .Values.NamespaceCluster }}.svc.cluster.local  # Nombre del servicio NFS en el clúster
+    path: /nfsshare/dkimdsocket  # Ruta compartida en el servidor NFS
+    server: nfs-server
 
 ---
 apiVersion: v1
