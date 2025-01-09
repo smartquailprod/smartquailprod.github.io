@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nfs-pv
+  namespace: {{ .Values.NameSpaceCluster }}
+spec:
+  capacity:
+    storage: 10Gi  # Tamaño del almacenamiento
+  accessModes:
+    - ReadWriteMany  # Permite que varios pods escriban en el volumen
+  persistentVolumeReclaimPolicy: Retain  # Política de retención para el volumen
+  nfs:
+    path: /nfsshare  # Ruta en el servidor NFS, consistente con otros volúmenes
+    server: nfs-server.mail-srv.svc.cluster.local  # Nombre del servicio del servidor NFS
+  storageClassName: standard  # Usar storageClassName común
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nfs-pvc
+  namespace: {{ .Values.NameSpaceCluster }}
+spec:
+  accessModes:
+    - ReadWriteMany  # Permite que varios pods escriban en el volumen
+  resources:
+    requests:
+      storage: 10Gi  # Ajusta el tamaño según tus necesidades

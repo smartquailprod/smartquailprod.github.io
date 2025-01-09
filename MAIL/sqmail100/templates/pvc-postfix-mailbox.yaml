@@ -13,7 +13,7 @@ spec:
   volumeMode: Filesystem  # Modo de volumen (Filesystem para la mayoría de los casos)
   nfs:
     path: /nfsshare  # Ruta compartida en el servidor NFS
-    server: nfs-server.{{ .Values.NamespaceCluster }}.svc.cluster.local  # Nombre completo del servicio NFS en el clúster
+    server: nfs-server.mail-srv.svc.cluster.local   # Nombre completo del servicio NFS en el clúster
 
 ---
 apiVersion: v1
