@@ -12,8 +12,8 @@ spec:
   storageClassName: manual  # Clase de almacenamiento manual (puede ser modificada según el entorno)
   volumeMode: Filesystem  # Modo de volumen (Filesystem para la mayoría de los casos)
   nfs:
-    path: /nfsshare/mailbox  # Ruta compartida en el servidor NFS
-    server: nfs-server  # Nombre completo del servicio NFS en el clúster
+    path: /nfsshare  # Ruta compartida en el servidor NFS
+    server: nfs-server.mail-srv.svc.cluster.local
 
 ---
 apiVersion: v1

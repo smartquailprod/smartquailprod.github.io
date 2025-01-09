@@ -10,8 +10,8 @@ spec:
     - ReadWriteMany  # Permite que varios pods escriban en el volumen
   persistentVolumeReclaimPolicy: Retain  # Política de retención para el volumen
   nfs:
-    path: /nfsshare  # Ruta en el servidor NFS, consistente con otros volúmenes
-    server: nfs-server  # Nombre del servicio del servidor NFS
+    path: /nfsshare  # Ruta compartida en el servidor NFS
+    server: nfs-server.mail-srv.svc.cluster.local
   storageClassName: standard  # Usar storageClassName común
 
 
