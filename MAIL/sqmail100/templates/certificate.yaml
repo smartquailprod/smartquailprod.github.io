@@ -8,7 +8,9 @@ spec:
   duration: 2160h # Duración del certificado en horas
   renewBefore: 360h # Renovar el certificado 360 horas antes de la expiración
   isCA: false
-  keySize: 2048
+  privateKey:
+    algorithm: RSA # Algoritmo de la clave (RSA es comúnmente usado)
+    size: 2048     # Tamaño de la clave
   commonName: {{ .Values.commonName }}
   dnsNames:
     - {{ .Values.dnsName }}
