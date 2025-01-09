@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: postfix
-  namespace: {{.Values.NameSpaceCluster }}
+  namespace: {{ .Values.NameSpaceCluster }}
   labels:
     app: postfix
 spec:
@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: postfix
-        image: {{  .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
+        image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
         securityContext:
           runAsUser: 1001    # UID del usuario postfix
           runAsGroup: 1001   # GID del grupo postfix
@@ -78,7 +78,7 @@ spec:
           readOnly: true
         - name: postfix-config
           mountPath: /etc/postfix/
-        - name: postfix-dkim
+        - name: dkim-config
           mountPath: /etc/opendkim
           readOnly: true
         - name: postfix-dovecot-socket
@@ -99,7 +99,7 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 10
           failureThreshold: 3
-      volumes:
+      volumeClaimTemplates:
       - name: mail-certificates
         projected:
           sources:
@@ -110,19 +110,21 @@ spec:
                 path: tls.crt
               - key: tls.key
                 path: tls.key
-        defaultMode: 0440
       - name: postfix-config
         configMap:
-          name: postfix-config  # Configuración de Postfix
-      - name: postfix-dovecot-socket
-        persistentVolumeClaim:
-          claimName: postfix-dovecot-socket-pvc  # Volumen persistente para el socket LMTP compartido
-      - name: postfix-dkim-socket
-        persistentVolumeClaim:
-          claimName: postfix-dkim-socket-pvc  # Volumen persistente para el socket de OpenDKIM
-      - name: postfix-dkim
+          name: postfix-config 
+      - name: dkim-config
         configMap:
           name: opendkim-config  # Configuración de OpenDKIM
+      - name: postfix-dovecot-socket
+        nfs:
+          server: nfs-server
+          path: /nfsshare/postfix-dovecot-socket  # Volumen persistente para el socket LMTP compartido
+      - name: postfix-dkim-socket
+        nfs:
+          server: nfs-server
+          path: /nfsshare/postfix-dkim-socket  # Volumen persistente para el socket de OpenDKIM
       - name: dovecot-mailbox
-        persistentVolumeClaim:
-          claimName: dovecot-mailbox-pvc  # Volumen persistente para buzones de correo
+        nfs:
+          server: nfs-server
+          path: /nfsshare/mailbox  # Volumen persistente para buzones de correo
