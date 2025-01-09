@@ -15,8 +15,6 @@ spec:
       labels:
         app: postfix
     spec:
-      nodeSelector:
-        role: app # Etiqueta del nodo para Postfix
       containers:
       - name: postfix
         image: {{  .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
