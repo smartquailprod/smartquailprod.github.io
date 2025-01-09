@@ -1,127 +1,64 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postfix
-  namespace: {{ .Values.NameSpaceCluster }}
+  name: dovecot
+  namespace: {{ .Values.NamespaceCluster }}
   labels:
-    app: postfix
+    app: dovecot
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
-      app: postfix
+      app: dovecot
   template:
     metadata:
       labels:
-        app: postfix
+        app: dovecot
     spec:
       containers:
-      - name: postfix
-        image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
-        securityContext:
-          runAsUser: 1001    # UID del usuario postfix
-          runAsGroup: 1001   # GID del grupo postfix
-        ports:
-        - containerPort: 25
-        - containerPort: 465
-        - containerPort: 587
-        env:
-        - name: DOMAIN
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: postfix_domain
-        - name: HOSTNAME
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: postfix_hostname
-        - name: POSTFIX_RELAY_USER
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: relay_user
-        - name: POSTFIX_RELAY_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: relay_password
-        - name: POSTFIX_RELAY
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: postfix_relay
-        - name: POSTFIX_RELAY_PORT
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: postfix_relay_port
-        - name: RELAY_NETWORKS
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: postfix_relay_network
-        - name: MESSAGE_SIZE_LIMIT
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: message_size_limit
-        - name: POSTFIX_TLS_CERT_FILE
-          value: /etc/postfix/certs/tls.crt
-        - name: POSTFIX_TLS_KEY_FILE
-          value: /etc/postfix/certs/tls.key
-        - name: DKIM_SOCKET
-          value: /var/spool/postfix/opendkim/opendkim.sock  # Ruta al socket de OpenDKIM
-        volumeMounts:
-        - name: mail-certificates
-          mountPath: /etc/postfix/certs
-          readOnly: true
-        - name: postfix-config
-          mountPath: /etc/postfix/
-        - name: dkim-config
-          mountPath: /etc/opendkim
-          readOnly: true
-        - name: postfix-dovecot-socket
-          mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
-        - name: postfix-dkim-socket
-          mountPath: /var/spool/postfix/opendkim
-        - name: dovecot-mailbox
-          mountPath: /var/mail
-        livenessProbe:
-          tcpSocket:
-            port: 25
-          initialDelaySeconds: 30
-          periodSeconds: 15
-          failureThreshold: 3
-        readinessProbe:
-          tcpSocket:
-            port: 25
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          failureThreshold: 3
+        - name: dovecot
+          image: {{ .Values.dovecoteimage }}  # Reemplaza con una imagen adecuada
+          ports:
+            - containerPort: 143 # Puerto IMAP
+            - containerPort: 993 # Puerto IMAPS
+          volumeMounts:
+            - name: dovecot-mailbox
+              mountPath: /var/mail  # Ruta para los buzones
+            - name: dovecot-config
+              mountPath: /etc/dovecot  # Ruta de configuración
+            - name: dovecot-certs
+              mountPath: /etc/dovecot/certs  # Certificados TLS
+              readOnly: true
+            - name: dovecot-postfix-socket
+              mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP
+            - name: dovecot-sql-config
+              mountPath: /etc/dovecot/dovecot-sql.conf.ext
+              subPath: dovecot-sql.conf.ext  # Monta el archivo de configuración SQL
+          env:
+            - name: DOVECOT_TLS_CERT
+              value: /etc/dovecot/certs/tls.crt
+            - name: DOVECOT_TLS_KEY
+              value: /etc/dovecot/certs/tls.key
       volumes:
-      - name: mail-certificates
-        projected:
-          sources:
-          - secret:
-              name: {{ .Values.tlsSecretName }}
-              items:
-              - key: tls.crt
-                path: tls.crt
-              - key: tls.key
-                path: tls.key
-      - name: postfix-config
-        configMap:
-          name: postfix-config
-      - name: dkim-config
-        configMap:
-          name: opendkim-config  # Configuración de OpenDKIM
-      - name: postfix-dovecot-socket
-        persistentVolumeClaim:
-          claimName: postfix-dovecot-socket-pvc
-      - name: postfix-dkim-socket
-        persistentVolumeClaim:
-          claimName: postfix-dkim-socket-pvc
-      - name: dovecot-mailbox
-        persistentVolumeClaim:
-          claimName: dovecot-mailbox-pvc
+        - name: dovecot-mailbox
+          persistentVolumeClaim:
+            claimName: dovecot-mailbox-pvc  # El PVC correspondiente al volumen
+        - name: dovecot-config
+          configMap:
+            name: dovecot-config
+        - name: dovecot-certs
+          projected:
+            sources:
+              - secret:
+                  name: {{ .Values.tlsSecretName }}  # Usando la variable definida en values.yaml
+                  items:
+                    - key: tls.crt
+                      path: tls.crt
+                    - key: tls.key
+                      path: tls.key
+            defaultMode: 0440
+        - name: dovecot-postfix-socket
+          emptyDir: {}  # Volumen temporal que Dovecot usará para crear el socket
+        - name: dovecot-sql-config
+          configMap:
+            name: dovecot-config  # Asegúrate de que el configMap contenga el archivo `dovecot-sql.conf.ext`
