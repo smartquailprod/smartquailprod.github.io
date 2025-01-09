@@ -6,7 +6,7 @@ metadata:
 spec:
   scaleTargetRef:
     apiVersion: apps/v1
-    kind: StatefulSet
+    kind: Deployment
     name: dovecot  # Nombre del StatefulSet
   minReplicas: 1  # Número mínimo de réplicas
   maxReplicas: 2 # Número máximo de réplicas
