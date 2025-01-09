@@ -29,6 +29,12 @@ spec:
         volumeMounts:
         - name: nfs-storage
           mountPath: /nfsshare
+        - name: nfs-storage
+          mountPath: /nfsshare/postfix-dovecot-socket
+        - name: nfs-storage
+          mountPath: /nfsshare/postfix-dkim-socket
+        - name: nfs-storage
+          mountPath: /nfsshare/mailbox
         securityContext:
           privileged: true
       volumes:

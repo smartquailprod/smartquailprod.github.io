@@ -13,5 +13,5 @@ spec:
   dnsNames:
     - {{ .Values.dnsName }}
   issuerRef:
-    name: letsencrypt-staging # Nombre del Issuer a utilizar
+    name: letsencrypt-digitalocean-issuer
     kind: ClusterIssuer

@@ -78,7 +78,7 @@ spec:
           readOnly: true
         - name: postfix-config
           mountPath: /etc/postfix/
-        - name: dkim-config
+        - name: postfix-dkim
           mountPath: /etc/opendkim
           readOnly: true
         - name: postfix-dovecot-socket
@@ -113,19 +113,16 @@ spec:
         defaultMode: 0440
       - name: postfix-config
         configMap:
-          name: postfix-config 
-      - name: dkim-config
+          name: postfix-config  # Configuración de Postfix
+      - name: postfix-dovecot-socket
+        persistentVolumeClaim:
+          claimName: postfix-dovecot-socket-pvc  # Volumen persistente para el socket LMTP compartido
+      - name: postfix-dkim-socket
+        persistentVolumeClaim:
+          claimName: postfix-dkim-socket-pvc  # Volumen persistente para el socket de OpenDKIM
+      - name: postfix-dkim
         configMap:
           name: opendkim-config  # Configuración de OpenDKIM
-      - name: postfix-dovecot-socket
-        nfs:
-          server: nfs-server.mail-srv.svc.cluster.local
-          path: /nfsshare/postfix-dovecot-socket  # Volumen persistente para el socket LMTP compartido
-      - name: postfix-dkim-socket
-        nfs:
-          server: nfs-server.mail-srv.svc.cluster.local
-          path: /nfsshare/postfix-dkim-socket  # Volumen persistente para el socket de OpenDKIM
       - name: dovecot-mailbox
-        nfs:
-          server: nfs-server.mail-srv.svc.cluster.local
-          path: /nfsshare/mailbox  # Volumen persistente para buzones de correo
+        persistentVolumeClaim:
+          claimName: dovecot-mailbox-pvc  # Volumen persistente para buzones de correo
