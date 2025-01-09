@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: nfs-server
-  namespace: {{.Values.NameSpaceCluster }}
+  namespace: {{ .Values.NameSpaceCluster }}
 spec:
   replicas: 1
   selector:
@@ -21,8 +21,12 @@ spec:
         volumeMounts:
         - name: nfs-storage
           mountPath: /nfsshare  # Ruta en el contenedor donde se expondrá el volumen compartido
+        env:
+        - name: SHARED_DIRECTORY
+          value: /nfsshare  # Se asigna la ruta del volumen compartido como variable de entorno
         securityContext:
           privileged: true  # Necesario para que el contenedor tenga acceso a la red
       volumes:
       - name: nfs-storage
-        emptyDir: {}  # Volumen temporal que usará el servidor NFS
+        persistentVolumeClaim:
+          claimName: nfs-pvc  # Se refiere al PVC que proporcionará almacenamiento persistente

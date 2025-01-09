@@ -3,12 +3,12 @@ entries:
   sqmail100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-01-08T18:30:24.141105-05:00"
+    created: "2025-01-08T19:01:23.410982-05:00"
     description: SmartQuailMailServers® - ArchVersion V1.0.0
-    digest: f38204482ff3fd5784f4943cd635123778b5d3f9311ea3478ed7392157d11222
+    digest: a2ea64ea77622a5e7741663f9d3044a38720f574e1e2d5aa4dae2b1c56768a30
     name: sqmail100
     type: application
     urls:
     - sqmail100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-01-08T18:30:24.14009-05:00"
+generated: "2025-01-08T19:01:23.408839-05:00"

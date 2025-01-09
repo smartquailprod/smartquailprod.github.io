@@ -1,3 +1,21 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postfix-dovecot-socket
+  namespace: {{ .Values.NamespaceCluster }}  # Namespace donde se despliega el volumen
+spec:
+  capacity:
+    storage: 200Mi  # Tamaño del volumen, suficiente para el socket
+  accessModes:
+    - ReadWriteOnce  # Permite el acceso exclusivo de un solo pod
+  storageClassName: manual  # Debe coincidir con el `storageClassName` del PersistentVolumeClaim
+  volumeMode: Filesystem  # Modo de volumen (Filesystem, adecuado para la mayoría de los casos)
+  nfs:
+    path: /nfsshare/socket  # Ruta compartida en el servidor NFS (modificar según sea necesario)
+    server: nfs-server.{{ .Values.NamespaceCluster }}.svc.cluster.local  # Nombre completo del servicio NFS en el clúster
+
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -5,8 +23,8 @@ metadata:
   namespace: {{ .Values.NamespaceCluster }} 
 spec:
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce  # El PVC tiene el mismo modo de acceso que el PV
   resources:
     requests:
-      storage: 200Mi  # Espacio suficiente para el socket
+      storage: 200Mi  # Espacio solicitado para el volumen
   storageClassName: manual  # Debe coincidir con el `storageClassName` del PersistentVolume

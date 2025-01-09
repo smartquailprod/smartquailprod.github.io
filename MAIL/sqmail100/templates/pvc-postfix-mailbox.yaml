@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: PersistentVolume
 metadata:
@@ -13,3 +14,17 @@ spec:
   nfs:
     path: /nfsshare  # Ruta compartida en el servidor NFS
     server: nfs-server.{{ .Values.NamespaceCluster }}.svc.cluster.local  # Nombre completo del servicio NFS en el clúster
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: dovecot-mailbox-pvc  
+  namespace: {{ .Values.NamespaceCluster }} 
+spec:
+  accessModes:
+    - ReadWriteMany  # El PVC tiene el mismo modo de acceso que el PV
+  resources:
+    requests:
+      storage: 5Gi  # Espacio solicitado para el volumen
+  storageClassName: manual  # Debe coincidir con el `storageClassName` del PersistentVolume
