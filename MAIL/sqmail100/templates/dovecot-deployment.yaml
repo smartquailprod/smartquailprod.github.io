@@ -99,7 +99,7 @@ spec:
           initialDelaySeconds: 10
           periodSeconds: 10
           failureThreshold: 3
-      volumeClaimTemplates:
+      volumes:
       - name: mail-certificates
         projected:
           sources:
@@ -112,19 +112,16 @@ spec:
                 path: tls.key
       - name: postfix-config
         configMap:
-          name: postfix-config 
+          name: postfix-config
       - name: dkim-config
         configMap:
           name: opendkim-config  # Configuración de OpenDKIM
       - name: postfix-dovecot-socket
-        nfs:
-          server: nfs-server
-          path: /nfsshare/postfix-dovecot-socket  # Volumen persistente para el socket LMTP compartido
+        persistentVolumeClaim:
+          claimName: postfix-dovecot-socket-pvc
       - name: postfix-dkim-socket
-        nfs:
-          server: nfs-server
-          path: /nfsshare/postfix-dkim-socket  # Volumen persistente para el socket de OpenDKIM
+        persistentVolumeClaim:
+          claimName: postfix-dkim-socket-pvc
       - name: dovecot-mailbox
-        nfs:
-          server: nfs-server
-          path: /nfsshare/mailbox  # Volumen persistente para buzones de correo
+        persistentVolumeClaim:
+          claimName: dovecot-mailbox-pvc

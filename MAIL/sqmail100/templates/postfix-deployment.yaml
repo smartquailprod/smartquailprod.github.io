@@ -1,0 +1,120 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postfix
+  namespace: {{ .Values.NameSpaceCluster }}
+  labels:
+    app: postfix
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postfix
+  template:
+    metadata:
+      labels:
+        app: postfix
+    spec:
+      containers:
+      - name: postfix
+        image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
+        securityContext:
+          runAsUser: 1001    # UID del usuario postfix
+          runAsGroup: 1001   # GID del grupo postfix
+        ports:
+        - containerPort: 25
+        - containerPort: 465
+        - containerPort: 587
+        env:
+        - name: DOMAIN
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: postfix_domain
+        - name: HOSTNAME
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: postfix_hostname
+        - name: POSTFIX_RELAY_USER
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: relay_user
+        - name: POSTFIX_RELAY_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: relay_password
+        - name: POSTFIX_RELAY
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: postfix_relay
+        - name: POSTFIX_RELAY_PORT
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: postfix_relay_port
+        - name: RELAY_NETWORKS
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: postfix_relay_network
+        - name: MESSAGE_SIZE_LIMIT
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: message_size_limit
+        - name: POSTFIX_TLS_CERT_FILE
+          value: /etc/postfix/certs/tls.crt
+        - name: POSTFIX_TLS_KEY_FILE
+          value: /etc/postfix/certs/tls.key
+        - name: DKIM_SOCKET
+          value: /var/spool/postfix/opendkim/opendkim.sock  # Ruta al socket de OpenDKIM
+        volumeMounts:
+        - name: mail-certificates
+          mountPath: /etc/postfix/certs
+          readOnly: true
+        - name: postfix-config
+          mountPath: /etc/postfix/
+          readOnly: true
+        - name: postfix-dovecot-socket
+          mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
+        - name: dovecot-mailbox
+          mountPath: /var/mail
+        livenessProbe:
+          tcpSocket:
+            port: 25
+          initialDelaySeconds: 30
+          periodSeconds: 15
+          failureThreshold: 3
+        readinessProbe:
+          tcpSocket:
+            port: 25
+          initialDelaySeconds: 10
+          periodSeconds: 10
+          failureThreshold: 3
+      volumes:
+      - name: mail-certificates
+        projected:
+          sources:
+          - secret:
+              name: {{ .Values.tlsSecretName }}
+              items:
+              - key: tls.crt
+                path: tls.crt
+              - key: tls.key
+                path: tls.key
+      - name: postfix-config
+        configMap:
+          name: postfix-config
+      - name: dkim-config
+        configMap:
+          name: opendkim-config  # Configuración de OpenDKIM
+      - name: postfix-dovecot-socket
+        persistentVolumeClaim:
+          claimName: postfix-dovecot-socket-pvc
+      - name: dovecot-mailbox
+        persistentVolumeClaim:
+          claimName: dovecot-mailbox-pvc
