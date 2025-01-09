@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   name: nfs-server
   namespace: {{ .Values.NameSpaceCluster }}
+  labels:
+    app: nfs-server
 spec:
   replicas: 1
   selector:
@@ -17,16 +19,19 @@ spec:
       - name: nfs-server
         image: itsthenetwork/nfs-server-alpine
         ports:
-        - containerPort: 2049  # Puerto NFS
-        volumeMounts:
-        - name: nfs-storage
-          mountPath: /nfsshare  # Ruta en el contenedor donde se expondrá el volumen compartido
+        - containerPort: 2049  # Puerto NFS principal
+          name: nfs-port
+        - containerPort: 111  # Puerto para RPCBIND
+          name: rpcbind-port
         env:
         - name: SHARED_DIRECTORY
-          value: /nfsshare  # Se asigna la ruta del volumen compartido como variable de entorno
+          value: /nfsshare  # Ruta compartida
+        volumeMounts:
+        - name: nfs-storage
+          mountPath: /nfsshare
         securityContext:
-          privileged: true  # Necesario para que el contenedor tenga acceso a la red
+          privileged: true
       volumes:
       - name: nfs-storage
         persistentVolumeClaim:
-          claimName: nfs-pvc  # Se refiere al PVC que proporcionará almacenamiento persistente
+          claimName: nfs-pvc  # Asegúrate de que este PVC existe

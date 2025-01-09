@@ -17,4 +17,4 @@ spec:
       protocol: TCP
       port: 993  # Puerto IMAPS
       targetPort: 993
-  type: ClusterIP  # Cambia a LoadBalancer o NodePort si necesitas acceso externo
+  type: LoadBalancer  # Cambia a LoadBalancer o NodePort si necesitas acceso externo
