@@ -82,9 +82,9 @@ spec:
         - name: dkim-config
           mountPath: /etc/opendkim
           readOnly: true
-        - name: postfix-dovecot-socket
+        - name: postfix-sockets
           mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
-        - name: postfix-dkim-socket
+        - name: postfix-sockets
           mountPath: /var/spool/postfix/opendkim
         - name: dovecot-mailbox
           mountPath: /var/mail
@@ -117,14 +117,10 @@ spec:
   - name: dkim-config
     configMap:
       name: opendkim-config  # Configuración de OpenDKIM
-  - name: postfix-dovecot-socket
+  - name: postfix-sockets
     nfs:
       server: nfs-server
-      path: /nfsshare/postfix-dovecot-socket  # Volumen persistente para el socket LMTP compartido
-  - name: postfix-dkim-socket
-    nfs:
-      server: nfs-server
-      path: /nfsshare/postfix-dkim-socket  # Volumen persistente para el socket de OpenDKIM
+      path: /nfsshare/postfix-sockets  # Volumen persistente compartido para los sockets de Postfix y DKIM
   - name: dovecot-mailbox
     nfs:
       server: nfs-server
