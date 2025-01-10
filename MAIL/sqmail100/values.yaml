@@ -33,7 +33,7 @@ tlsSecretName: mail-smartquail-io-tls
 postfixTlsCertFile: /etc/ssl/certs/tls.crt
 postfixTlsKeyFile: /etc/ssl/private/tls.key
 #CERTTIFICATE
-commonName: mail-smartquail.io
+commonName: mail.smartquail.io
 dnsName: mail.smartquail.io
 
 # SASL Settings
