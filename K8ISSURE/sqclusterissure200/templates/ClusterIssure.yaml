@@ -7,11 +7,10 @@ spec:
     email: smartquail.info@gmail.com
     server: https://acme-staging-v02.api.letsencrypt.org/directory
     privateKeySecretRef:
-      name: letsencrypt-digitalocean-issuer
+      name: clusterissuretoken  # Nombre del Secret que contiene la API Key
     solvers:
     - dns01:
         digitalocean:
           tokenSecretRef:
-            name: {{ .Values.apiKeySecretRef }}
-            key: {{ .Values.digitalocean_api_key }}
-
+            name: clusterissuretoken  # El Secret que contiene el token
+            key: digitalocean_api_key  # La clave dentro del Secret donde está el token

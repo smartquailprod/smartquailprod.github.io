@@ -12,7 +12,7 @@ spec:
   dnsNames:
     - mail.smartquail.io
   issuerRef:
-    name: letsencrypt-digitalocean-issuer  # El issuer que deseas usar (esto debe estar configurado previamente)
+    name: letsencrypt-digitalocean-issuer # El issuer que deseas usar (esto debe estar configurado previamente)
     kind: ClusterIssuer
   privateKey:
     algorithm: RSA  # Tipo de algoritmo (RSA es el más común)
