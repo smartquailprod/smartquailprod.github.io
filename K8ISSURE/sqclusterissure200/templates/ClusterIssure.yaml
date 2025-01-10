@@ -2,6 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
   name: letsencrypt-digitalocean-issuer
+  namespace: cert-manager
 spec:
   acme:
     email: smartquail.info@gmail.com
@@ -14,3 +15,5 @@ spec:
           tokenSecretRef:
             name: clusterissuretoken  # El Secret que contiene el token
             key: digitalocean_api_key  # La clave dentro del Secret donde está el token
+
+
