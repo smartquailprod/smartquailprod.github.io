@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postfixadmin
-          image: postfixadmin/postfixadmin:latest
+          image: postfixadmin:fpm-alpine
           ports:
             - containerPort: 80
           env:
