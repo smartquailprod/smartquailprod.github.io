@@ -1,0 +1,12 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: rabbitmq-cert
+  namespace: brk-srv # Namespace específico para RabbitMQ
+spec:
+  secretName: rabbitmq-smartquail-tls  # Nombre del secreto que contiene el certificado
+  dnsNames:
+    - rabbitmq.smartquail.io  # Dominio para RabbitMQ
+  issuerRef:
+    name: letsencrypt-digitalocean-issuer  # ClusterIssuer configurado previamente
+    kind: ClusterIssuer

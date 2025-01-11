@@ -1,0 +1,19 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pgadmin-smartquail-tls
+  namespace: db-srv
+spec:
+  secretName: pgadmin-smartquail-tls
+  duration: 2160h  # Duración del certificado en horas
+  renewBefore: 360h  # Renovar el certificado 360 horas antes de la expiración
+  isCA: false  # No es un certificado de autoridad
+  issuerRef:
+    name: letsencrypt-digitalocean-issuer
+    kind: ClusterIssuer
+  commonName: pgadmin.smartquail.io
+  dnsNames:
+    - pgadmin.smartquail.io
+  privateKey:
+    algorithm: RSA  # Tipo de algoritmo (RSA es el más común)
+    size: 2048  # Tamaño de la clave RSA en bits

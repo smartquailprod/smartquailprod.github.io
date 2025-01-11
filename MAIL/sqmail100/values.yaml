@@ -10,10 +10,10 @@ domain: smartquail.io
 hostname: mail.smartquail.io
 
 # DATABASE VARIABLES
-dbUsername: sqadmindb
-dbPassword: smartquaildev1719pass
-dbName: POSTFIXDB
-dbHost: smartquaildb
+db_username: sqadmindb
+db_password: smartquaildev1719pass
+db_name: POSTFIXDB
+db_host: smartquaildb
 dbservicetype: ExternalName
 dbExternalName: smartquaildb.postgres.svc.cluster.local
 

@@ -239,28 +239,28 @@ data:
     [smtp.{{ .Values.domain }}]:587    {{ .Values.saslUsername }}:{{ .Values.saslPassword }}
 
   virtual_mailbox_domains.cf: |
-    user = {{ .Values.dbUsername }}
-    password = {{ .Values.dbPassword }}
-    dbname = {{ .Values.dbName }}
-    hosts = {{ .Values.dbHost }}
+    user = {{ .Values.db_username }}
+    password = {{ .Values.db_password }}
+    dbname = {{ .Values.db_name }}
+    hosts = {{ .Values.db_host }}
 
     # Query para obtener el dominio de un buzón de correo
     query = SELECT domain FROM virtual_domains WHERE domain='%s'
 
   virtual_alias_maps.cf: |
-    user = {{ .Values.dbUsername }}
-    password = {{ .Values.dbPassword }}
-    dbname = {{ .Values.dbName }}
-    hosts = {{ .Values.dbHost }}
+    user = {{ .Values.db_username }}
+    password = {{ .Values.db_password }}
+    dbname = {{ .Values.db_name }}
+    hosts = {{ .Values.db_host }}
 
     # Query para obtener el destino de un alias
     query = SELECT destination FROM virtual_aliases WHERE source='%s'
 
   virtual_mailbox_maps.cf: |
-    user = {{ .Values.dbUsername }}
-    password = {{ .Values.dbPassword }}
-    dbname = {{ .Values.dbName }}
-    hosts = {{ .Values.dbHost }}
+    user = {{ .Values.db_username }}
+    password = {{ .Values.db_password }}
+    dbname = {{ .Values.db_name }}
+    hosts = {{ .Values.db_host }}
 
     # Consulta para obtener la ruta del buzón de correo
     query = SELECT CONCAT('/var/mail/', domain, '/', email, '/Maildir/') FROM virtual_users, virtual_domains WHERE virtual_users.domain_id = virtual_domains.id AND email='%s'

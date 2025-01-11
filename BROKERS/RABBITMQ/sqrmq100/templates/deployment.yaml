@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: rabbitmq
-  namespace: brokers
+  namespace: brk-srv
   labels:
     app: rabbitmq
 spec:
@@ -15,8 +15,6 @@ spec:
       labels:
         app: rabbitmq
     spec:
-      nodeSelector:
-        role: app  # Etiqueta del nodo para RabbitMQ
       containers:
       - name: rabbitmq
         image: rabbitmq:3-management # Imagen de RabbitMQ con la interfaz de administración

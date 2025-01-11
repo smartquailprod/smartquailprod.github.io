@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pgadmin-ingress
+  namespace: db-srv  # Namespace donde está el servicio de pgAdmin
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  # Reescribe la ruta a la raíz
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # Redirige HTTP a HTTPS
+    nginx.ingress.kubernetes.io/proxy-body-size: "20m"  # Límite del tamaño del cuerpo de la solicitud
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"  # Tiempo máximo para leer la solicitud
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"  # Tiempo máximo para enviar la respuesta
+spec:
+  ingressClassName: nginx  # Clase del controlador Ingress
+  tls:
+  - hosts:
+      - pgadmin.smartquail.io  # Dominio asociado a pgAdmin
+    secretName: pgadmin-smartquail-tls # Nombre del secreto TLS
+  rules:
+  - host: pgadmin.smartquail.io  # Subdominio para acceder a pgAdmin
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: pgadmin-service  # Nombre del servicio para pgAdmin
+            port:
+              number: 80  # Puerto expuesto por el servicio

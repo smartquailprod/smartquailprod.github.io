@@ -9,7 +9,7 @@ metadata:
 spec:
   storageClassName: manual
   capacity:
-    storage: 500Mi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce  # Usamos ReadWriteOnce para volúmenes locales (cuidado si se va a compartir entre múltiples pods)
   persistentVolumeReclaimPolicy: Retain  # Esto asegura que el volumen no se elimine accidentalmente
@@ -31,4 +31,4 @@ spec:
     - ReadWriteOnce  # Debe coincidir con el PersistentVolume, por lo que se usa ReadWriteOnce aquí también
   resources:
     requests:
-      storage: 500Mi
+      storage: 1Gi
