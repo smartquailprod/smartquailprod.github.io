@@ -4,7 +4,7 @@ metadata:
   name: rabbitmq-cert
   namespace: brk-srv # Namespace específico para RabbitMQ
 spec:
-  secretName: rabbitmq-smartquail-tls  # Nombre del secreto que contiene el certificado
+  secretName: rabbitmq-smartquail-io-tls  # Nombre del secreto que contiene el certificado
   dnsNames:
     - rabbitmq.smartquail.io  # Dominio para RabbitMQ
   issuerRef:

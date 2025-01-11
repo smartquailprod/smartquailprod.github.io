@@ -4,7 +4,7 @@ metadata:
   name: mail-smartquail-io-tls
   namespace: mail-srv
 spec:
-  secretName: mail-smartquail-io-tls  # Este es el nombre del secreto donde se almacenará el certificado
+  secretName: mail-smartquail-io-tls # Este es el nombre del secreto donde se almacenará el certificado
   duration: 2160h  # Duración del certificado en horas
   renewBefore: 360h  # Renovar el certificado 360 horas antes de la expiración
   isCA: false  # No es un certificado de autoridad

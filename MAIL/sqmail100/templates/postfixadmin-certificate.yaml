@@ -1,10 +1,10 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postfixadmin-tls
+  name: postfixadmin-smartquail-io-tls
   namespace: mail-srv
 spec:
-  secretName: postfixadmin-tls-secret  # Se creará el secreto TLS aquí
+  secretName: postfixadmin-smartquail-io-tls # Se creará el secreto TLS aquí
   dnsNames:
     - postfixadmin.smartquail.io
   issuerRef:

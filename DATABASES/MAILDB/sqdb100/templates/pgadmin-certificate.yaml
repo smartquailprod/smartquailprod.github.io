@@ -4,7 +4,7 @@ metadata:
   name: pgadmin-smartquail-tls
   namespace: db-srv
 spec:
-  secretName: pgadmin-smartquail-tls
+  secretName: postfixadmin-smartquail-io-tls
   duration: 2160h  # Duración del certificado en horas
   renewBefore: 360h  # Renovar el certificado 360 horas antes de la expiración
   isCA: false  # No es un certificado de autoridad
