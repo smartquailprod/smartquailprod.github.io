@@ -4,6 +4,6 @@ metadata:
   name: qnd41-app-config
   namespace: {{ .Values.qnodenamespace }}
 data:
-  POSTGRES_DB: {{ Values.postgres_db }}
+  POSTGRES_DB: {{ .Values.postgres_db }}
   POSTGRES_HOST: {{ .Values.postgres_host }}
   db_url: {{ .Values.databaseExternalName }}
