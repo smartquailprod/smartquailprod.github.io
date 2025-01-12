@@ -5,7 +5,6 @@ metadata:
   namespace: {{ .Values.qnodenamespace }}
   labels:
     app: {{ .Values.qnodename }}
-
 spec:
   selector:
     matchLabels:
@@ -16,8 +15,6 @@ spec:
       labels:
         app: {{ .Values.qnodename }}
     spec:
-      nodeSelector:
-        role: {{ .Values.nodeRole }}  # Añadido nodeSelector
       containers:
       - name: {{ .Values.qnodename }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
