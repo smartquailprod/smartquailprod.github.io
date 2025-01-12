@@ -25,7 +25,7 @@ spec:
           protocol: TCP
         envFrom:
           - secretRef:
-              name: qnd41-app-secrets
+              name: qnd-app-secrets
           - configMapRef:
               name: qnd41-app-config
         env:
