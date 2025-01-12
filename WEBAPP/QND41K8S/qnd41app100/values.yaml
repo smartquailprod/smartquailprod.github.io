@@ -3,20 +3,26 @@
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
-qnodename: qnd41-pro
-qnodenamespace: qnd41-app
+qnodename: qnd41app-prod
+qnodenamespace: www-apps
+ingress_name: qnd41-app-ingress
 nodeRole: app
 
+#Certificate
+
+secret_name: smartquail-io-secrets
+qnd_commonName : www.smartquail.io
+qnd_dns_names : www.smartquail.io
 #Services
 qnodedatabasename: smartquaildb
 databaseservicetype: ExternalName
-databaseExternalName: smartquaildb.postgres.svc.cluster.local
+databaseExternalName: smartquaildb.db-srv.svc.cluster.local
 databaseport: 5432
 #redis
-qnodecachename: redis
-cacheservicetype: ExternalName
-cacheExternalName: redis.cache.svc.cluster.local
-cacheport: 6379
+#qnodecachename: redis
+#cacheservicetype: ExternalName
+#cacheExternalName: redis.cache.svc.cluster.local
+#cacheport: 6379
 #redis
 qnodebrokername: rabbitmq
 brokerservicetype: ExternalName

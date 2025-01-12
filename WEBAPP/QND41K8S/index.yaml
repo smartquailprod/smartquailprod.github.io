@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  qnd41app100:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-01-11T19:39:24.761954-05:00"
+    description: A Helm chart for Kubernetes
+    digest: fe1c334cd90042fc600e23a603f0c886284a5a2b91d8de2cb1cbcf93fb46eebf
+    name: qnd41app100
+    type: application
+    urls:
+    - qnd41app100-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-01-11T19:39:24.757456-05:00"
