@@ -4,8 +4,7 @@ metadata:
   name: qnd41-app-config
   namespace: {{ .Values.qnodenamespace }}
 data:
-  DEBUG: "{{ .Values.Debug | default 'false' }}"
-  ALLOWED_HOSTS: "{{ .Values.allowed_hosts | default '*' }}"
+  ALLOWED_HOSTS: "{{ .Values.allowed_hosts }}"
   DJANGO_SETTINGS_MODULE: "{{ .Values.djangosettingsmodule }}"
   WAGTAIL_SITE_NAME: "{{ .Values.wagtailsitename }}"
   WAGTAILADMIN_BASE_URL: "{{ .Values.wagtailadminbaseurl }}"
