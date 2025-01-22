@@ -86,11 +86,6 @@ spec:
               configMapKeyRef:
                 name: qnd41-app-config
                 key: POSTGRES_PASSWORD
-          - name: db_url
-            valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
-                key: db_url
           - name: POSTGRES_ENGINE
             valueFrom:
               configMapKeyRef:
