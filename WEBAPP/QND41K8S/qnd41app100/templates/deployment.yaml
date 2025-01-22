@@ -26,11 +26,6 @@ spec:
         env:
           - name: PORT
             value: "9000"
-          - name: DEBUG
-            valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
-                key: DEBUG
           - name: ALLOWED_HOSTS
             valueFrom:
               configMapKeyRef:
