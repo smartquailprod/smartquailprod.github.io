@@ -4,7 +4,7 @@ postgres_image: postgres
 postgres_tag_image: 14.5
 postgres_image_pullPolicy: always
 postgres_secrets_name: postgres-secrets
-postgres_database: POSTFIXDB
+postgres_database: QND41DB
 postgres_user: sqadmindb
 postgres_password: Support1719@
 postgres_host: smartquaildb
