@@ -207,97 +207,97 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: django_secret_key
+                key: DJANGO_SECRET_KEY
           - name: DJANGO_SUPERUSER_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: django_superuser_password
+                key: DJANGO_SUPERUSER_PASSWORD
           - name: DJANGO_SUPERUSER_KEY
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: django_superuser_key
+                key: DJANGO_SUPERUSER_KEY
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: aws_access_key_id
+                key: AWS_ACCESS_KEY_ID
           - name: AWS_SECRET_ACCESS_KEY
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: aws_secret_access_key
+                key: AWS_SECRET_ACCESS_KEY
           - name: RABBITMQ_DEFAULT_PASS
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: rabbitmq_default_pass
+                key: RABBITMQ_DEFAULT_PASS
           - name: SOCIAL_AUTH_FACEBOOK_KEY
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: social_auth_facebook_key
+                key: SOCIAL_AUTH_FACEBOOK_KEY
           - name: SOCIAL_AUTH_FACEBOOK_SECRET
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: social_auth_facebook_secret
+                key: SOCIAL_AUTH_FACEBOOK_SECRET
           - name: SOCIAL_AUTH_FACEBOOK_SCOPE
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: social_auth_facebook_scope
+                key: SOCIAL_AUTH_FACEBOOK_SCOPE
           - name: SOCIAL_AUTH_TWITTER_KEY
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: social_auth_twitter_key
+                key: SOCIAL_AUTH_TWITTER_KEY
           - name: SOCIAL_AUTH_TWITTER_SECRET
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: social_auth_twitter_secret
+                key: SOCIAL_AUTH_TWITTER_SECRET
           - name: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: social_auth_google_oauth2_key
+                key: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
           - name: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: social_auth_google_oauth2_secret
+                key: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
           - name: GA_KEY_CONTENT_ENV
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: ga_key_content_env
+                key: GA_KEY_CONTENT_ENV
           - name: GA_VIEW_ID_ENV
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: ga_view_id_env
+                key:  GA_VIEW_ID_ENV
           - name: BRAINTREE_M_ID
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: braintree_m_id
+                key: BRAINTREE_M_ID
           - name: BRAINTREE_KEY
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: braintree_key
+                key: BRAINTREE_KEY
           - name: BRAINTREE_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: braintree_private_key
+                key: BRAINTREE_PRIVATE_KEY
           - name: EMAIL_HOST_PASSWORD
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key: email_host_password
+                key: EMAIL_HOST_PASSWORD
         resources:
           limits:
             cpu: "{{ .Values.resources.limits.cpu }}"
