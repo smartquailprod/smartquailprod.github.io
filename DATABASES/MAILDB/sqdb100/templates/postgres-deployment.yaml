@@ -4,7 +4,7 @@ metadata:
   name: {{ .Values.postgres_name }}
   namespace: {{ .Values.postgres_namespace }}
   labels:
-    app: {{ .Values.postgres_app_name }}
+    app: {{ .Values.postgres_app_name  }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
@@ -13,7 +13,7 @@ spec:
   template:
     metadata:
       labels:
-        app: {{ .Values.postgres_name }}
+        app: {{ .Values.postgres_app_name }}
     spec:
       restartPolicy: Always
       containers:
