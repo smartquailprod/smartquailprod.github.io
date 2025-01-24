@@ -1,0 +1,107 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres_name }}
+  namespace: {{ .Values.postgres_namespace }}
+  labels:
+    app: {{ .Values.postgres_name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.postgres_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.postgres_name }}
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: {{ .Values.postgres_name }}
+          image: "postgres:16.6"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+            - mountPath: /docker-entrypoint-initdb.d/
+              name: init-scripts
+          envFrom:
+            - configMapRef:
+                name: postgres-configmap
+          env:
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: POSTGRES_DB
+            - name: POSTGRES_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: POSTGRES_USER
+            - name: POSTGRES_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: POSTGRES_PORT
+            - name: SHARED_BUFFERS
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: shared_buffers
+            - name: WORK_MEM
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: work_mem
+            - name: MAINTENANCE_WORK_MEM
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: maintenance_work_mem
+            - name: EFFECTIVE_CACHE_SIZE
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: effective_cache_size
+            - name: MAX_CONNECTIONS
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: max_connections
+            - name: CHECKPOINT_COMPLETION_TARGET
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: checkpoint_completion_target
+            - name: WAL_BUFFERS
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: wal_buffers
+            - name: MAX_WORKER_PROCESSES
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: max_worker_processes
+            - name: MAX_PARALLEL_WORKERS_PER_GATHER
+              valueFrom:
+                configMapKeyRef:
+                  name: postgres-configmap
+                  key: max_parallel_workers_per_gather
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgres_name }}-pv-claim
+        - name: init-scripts
+          configMap:
+            name: postgres-configmap

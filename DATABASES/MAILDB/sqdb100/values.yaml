@@ -1,30 +1,7 @@
 postgres_name: smartquaildb
 postgres_namespace: db-srv
 postgres_image: postgres
-postgres_tag_image: 14.5
-postgres_image_pullPolicy: always
-postgres_secrets_name: postgres-secrets
-postgres_database: QND41DB
-postgres_user: sqadmindb
-postgres_password: Support1719@
-postgres_host: smartquaildb
-postgres_port: 5432
-postgres_helm_chart: sqdb100
-postgres_helm_name: sqdb100
-postgres_helm_repository: https://smartquailprod.github.io/POSTGRES/
-postgres_helm_version: 1.0.0
-postgres_service_type: ClusterIP
-postgres_configmap_name: postgres-configmap
 
-shared_buffers: 256MB
-work_mem: 64MB
-maintenance_work_mem: 128MB
-effective_cache_size: 512MB
-max_connections: "100"
-checkpoint_completion_target: 0.9
-wal_buffers: 16MB
-max_worker_processes: "4"
-max_parallel_workers_per_gather: "2"
 
 replicaCount: 1
 nodeRole: app
