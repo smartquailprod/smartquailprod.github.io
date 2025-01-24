@@ -4,12 +4,12 @@ metadata:
   name: {{ .Values.postgres_name }}
   namespace: {{ .Values.postgres_namespace }}
   labels:
-    app: {{ .Values.postgres_name }}
+    app: {{ .Values.postgres_app_name }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.postgres_name }}
+      app: {{ .Values.postgres_app_name }}
   template:
     metadata:
       labels:
