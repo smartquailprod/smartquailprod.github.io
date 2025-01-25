@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: rabbitmq-ingress
+  namespace: brk-srv  # Namespace específico para RabbitMQ
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /  # Reescribe la ruta a la raíz
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"  # Redirige HTTP a HTTPS
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"  # Tamaño máximo de las solicitudes
+spec:
+  ingressClassName: nginx  # Clase del controlador Ingress
+  tls:
+  - hosts:
+      - rabbitmq.smartquail.io  # Dominio para RabbitMQ
+    secretName: rabbitmq-smartquail-tls  # Nombre del secreto TLS
+  rules:
+  - host: rabbitmq.smartquail.io  # Subdominio para acceder a RabbitMQ
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: rabbitmq-service  # Nombre del servicio RabbitMQ
+            port:
+              number: 15672  # Puerto de la interfaz de administración

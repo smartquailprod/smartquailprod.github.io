@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: redis
-  namespace: cache
+  namespace: cache-srv
   labels:
     app: redis
 spec:
@@ -15,23 +15,23 @@ spec:
       labels:
         app: redis
     spec:
-      nodeSelector:
-        role: app # Etiqueta del nodo para Redis
       containers:
       - name: redis
-        image: redis:latest  # Imagen oficial de Redis
+        image: redis:latest
         ports:
-        - containerPort: 6379 # Puerto de Redis para conexiones
+        - containerPort: 6379
         volumeMounts:
         - name: redis-data
-          mountPath: /data
-        env:
-        - name: REDIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: redis-secrets
-              key: redis_password
+          mountPath: /data  # El directorio en el contenedor donde Redis almacena sus datos      
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
       volumes:
-      - name: redis-data
-        persistentVolumeClaim:
-          claimName: redis-pvc
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-pvc
+
