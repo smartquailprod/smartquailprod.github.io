@@ -33,7 +33,7 @@ brokerport: 5672
 
 qnodecachename: redis
 cacheservicetype: ExternalName
-cacheExternalName: redis.cache-srv.svc.cluster.local
+cacheserviceExternalName: redis.cache-srv.svc.cluster.local
 cacheport: 6379
 
 
