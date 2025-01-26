@@ -25,7 +25,7 @@ spec:
               mountPath: /data  # El directorio donde Redis almacenará sus datos 
             - name: redis-config
               mountPath: /etc/redis/redis.conf
-              subPath: redis.conf  # Monta específicamente el archivo redis.conf
+              subPath: redis-conf  # Monta específicamente el archivo redis.conf
               readOnly: true
             - name: redis-config
               mountPath: /etc/redis/aclfile
