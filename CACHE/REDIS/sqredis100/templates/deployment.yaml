@@ -16,33 +16,49 @@ spec:
         app: redis
     spec:
       containers:
-      - name: redis
-        image: redis:latest
-        ports:
-        - containerPort: 6379
-        volumeMounts:
-        - name: redis-data
-          mountPath: /data  # El directorio en el contenedor donde Redis almacena sus datos    
-        env:
-        - name: REDIS_USER
-          valueFrom:
-            configMapKeyRef:
-              name: redis-config  # Nombre del secreto
-              key: REDIS_USER           # Clave del secreto
-        - name: REDIS_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: redis-secrets  # Nombre del secreto
-              key: REDIS_PASSWORD      # Clave del secreto  
-        resources:
-          limits:
-            memory: "256Mi"
-            cpu: "500m"
-          requests:
-            memory: "128Mi"
-            cpu: "250m"
+        - name: redis
+          image: redis:latest
+          ports:
+            - containerPort: 6379
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data  # El directorio donde Redis almacenará sus datos 
+            - name: redis-config
+              mountPath: /etc/redis/redis.conf
+              subPath: redis.conf  # Monta específicamente el archivo redis.conf
+              readOnly: true
+            - name: redis-config
+              mountPath: /etc/redis/aclfile
+              subPath: aclfile      # Monta específicamente el archivo aclfile
+              readOnly: true   
+            - name: redis-secrets
+              mountPath: /etc/redis/secrets
+              readOnly: true
+          env:
+            - name: REDIS_USER
+              valueFrom:
+                configMapKeyRef:
+                  name: redis-config  # Nombre del ConfigMap que contiene las claves
+                  key: REDIS_USER     # La clave en el ConfigMap que contiene el nombre de usuario
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secrets  # Nombre del Secret que contiene la contraseña
+                  key: REDIS_PASSWORD  # La clave en el Secret que contiene la contraseña
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
       volumes:
         - name: redis-data
           persistentVolumeClaim:
-            claimName: redis-pvc
-
+            claimName: redis-pvc  # Asegúrate de que este PVC esté creado previamente
+        - name: redis-config
+          configMap:
+            name: redis-config   # Este ConfigMap debe contener los archivos redis.conf y aclfile
+        - name: redis-secrets
+          secret:
+            secretName: redis-secrets  # Este Secret debe contener las credenciales de acceso (REDIS_USER y REDIS_PASSWORD)
