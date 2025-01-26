@@ -46,10 +46,10 @@ image:
 
 resources: 
    limits:
-     cpu: 1500m
+     cpu: 1600m
      memory: 256Mi
    requests:
-     cpu: 500m
+     cpu: 800m
      memory: 128Mi
 
 
