@@ -121,12 +121,6 @@ spec:
               configMapKeyRef:
                 name: qnd41-app-config
                 key: REDIS_USER
-          - name: REDIS_PASSWORD
-            valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
-                key: REDIS_USER
-                
           - name: RABBITMQ_DEFAULT_USER
             valueFrom:
               configMapKeyRef:
@@ -214,6 +208,11 @@ spec:
                 key: EMAIL_USE_SSL
           
           # Nuevas variables que se buscarán en el secreto "qnd-app-secrets"
+          - name: REDIS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: qnd-app-secrets
+                key: REDIS_PASSWORD
           - name: DJANGO_SECRET_KEY
             valueFrom:
               secretKeyRef:
