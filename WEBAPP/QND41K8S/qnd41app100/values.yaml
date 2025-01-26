@@ -30,6 +30,13 @@ brokerservicetype: ExternalName
 brokerExternalName: rabbitmq.brokers.svc.cluster.local
 brokerport: 5672
 
+
+qnodecachename: redis
+cacheservicetype: ExternalName
+cacheExternalName: redis.cache-srv.svc.cluster.local
+cacheport: 6379
+
+
 image:
   repository: smartquail/qnd41app
   pullPolicy: Always

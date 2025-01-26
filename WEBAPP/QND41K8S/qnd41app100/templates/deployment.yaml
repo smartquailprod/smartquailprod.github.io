@@ -116,6 +116,17 @@ spec:
               configMapKeyRef:
                 name: qnd41-app-config
                 key: REDIS_PORT
+          - name: REDIS_USER
+            valueFrom:
+              configMapKeyRef:
+                name: qnd41-app-config
+                key: REDIS_USER
+          - name: REDIS_PASSWORD
+            valueFrom:
+              configMapKeyRef:
+                name: qnd41-app-config
+                key: REDIS_USER
+                
           - name: RABBITMQ_DEFAULT_USER
             valueFrom:
               configMapKeyRef:

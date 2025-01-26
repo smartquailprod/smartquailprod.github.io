@@ -22,7 +22,18 @@ spec:
         - containerPort: 6379
         volumeMounts:
         - name: redis-data
-          mountPath: /data  # El directorio en el contenedor donde Redis almacena sus datos      
+          mountPath: /data  # El directorio en el contenedor donde Redis almacena sus datos    
+        env:
+        - name: REDIS_USER
+          valueFrom:
+            secretKeyRef:
+              name: redis-secrets  # Nombre del secreto
+              key: REDIS_USER           # Clave del secreto
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: redis-secrets  # Nombre del secreto
+              key: REDIS_PASSWORD      # Clave del secreto  
         resources:
           limits:
             memory: "256Mi"
