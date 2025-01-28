@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: postfixadmin-ingress
+  namespace: mail-srv
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: "letsencrypt-digitalocean-issuer"  # Certificado Let's Encrypt
+spec:
+  rules:
+    - host: postfixadmin.smartquail.io  # Dominio de tu PostfixAdmin
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: postfixadmin-service
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - postfixadmin.smartquail.io  # Dominio con certificado TLS
+      secretName: postfixadmin-tls-secret

@@ -1,0 +1,30 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: postfix-dovecot-socket
+  namespace: {{ .Values.NamespaceCluster }}  # Seguir la convención de nombres
+spec:
+  capacity:
+    storage: 200Mi  # Tamaño del volumen
+  accessModes:
+    - ReadWriteMany  # Permite el acceso simultáneo de múltiples pods
+  storageClassName: manual  # Clase de almacenamiento personalizada
+  volumeMode: Filesystem  # Modo de volumen
+  hostPath:
+    path: /var/spool/postfix/private  # Ruta en el nodo donde se almacenará el volumen
+    type: DirectoryOrCreate  # Crea el directorio si no existe
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postfix-dovecot-socket-pvc
+  namespace: {{ .Values.NamespaceCluster }}
+spec:
+  accessModes:
+    - ReadWriteMany  # El PVC tiene el mismo modo de acceso que el PV
+  resources:
+    requests:
+      storage: 200Mi  # Espacio solicitado para el volumen
+  storageClassName: manual  # Clase de almacenamiento personalizada

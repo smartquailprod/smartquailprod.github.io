@@ -50,6 +50,6 @@ resources:
      memory: 950Mi
    requests:
      cpu: 200m
-     memory: 370Mi
+     memory: 512Mi
 
 

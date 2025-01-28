@@ -1,0 +1,44 @@
+NameSpaceCluster: mail-srv
+mailboxSize: 5Gi
+#POSTFIX IMAGE
+postfiximage: boky/postfix:edge-alpine 
+#DOVECOTE IMAGE
+dovecoteimage: dovecot/dovecot:latest 
+
+# SERVER VALUES
+domain: smartquail.io
+hostname: mail.smartquail.io
+
+# DATABASE VARIABLES
+db_username: sqadmindb
+db_password: smartquaildev1719pass
+db_name: POSTFIXDB
+db_host: smartquaildb
+dbservicetype: ExternalName
+dbExternalName: smartquaildb.postgres.svc.cluster.local
+
+# Postfix Configuration
+
+homeMailBox: /var/mail/%d/%n/Maildir
+messageSizeLimit: 209715200  # 200MB
+relayNetworks:  64.18.0.0/20, 64.233.160.0/19, 66.102.0.0/20, 66.249.80.0/20, 72.14.192.0/18, 74.125.0.0/16, 108.177.0.0/17, 173.194.0.0/16, 209.85.128.0/17, 216.58.192.0/19, 35.190.0.0/17
+postfixRelay: smtp.mail.smartquail.io
+postfixRelayPort: 587
+relayUser: support@smartquail.io
+relayPassword: Mms9535672@
+
+
+# Postfix TTL/SSL Configs
+tlsSecretName: mail-smartquail-io-tls 
+postfixTlsCertFile: /etc/ssl/certs/tls.crt
+postfixTlsKeyFile: /etc/ssl/private/tls.key
+#CERTTIFICATE
+commonName: mail.smartquail.io
+dnsName: mail.smartquail.io
+
+# SASL Settings
+saslUsername: support@smartquail.io
+saslPassword: Mms9535672@
+# Dovecote settings
+mailHomePath: /var/mail/%d/%u
+mailLocationPath: maildir:/var/mail/%d/%n/Maildir

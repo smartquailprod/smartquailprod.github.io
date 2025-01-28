@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: postfixadmin-smartquail-io-tls
+  namespace: mail-srv
+spec:
+  secretName: postfixadmin-smartquail-io-tls # Se creará el secreto TLS aquí
+  dnsNames:
+    - postfixadmin.smartquail.io
+  issuerRef:
+    name: letsencrypt-digitalocean-issuer  # Issuer de Let's Encrypt
+    kind: ClusterIssuer
+  usages:
+    - digital signature
+    - key encipherment
