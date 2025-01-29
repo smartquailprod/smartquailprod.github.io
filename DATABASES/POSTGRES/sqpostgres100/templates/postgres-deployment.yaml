@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.postgres_name }}
+  namespace: {{ .Values.postgres_namespace }}
+  labels:
+    app: {{ .Values.postgres_app_name }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.postgres_app_name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.postgres_app_name }}
+    spec:
+      restartPolicy: Always
+      containers:
+        - name: {{ .Values.postgres_name }}
+          image: "postgres:16.6"
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgres-data
+
+            # Monta los scripts de inicialización en el directorio correcto para ejecución automática
+            - name: postgres-config-volume
+              mountPath: /docker-entrypoint-initdb.d/  # PostgreSQL ejecutará cualquier script en este directorio
+              readOnly: true
+
+            # Monta el archivo de configuración postgresql.conf
+            - name: postgres-config-volume
+              mountPath: /etc/postgresql/postgresql.conf
+              subPath: postgresql-conf  # Monta solo el archivo postgresql.conf
+              readOnly: true
+
+          # PostgreSQL ejecutará los scripts desde /docker-entrypoint-initdb.d/
+          command: ["docker-entrypoint.sh", "postgres"]
+
+      volumes:
+        - name: postgres-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgres_name }}-pv-claim
+        
+        # Usar un solo volumen para el ConfigMap y hacer uso de subPath para los archivos
+        - name: postgres-config-volume
+          configMap:
+            name: postgres-config  # Un solo ConfigMap con init.sh y postgresql.conf

@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postfixadmin
+  namespace: mail-srv
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postfixadmin
+  template:
+    metadata:
+      labels:
+        app: postfixadmin
+    spec:
+      containers:
+        - name: postfixadmin
+          image: postfixadmin:fpm-alpine
+          ports:
+            - containerPort: 80
+          env:
+          - name: POSTFIX_DB_HOST
+            valueFrom:
+              secretKeyRef:
+                name: postfix-secrets
+                key: POSTFIX_DB_HOST 
+          - name: POSTFIX_DB
+            valueFrom:
+              secretKeyRef:
+                name: postfix-secrets
+                key: POSTFIX_DB 
+          - name: POSTFIX_USER_DB
+            valueFrom:
+              secretKeyRef:
+                name: postfix-secrets
+                key: POSTFIX_USER_DB
+          - name: POSTFIX_PASSWORD_DB
+            valueFrom:
+              secretKeyRef:
+                name: postfix-secrets
+                key: POSTFIX_PASSWORD_DB
+          volumeMounts:
+            - name: postfix-admin-config
+              mountPath: /var/www/html/postfixadmin/config.inc.php
+              subPath: configs
+              readOnly: true
+      volumes:
+        - name: postfix-admin-config
+          configMap:
+            name: postfix-admin-config

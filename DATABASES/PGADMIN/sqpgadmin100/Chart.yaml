@@ -1,0 +1,12 @@
+apiVersion: v2
+name: sqpgadmin100
+description: A Helm chart for Kubernetes
+
+#Aplicacion de despliegue de postgres
+type: application
+
+#Version del nodo de postgresDB
+version: 1.0.0
+
+#Version de modificacion de postgres 
+appVersion: "1.0.0"
