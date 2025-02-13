@@ -26,12 +26,10 @@ spec:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data
 
-            # Monta los scripts de inicialización en el directorio correcto para ejecución automática
             - name: postgres-config-volume
               mountPath: /docker-entrypoint-initdb.d/  # PostgreSQL ejecutará cualquier script en este directorio
               readOnly: true
 
-            # Monta el archivo de configuración postgresql.conf
             - name: postgres-config-volume
               mountPath: /etc/postgresql/postgresql.conf
               subPath: postgresql-conf  # Monta solo el archivo postgresql.conf
@@ -39,13 +37,28 @@ spec:
 
           # PostgreSQL ejecutará los scripts desde /docker-entrypoint-initdb.d/
           command: ["docker-entrypoint.sh", "postgres"]
+          env:
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name:  postgres-secrets
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_PASSWORD      
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: POSTGRES_DB
 
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
             claimName: {{ .Values.postgres_name }}-pv-claim
         
-        # Usar un solo volumen para el ConfigMap y hacer uso de subPath para los archivos
         - name: postgres-config-volume
           configMap:
             name: postgres-config  # Un solo ConfigMap con init.sh y postgresql.conf

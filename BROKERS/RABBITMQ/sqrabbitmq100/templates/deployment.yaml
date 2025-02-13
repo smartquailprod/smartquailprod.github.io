@@ -29,12 +29,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
-              key: rabbitmq_user
-        - name: RABBITMQ_DEFAULT_PASS
+              key: RABBITMQ_DEFAULT_USER
+        - name: RABBITMQ_ADMIN_PASSWORD 
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
-              key: rabbitmq_password
+              key: RABBITMQ_ADMIN_PASSWORD 
       volumes:
       - name: rabbitmq-data
         persistentVolumeClaim:
