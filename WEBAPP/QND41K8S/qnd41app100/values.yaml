@@ -11,7 +11,7 @@ nodeRole: app
 #Certificate
 
 secret_name: smartquail-io-tls
-qnd_commonName : www.smartquail.io
+qnd_commonName : smartquail.io
 qnd_dns_names : www.smartquail.io
 #Services
 postgres_db : QND41DB

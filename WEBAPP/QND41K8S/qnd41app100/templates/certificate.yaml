@@ -1,8 +1,8 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: letsencrypt-staging
-  namespace: qnd41-app
+  name: smartquail-cert
+  namespace: www-apps
 spec:
   secretName: smartquail-io-tls
   duration: 2160h # Duración del certificado en horas
@@ -12,6 +12,7 @@ spec:
   commonName: smartquail.io
   dnsNames:
     - smartquail.io
+    - www.smartquail.io
   issuerRef:
-    name: letsencrypt-staging # Nombre del Issuer a utilizar
+    name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
     kind: ClusterIssuer

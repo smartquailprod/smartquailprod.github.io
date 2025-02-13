@@ -1,0 +1,20 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: pgadmin-smartquail-io-tls
+  namespace: db-srv
+spec:
+  secretName: pgadmin-smartquail-io-tls # Este es el nombre del secreto donde se almacenará el certificado
+  duration: 2160h  # Duración del certificado en horas
+  renewBefore: 360h  # Renovar el certificado 360 horas antes de la expiración
+  isCA: false  # No es un certificado de autoridad
+  commonName: pgadmin.smartquail.io
+  dnsNames:
+    - pgadmin.smartquail.io
+  issuerRef:
+    name: letsencrypt-cluster-issuer # El issuer que deseas usar (esto debe estar configurado previamente)
+    kind: ClusterIssuer
+  privateKey:
+    algorithm: RSA  # Tipo de algoritmo (RSA es el más común)
+    size: 2048  # Tamaño de la clave RSA en bits
+

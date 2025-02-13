@@ -29,7 +29,7 @@ relayPassword: Mms9535672@
 
 
 # Postfix TTL/SSL Configs
-tlsSecretName: mail-smartquail-io-tls 
+tlsSecretName: imap-smartquail-io-tls
 postfixTlsCertFile: /etc/ssl/certs/tls.crt
 postfixTlsKeyFile: /etc/ssl/private/tls.key
 #CERTTIFICATE

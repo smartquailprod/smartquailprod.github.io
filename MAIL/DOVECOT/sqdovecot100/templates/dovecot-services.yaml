@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: dovecot
+  name: dovecot-service
   namespace: {{.Values.NameSpaceCluster }}
   labels:
     app: dovecot
