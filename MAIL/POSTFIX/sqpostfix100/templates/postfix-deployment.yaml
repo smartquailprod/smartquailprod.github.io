@@ -14,14 +14,7 @@ spec:
     metadata:
       labels:
         app: postfix
-    spec:
-      initContainers:
-        - name: set-permissions
-          image: busybox
-          command: ["chmod", "+x", "/etc/postfix/add_user.sh"]
-          volumeMounts:
-            - name: postfix-config
-              mountPath: /etc/postfix    
+    spec:    
       containers:
       - name: postfix
         image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido

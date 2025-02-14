@@ -60,37 +60,37 @@ spec:
           volumeMounts:
             - name: mail-certificates
               mountPath: /etc/dovecot/certs  # Certificados TLS
-              readOnly: true
+              readOnly: false
             - name: dovecot-mailbox
               mountPath: /var/mail  # Ruta para los buzones
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-auth.conf
               subPath: auth-conf
-              readOnly: true
+              readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-mail.conf
               subPath: mail-conf
-              readOnly: true
+              readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-master.conf
               subPath: master-conf
-              readOnly: true
+              readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-ssl.conf
               subPath: ssl-conf
-              readOnly: true
+              readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/dovecot-sql.conf.ext
               subPath: dovecot-sql-conf
-              readOnly: true
+              readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/auth-system.conf.ext
               subPath: auth-system-conf 
-              readOnly: true
+              readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/dovecot.conf
               subPath: dovecot-conf 
-              readOnly: true
+              readOnly: false
             - name: dovecot-postfix-socket
               mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP
       volumes:
