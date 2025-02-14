@@ -104,10 +104,6 @@ spec:
           subPath: transport-pcre
           readOnly: true
         - name: postfix-config
-          mountPath: /etc/postfix/add_user.sh
-          subPath: add_user-sh
-          readOnly: false  # Permitir modificación de permisos (cambiado a 'false')
-        - name: postfix-config
           mountPath: /etc/opendkim/opendkim.conf
           subPath: opendkim-conf
           readOnly: true  
@@ -126,8 +122,7 @@ spec:
         - name: dovecot-postfix-socket
           mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
         - name: dovecot-mailbox
-          mountPath: /var/mail
-        command: ["/bin/sh", "-c", "chmod +x /etc/postfix/add_user.sh && /etc/postfix/add_user.sh && postfix start-fg"]  # Añadir chmod para permisos de ejecución
+          mountPath: /var/mail      
         livenessProbe:
           tcpSocket:
             port: 25
