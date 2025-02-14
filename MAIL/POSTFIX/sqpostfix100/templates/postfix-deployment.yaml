@@ -18,9 +18,7 @@ spec:
       containers:
       - name: postfix
         image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
-        securityContext:
-          runAsUser: 1001    # UID del usuario postfix
-          runAsGroup: 1001   # GID del grupo postfix
+
         ports:
         - containerPort: 25
         - containerPort: 465
