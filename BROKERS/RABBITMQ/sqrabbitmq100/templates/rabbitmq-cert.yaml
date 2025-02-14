@@ -2,7 +2,7 @@ apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
   name: rabbitmq-smartquail-io-tls
-  namespace: mail-srv
+  namespace: brk-srv
 spec:
   secretName: rabbitmq-smartquail-io-tls # Este es el nombre del secreto donde se almacenará el certificado
   duration: 2160h  # Duración del certificado en horas
