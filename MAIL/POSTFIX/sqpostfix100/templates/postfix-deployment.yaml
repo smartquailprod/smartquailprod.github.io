@@ -66,16 +66,7 @@ spec:
             secretKeyRef:
               name: postfix-secrets
               key: MESSAGE_SIZE_LIMIT
-        - name: POSTFIX_TLS_CERT_FILE
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_TLS_CERT_FILE
-        - name: POSTFIX_TLS_KEY_FILE
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_TLS_KEY_FILE
+
         - name: DKIM_SOCKET
           valueFrom:
             secretKeyRef:
