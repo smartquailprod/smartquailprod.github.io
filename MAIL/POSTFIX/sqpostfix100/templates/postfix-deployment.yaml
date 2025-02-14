@@ -133,7 +133,7 @@ spec:
           mountPath: /etc/opendkim/SigningTable
           subPath: signingtable
           readOnly: true  
-        - name: postfix-dovecot-socket
+        - name: dovecot-postfix-socket
           mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
         - name: dovecot-mailbox
           mountPath: /var/mail
