@@ -66,7 +66,6 @@ spec:
             secretKeyRef:
               name: postfix-secrets
               key: MESSAGE_SIZE_LIMIT
-
         - name: DKIM_SOCKET
           valueFrom:
             secretKeyRef:
@@ -107,7 +106,7 @@ spec:
         - name: postfix-config
           mountPath: /etc/postfix/add_user.sh
           subPath: add_user-sh
-          readOnly: true  
+          readOnly: false  # Permitir modificación de permisos (cambiado a 'false')
         - name: postfix-config
           mountPath: /etc/opendkim/opendkim.conf
           subPath: opendkim-conf
@@ -128,7 +127,7 @@ spec:
           mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
         - name: dovecot-mailbox
           mountPath: /var/mail
-        command: ["/bin/sh", "-c", "/etc/postfix/add_user.sh && postfix start-fg"]
+        command: ["/bin/sh", "-c", "chmod +x /etc/postfix/add_user.sh && /etc/postfix/add_user.sh && postfix start-fg"]  # Añadir chmod para permisos de ejecución
         livenessProbe:
           tcpSocket:
             port: 25
