@@ -43,7 +43,7 @@ spec:
             - name: postfix-admin-config
               mountPath: /var/www/html/postfixadmin/config.inc.php
               subPath: configs
-              readOnly: true
+              readOnly: false
       volumes:
         - name: postfix-admin-config
           configMap:

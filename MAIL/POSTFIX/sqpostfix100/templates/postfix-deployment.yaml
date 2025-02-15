@@ -71,51 +71,51 @@ spec:
         volumeMounts:
         - name: mail-certificates
           mountPath: /etc/ssl/
-          readOnly: true 
+          readOnly: false
         - name: postfix-config
           mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
           subPath: virtual_mailbox_domains-cf
-          readOnly: true 
+          readOnly: false
         - name: postfix-config
           mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
           subPath: virtual_mailbox_maps-cf 
-          readOnly: true 
+          readOnly: false 
         - name: postfix-config
           mountPath: /etc/postfix/sql/virtual_alias_maps.cf
           subPath: virtual_alias_maps-cf
-          readOnly: true 
+          readOnly: false 
         - name: postfix-config
           mountPath: /etc/postfix/sasl_passwd
           subPath: sasl_passwd
-          readOnly: true 
+          readOnly: false 
         - name: postfix-config
           mountPath: /etc/postfix/master.cf
           subPath: master-cf
-          readOnly: true 
+          readOnly: false 
         - name: postfix-config
           mountPath: /etc/postfix/main.cf
           subPath: main-cf 
-          readOnly: true 
+          readOnly: false 
         - name: postfix-config
           mountPath: /etc/postfix/transport.pcre
           subPath: transport-pcre
-          readOnly: true 
+          readOnly: false 
         - name: postfix-config
           mountPath: /etc/opendkim/opendkim.conf
           subPath: opendkim-conf
-          readOnly: true  
+          readOnly: false  
         - name: postfix-config
           mountPath: /etc/opendkim/KeyTable
           subPath: keytable
-          readOnly: true  
+          readOnly: false  
         - name: postfix-config
           mountPath: /etc/opendkim/TrustedHosts
           subPath: trustedhosts
-          readOnly: true 
+          readOnly: false 
         - name: postfix-config
           mountPath: /etc/opendkim/SigningTable
           subPath: signingtable
-          readOnly: true 
+          readOnly: false 
         - name: dovecot-postfix-socket
           mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
         - name: dovecot-mailbox
