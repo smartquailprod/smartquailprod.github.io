@@ -120,18 +120,6 @@ spec:
           mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
         - name: dovecot-mailbox
           mountPath: /var/mail      
-        livenessProbe:
-          tcpSocket:
-            port: 25
-          initialDelaySeconds: 30
-          periodSeconds: 15
-          failureThreshold: 3
-        readinessProbe:
-          tcpSocket:
-            port: 25
-          initialDelaySeconds: 10
-          periodSeconds: 10
-          failureThreshold: 3
       volumes:
       - name: mail-certificates
         projected:
