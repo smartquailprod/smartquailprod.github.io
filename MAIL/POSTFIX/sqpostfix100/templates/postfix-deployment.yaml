@@ -14,17 +14,10 @@ spec:
     metadata:
       labels:
         app: postfix
-    spec:  
-      securityContext:
-        runAsUser: 1001      # UID de postfix
-        runAsGroup: 1001    # GID de postfix
-        fsGroup: 1001        # GID de postfix (opcional para acceso a volumenes)  
+    spec:   
       containers:
       - name: postfix
         image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
-        securityContext:
-          runAsUser: 1001    # UID del usuario postfix
-          runAsGroup: 1001   # GID del grupo postfix
         ports:
         - containerPort: 25
         - containerPort: 465
