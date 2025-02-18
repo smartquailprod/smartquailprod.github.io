@@ -74,15 +74,15 @@ spec:
               readOnly: true
             - name: postfix-config
               mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
-              subPath: virtual_mailbox_domains-cf
+              subPath: virtual_mailbox_domains.cf
               readOnly: true
             - name: postfix-config
               mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
-              subPath: virtual_mailbox_maps-cf
+              subPath: virtual_mailbox_maps.cf
               readOnly: true
             - name: postfix-config
               mountPath: /etc/postfix/sql/virtual_alias_maps.cf
-              subPath: virtual_alias_maps-cf
+              subPath: virtual_alias_maps.cf
               readOnly: true
             - name: postfix-config
               mountPath: /etc/postfix/sasl_passwd
@@ -90,19 +90,19 @@ spec:
               readOnly: true
             - name: postfix-config
               mountPath: /etc/postfix/master.cf
-              subPath: master-cf
+              subPath: master.cf
               readOnly: true
             - name: postfix-config
               mountPath: /etc/postfix/main.cf
-              subPath: main-cf
+              subPath: main.cf
               readOnly: true
             - name: postfix-config
               mountPath: /etc/postfix/transport.pcre
-              subPath: transport-pcre
+              subPath: transport.pcre
               readOnly: true
             - name: postfix-config
               mountPath: /etc/opendkim/opendkim.conf
-              subPath: opendkim-conf
+              subPath: opendkim.conf
               readOnly: true
             - name: postfix-config
               mountPath: /etc/opendkim/KeyTable
