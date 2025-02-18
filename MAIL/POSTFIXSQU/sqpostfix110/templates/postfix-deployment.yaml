@@ -68,4 +68,13 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: DKIM_SOCKET
+            volumeMounts:
+            - name: postfix-config
+              mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
+              subPath: virtual_mailbox_domains.cf
+              readOnly: false
+          volumes:
+          - name: postfix-config
+            configMap:
+            name: postfix-config
 
