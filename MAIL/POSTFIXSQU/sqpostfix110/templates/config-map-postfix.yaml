@@ -77,7 +77,7 @@ data:
     transport_maps = pcre:/etc/postfix/transport.pcre
 
     # Relayhost if any is configured
-    relayhost = [{{ .Values.postfixRelay }}]:{{ .Values.postfixRelayPort }}
+    relayhost = [smtp.mail.smartquail.io]:587
 
     relay_domains = 
 
