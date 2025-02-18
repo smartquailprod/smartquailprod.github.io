@@ -104,6 +104,7 @@ spec:
               mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
             - name: dovecot-mailbox-test
               mountPath: /var/mail
+              readOnly: false
       volumes:
         - name: mail-certificates
           projected:
