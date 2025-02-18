@@ -118,7 +118,7 @@ spec:
               readOnly: true
             - name: dovecot-postfix-socket
               mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
-            - name: dovecot-mailbox
+            - name: dovecot-mailbox-test
               mountPath: /var/mail
       volumes:
         - name: mail-certificates
@@ -136,6 +136,6 @@ spec:
             name: postfix-config
         - name: dovecot-postfix-socket
           emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
-        - name: dovecot-mailbox
+        - name: dovecot-mailbox-test
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc
