@@ -102,16 +102,10 @@ spec:
               readOnly: true
             - name: postfix-config
               mountPath: /etc/opendkim/opendkim.conf
-              subPath: opendkim.conf
-              readOnly: true
             - name: postfix-config
               mountPath: /etc/opendkim/KeyTable
-              subPath: keytable
-              readOnly: true
             - name: postfix-config
               mountPath: /etc/opendkim/TrustedHosts
-              subPath: trustedhosts
-              readOnly: true
             - name: postfix-config
               mountPath: /etc/opendkim/SigningTable
               subPath: signingtable
