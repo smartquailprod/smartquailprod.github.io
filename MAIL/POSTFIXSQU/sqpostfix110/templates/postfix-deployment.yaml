@@ -117,7 +117,20 @@ spec:
               mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
               subPath: virtual_mailbox_maps.cf
               readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/master.cf
+              subPath: master.cf
+              readOnly: false
+            - name: postfix-config
+              mountPath: /etc/postfix/main.cf
+              subPath: main.cf
+              readOnly: false
       volumes:
         - name: postfix-config
           configMap:
             name: postfix-config
+            items:
+              - key: main.cf
+                path: main.cf
+              - key: master.cf
+                path: master.cf
