@@ -239,10 +239,10 @@ data:
     [smtp.{{ .Values.domain }}]:587    {{ .Values.saslUsername }}:{{ .Values.saslPassword }}
 
   virtual_mailbox_domains.cf: |
-    user = {{ .Values.db_username }}
-    password = {{ .Values.db_password }}
-    dbname = {{ .Values.db_name }}
-    hosts = {{ .Values.db_host }}
+    user = ${POSTFIX_USER_DB}
+    password = ${POSTFIX_PASSWORD_DB}
+    dbname = ${POSTFIX_DB}
+    hosts = ${POSTFIX_DB_HOST}
 
     # Query para obtener el dominio de un buzón de correo
     query = SELECT domain FROM virtual_domains WHERE domain='%s'

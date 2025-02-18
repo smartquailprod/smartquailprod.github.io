@@ -33,6 +33,26 @@ spec:
             secretKeyRef:
               name: postfix-secrets
               key: HOSTNAME
+        - name: POSTFIX_USER_DB
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: POSTFIX_USER_DB
+        - name: POSTFIX_PASSWORD_DB
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: POSTFIX_PASSWORD_DB
+        - name: POSTFIX_DB
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key: POSTFIX_DB
+        - name: POSTFIX_DB_HOST
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key:  POSTFIX_DB_HOST        
         - name: POSTFIX_RELAY_USER
           valueFrom:
             secretKeyRef:
