@@ -124,7 +124,7 @@ spec:
             - name: postfix-config
               mountPath: /etc/postfix/main.cf
               subPath: main.cf
-              readOnly: true
+              readOnly: false
       volumes:
         - name: postfix-config
           configMap:
