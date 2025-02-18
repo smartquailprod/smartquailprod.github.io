@@ -83,6 +83,22 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: MESSAGE_SIZE_LIMIT
+            - name: MAIL_HOME_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: MAIL_HOME_PATH
+            - name: TLS_CERT_FILE
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: TLS_CERT_FILE
+            - name: TLS_KEY_FILE
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: TLS_KEY_FILE
+
             - name: DKIM_SOCKET
               valueFrom:
                 secretKeyRef:
@@ -92,6 +108,22 @@ spec:
             - name: postfix-config
               mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
               subPath: virtual_mailbox_domains.cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/sql/virtual_alias_maps.cf
+              subPath: virtual_alias_maps.cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
+              subPath: virtual_mailbox_maps.cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/master.cf
+              subPath: master.cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/main.cf
+              subPath: main.cf
               readOnly: true
       volumes:
         - name: postfix-config

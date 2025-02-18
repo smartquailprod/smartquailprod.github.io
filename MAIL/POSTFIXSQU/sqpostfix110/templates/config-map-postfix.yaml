@@ -52,20 +52,20 @@ data:
     ###############
     
     # Main domain and hostname
-    mydomain = {{ .Values.domain }}
-    myhostname = {{ .Values.hostname }}
+    mydomain = ${DOMAIN}
+    myhostname = ${HOSTNAME}
     myorigin = $mydomain
 
-    home_mailbox = {{ .Values.homeMailBox }}
+    home_mailbox = ${MAIL_HOME_PATH}
 
     # Empty alias list to override the configuration variable and disable NIS
     alias_maps = 
 
     # Message size limit
-    message_size_limit = {{ .Values.messageSizeLimit }}
+    message_size_limit = ${MESSAGE_SIZE_LIMIT}
 
     # Relayed networks
-    mynetworks = 127.0.0.0/8, [::1]/128, 192.168.1.0/24, {{ .Values.relayNetworks }}
+    mynetworks = 127.0.0.0/8, [::1]/128, 192.168.1.0/24, ${RELAY_NETWORKS}
 
     mydestination = $myhostname, localhost.$mydomain, localhost
 
@@ -77,7 +77,7 @@ data:
     transport_maps = pcre:/etc/postfix/transport.pcre
 
     # Relayhost if any is configured
-    relayhost = [smtp.mail.smartquail.io]:587
+    relayhost = [${POSTFIX_RELAY}]:${POSTFIX_RELAY_PORT}
 
     relay_domains = 
 
@@ -118,8 +118,8 @@ data:
     smtp_tls_security_level = may
     smtpd_tls_security_level = may
     smtpd_tls_auth_only = no
-    smtpd_tls_cert_file = {{ .Values.postfixTlsCertFile }}
-    smtpd_tls_key_file = {{ .Values.postfixTlsKeyFile }}
+    smtpd_tls_cert_file = ${TLS_CERT_FILE}
+    smtpd_tls_key_file = ${TLS_KEY_FILE}
     smtpd_tls_received_header = yes
     smtp_tls_note_starttls_offer = yes
     smtpd_tls_loglevel = 1
@@ -248,19 +248,19 @@ data:
     query = SELECT domain FROM virtual_domains WHERE domain='%s'
 
   virtual_alias_maps.cf: |
-    user = {{ .Values.db_username }}
-    password = {{ .Values.db_password }}
-    dbname = {{ .Values.db_name }}
-    hosts = {{ .Values.db_host }}
+    user = ${POSTFIX_USER_DB}
+    password = ${POSTFIX_PASSWORD_DB}
+    dbname = ${POSTFIX_DB}
+    hosts = ${POSTFIX_DB_HOST}
 
     # Query para obtener el destino de un alias
     query = SELECT destination FROM virtual_aliases WHERE source='%s'
 
   virtual_mailbox_maps.cf: |
-    user = {{ .Values.db_username }}
-    password = {{ .Values.db_password }}
-    dbname = {{ .Values.db_name }}
-    hosts = {{ .Values.db_host }}
+    user = ${POSTFIX_USER_DB}
+    password = ${POSTFIX_PASSWORD_DB}
+    dbname = ${POSTFIX_DB}
+    hosts = ${POSTFIX_DB_HOST}
 
     # Consulta para obtener la ruta del buzón de correo
     query = SELECT CONCAT('/var/mail/', domain, '/', email, '/Maildir/') FROM virtual_users, virtual_domains WHERE virtual_users.domain_id = virtual_domains.id AND email='%s'
