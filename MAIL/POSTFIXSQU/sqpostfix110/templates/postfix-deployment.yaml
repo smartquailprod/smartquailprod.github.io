@@ -100,8 +100,6 @@ spec:
               mountPath: /etc/postfix/transport.pcre
               subPath: transport.pcre
               readOnly: false
-
-              mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
             - name: dovecot-mailbox-test
               mountPath: /var/mail
               readOnly: false
