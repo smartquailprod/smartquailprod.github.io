@@ -43,6 +43,11 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: POSTFIX_PASSWORD_DB
+            - name: POSTFIX_IP
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_IP
             - name: POSTFIX_DB
               valueFrom:
                 secretKeyRef:
