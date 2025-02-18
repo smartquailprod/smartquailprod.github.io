@@ -100,17 +100,7 @@ spec:
               mountPath: /etc/postfix/transport.pcre
               subPath: transport.pcre
               readOnly: true
-            - name: postfix-config
-              mountPath: /etc/opendkim/opendkim.conf
-            - name: postfix-config
-              mountPath: /etc/opendkim/KeyTable
-            - name: postfix-config
-              mountPath: /etc/opendkim/TrustedHosts
-            - name: postfix-config
-              mountPath: /etc/opendkim/SigningTable
-              subPath: signingtable
-              readOnly: true
-            - name: dovecot-postfix-socket
+
               mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
             - name: dovecot-mailbox-test
               mountPath: /var/mail
