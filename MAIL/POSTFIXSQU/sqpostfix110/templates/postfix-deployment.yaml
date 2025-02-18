@@ -14,128 +14,128 @@ spec:
     metadata:
       labels:
         app: postfix
-    spec:   
+    spec:
       containers:
-      - name: postfix
-        image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
-        ports:
-        - containerPort: 25
-        - containerPort: 465
-        - containerPort: 587
-      env:
-        - name: DOMAIN
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: DOMAIN
-        - name: HOSTNAME
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: HOSTNAME
-        - name: POSTFIX_RELAY_USER
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY_USER
-        - name: POSTFIX_RELAY_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY_PASSWORD
-        - name: POSTFIX_RELAY
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY
-        - name: POSTFIX_RELAY_PORT
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY_PORT
-        - name: RELAY_NETWORKS
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: RELAY_NETWORKS
-        - name: MESSAGE_SIZE_LIMIT
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: MESSAGE_SIZE_LIMIT
-        - name: DKIM_SOCKET
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: DKIM_SOCKET
-        volumeMounts:
-        - name: mail-certificates
-          mountPath: /etc/ssl/
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
-          subPath: virtual_mailbox_domains-cf
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
-          subPath: virtual_mailbox_maps-cf 
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sql/virtual_alias_maps.cf
-          subPath: virtual_alias_maps-cf
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sasl_passwd
-          subPath: sasl_passwd
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/master.cf
-          subPath: master-cf
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/main.cf
-          subPath: main-cf 
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/transport.pcre
-          subPath: transport-pcre
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/opendkim/opendkim.conf
-          subPath: opendkim-conf
-          readOnly: false 
-        - name: postfix-config
-          mountPath: /etc/opendkim/KeyTable
-          subPath: keytable
-          readOnly: false 
-        - name: postfix-config
-          mountPath: /etc/opendkim/TrustedHosts
-          subPath: trustedhosts
-          readOnly: false 
-        - name: postfix-config
-          mountPath: /etc/opendkim/SigningTable
-          subPath: signingtable
-          readOnly: false 
-        - name: dovecot-postfix-socket
-          mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
-        - name: dovecot-mailbox
-          mountPath: /var/mail      
+        - name: postfix
+          image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
+          ports:
+            - containerPort: 25
+            - containerPort: 465
+            - containerPort: 587
+          env:
+            - name: DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: DOMAIN
+            - name: HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: HOSTNAME
+            - name: POSTFIX_RELAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_USER
+            - name: POSTFIX_RELAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_PASSWORD
+            - name: POSTFIX_RELAY
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY
+            - name: POSTFIX_RELAY_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_PORT
+            - name: RELAY_NETWORKS
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: RELAY_NETWORKS
+            - name: MESSAGE_SIZE_LIMIT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: MESSAGE_SIZE_LIMIT
+            - name: DKIM_SOCKET
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: DKIM_SOCKET
+          volumeMounts:
+            - name: mail-certificates
+              mountPath: /etc/ssl/
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
+              subPath: virtual_mailbox_domains-cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
+              subPath: virtual_mailbox_maps-cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/sql/virtual_alias_maps.cf
+              subPath: virtual_alias_maps-cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/sasl_passwd
+              subPath: sasl_passwd
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/master.cf
+              subPath: master-cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/main.cf
+              subPath: main-cf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/postfix/transport.pcre
+              subPath: transport-pcre
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/opendkim/opendkim.conf
+              subPath: opendkim-conf
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/opendkim/KeyTable
+              subPath: keytable
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/opendkim/TrustedHosts
+              subPath: trustedhosts
+              readOnly: true
+            - name: postfix-config
+              mountPath: /etc/opendkim/SigningTable
+              subPath: signingtable
+              readOnly: true
+            - name: dovecot-postfix-socket
+              mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
+            - name: dovecot-mailbox
+              mountPath: /var/mail
       volumes:
-      - name: mail-certificates
-        projected:
-          sources:
-          - secret:
-              name: {{ .Values.tlsSecretName }}
-              items:
-              - key: tls.crt
-                path: tls.crt
-              - key: tls.key
-                path: tls.key
-      - name: postfix-config
-        configMap:
-          name: postfix-config
-      - name: dovecot-postfix-socket
-        emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
-      - name: dovecot-mailbox
-        persistentVolumeClaim:
-          claimName: dovecot-mailbox-pvc
+        - name: mail-certificates
+          projected:
+            sources:
+              - secret:
+                  name: {{ .Values.tlsSecretName }}
+                  items:
+                    - key: tls.crt
+                      path: tls.crt
+                    - key: tls.key
+                      path: tls.key
+        - name: postfix-config
+          configMap:
+            name: postfix-config
+        - name: dovecot-postfix-socket
+          emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
+        - name: dovecot-mailbox
+          persistentVolumeClaim:
+            claimName: dovecot-mailbox-pvc
