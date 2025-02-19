@@ -108,19 +108,6 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: DKIM_SOCKET
-          volumeMounts:
-            - name: postfix-config
-              mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
-              subPath: virtual_mailbox_domains.cf
-              readOnly: true
-            - name: postfix-config
-              mountPath: /etc/postfix/sql/virtual_alias_maps.cf
-              subPath: virtual_alias_maps.cf
-              readOnly: true
-            - name: postfix-config
-              mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
-              subPath: virtual_mailbox_maps.cf
-              readOnly: true
       volumes:
         - name: mail-certificates
           projected:
@@ -132,9 +119,6 @@ spec:
                       path: tls.crt
                     - key: tls.key
                       path: tls.key
-        - name: postfix-config
-          configMap:
-            name: postfix-config
         - name: dovecot-postfix-socket
           emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
         - name: dovecot-mailbox
