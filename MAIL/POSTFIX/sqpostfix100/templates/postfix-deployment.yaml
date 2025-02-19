@@ -14,103 +14,103 @@ spec:
     metadata:
       labels:
         app: postfix
-    spec:   
+    spec:
       containers:
-      - name: postfix
-        image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
-        ports:
-        - containerPort: 25
-        - containerPort: 465
-        - containerPort: 587
-      env:
-        - name: DOMAIN
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: DOMAIN
-        - name: HOSTNAME
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: HOSTNAME
-        - name:  MAIL_POSTFIX_HOME_PATH
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key:  MAIL_POSTFIX_HOME_PATH   
-        - name: POSTFIX_USER_DB
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_USER_DB
-        - name: POSTFIX_PASSWORD_DB
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_PASSWORD_DB
-        - name: POSTFIX_DB
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_DB
-        - name: POSTFIX_DB_HOST
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key:  POSTFIX_DB_HOST        
-        - name: POSTFIX_RELAY_USER
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY_USER
-        - name: POSTFIX_RELAY_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY_PASSWORD
-        - name: POSTFIX_RELAY
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY
-        - name: POSTFIX_RELAY_PORT
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: POSTFIX_RELAY_PORT
-        - name: RELAY_NETWORKS
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: RELAY_NETWORKS
-        - name: MESSAGE_SIZE_LIMIT
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: MESSAGE_SIZE_LIMIT
-        - name: DKIM_SOCKET
-          valueFrom:
-            secretKeyRef:
-              name: postfix-secrets
-              key: DKIM_SOCKET
-        volumeMounts:
-        - name: dovecot-postfix-socket
-          mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
-        - name: dovecot-mailbox
-          mountPath: /var/mail      
+        - name: postfix
+          image: {{ .Values.postfiximage }}  # Imagen de Postfix con OpenDKIM incluido
+          ports:
+            - containerPort: 25
+            - containerPort: 465
+            - containerPort: 587
+          env:
+            - name: DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: DOMAIN
+            - name: HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: HOSTNAME
+            - name: MAIL_POSTFIX_HOME_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: MAIL_POSTFIX_HOME_PATH
+            - name: POSTFIX_USER_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_USER_DB
+            - name: POSTFIX_PASSWORD_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_PASSWORD_DB
+            - name: POSTFIX_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_DB
+            - name: POSTFIX_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_DB_HOST
+            - name: POSTFIX_RELAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_USER
+            - name: POSTFIX_RELAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_PASSWORD
+            - name: POSTFIX_RELAY
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY
+            - name: POSTFIX_RELAY_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_PORT
+            - name: RELAY_NETWORKS
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: RELAY_NETWORKS
+            - name: MESSAGE_SIZE_LIMIT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: MESSAGE_SIZE_LIMIT
+            - name: DKIM_SOCKET
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: DKIM_SOCKET
+          volumeMounts:
+            - name: dovecot-postfix-socket
+              mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
+            - name: dovecot-mailbox
+              mountPath: /var/mail
       volumes:
-      - name: mail-certificates
-        projected:
-          sources:
-          - secret:
-              name: {{ .Values.tlsSecretName }}
-              items:
-              - key: tls.crt
-                path: tls.crt
-              - key: tls.key
-                path: tls.key
-      - name: dovecot-postfix-socket
-        emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
-      - name: dovecot-mailbox
-        persistentVolumeClaim:
-          claimName: dovecot-mailbox-pvc
+        - name: mail-certificates
+          projected:
+            sources:
+              - secret:
+                  name: {{ .Values.tlsSecretName }}
+                  items:
+                    - key: tls.crt
+                      path: tls.crt
+                    - key: tls.key
+                      path: tls.key
+        - name: dovecot-postfix-socket
+          emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
+        - name: dovecot-mailbox
+          persistentVolumeClaim:
+            claimName: dovecot-mailbox-pvc
