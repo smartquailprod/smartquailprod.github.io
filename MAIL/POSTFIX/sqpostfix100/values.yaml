@@ -1,4 +1,4 @@
-NameSpaceCluster: test-srv
+NameSpaceCluster: mail-srv
 mailboxSize: 5Gi
 #POSTFIX IMAGE
 postfiximage: smartquail/qndpostfix:latest
