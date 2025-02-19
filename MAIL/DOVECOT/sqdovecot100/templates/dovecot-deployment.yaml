@@ -25,37 +25,37 @@ spec:
           - name: DOMAIN
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
+                name: dovecot-secrets
                 key: DOMAIN
           - name: MAIL_LOCATION_PATH
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
+                name: dovecot-secrets
                 key: MAIL_LOCATION_PATH
           - name: POSTFIX_DB_HOST
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
+                name: dovecot-secrets
                 key: POSTFIX_DB_HOST 
           - name: POSTFIX_DB
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
+                name: dovecot-secrets
                 key: POSTFIX_DB 
           - name: POSTFIX_USER_DB
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
+                name: dovecot-secrets
                 key: POSTFIX_USER_DB
           - name: POSTFIX_PASSWORD_DB
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
+                name: dovecot-secrets
                 key: POSTFIX_PASSWORD_DB
           - name: MAIL_HOME_PATH
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
+                name: dovecot-secrets
                 key: MAIL_HOME_PATH    
           volumeMounts:
             - name: mail-certificates
