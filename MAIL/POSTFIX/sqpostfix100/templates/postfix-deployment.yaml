@@ -83,4 +83,21 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: MESSAGE_SIZE_LIMIT
+      volumes:
+        - name: mail-certificates
+          projected:
+            sources:
+              - secret:
+                  name: {{ .Values.tlsSecretName }}
+                  items:
+                    - key: tls.crt
+                      path: tls.crt
+                    - key: tls.key
+                      path: tls.key
+        - name: dovecot-postfix-socket
+          emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
+        - name: dovecot-mailbox
+          persistentVolumeClaim:
+            claimName: dovecot-mailbox-pvc
+
 
