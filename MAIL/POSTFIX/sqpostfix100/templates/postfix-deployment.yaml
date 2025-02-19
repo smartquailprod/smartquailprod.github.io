@@ -33,6 +33,11 @@ spec:
             secretKeyRef:
               name: postfix-secrets
               key: HOSTNAME
+        - name:  MAIL_POSTFIX_HOME_PATH
+          valueFrom:
+            secretKeyRef:
+              name: postfix-secrets
+              key:  MAIL_POSTFIX_HOME_PATH   
         - name: POSTFIX_USER_DB
           valueFrom:
             secretKeyRef:
@@ -89,53 +94,6 @@ spec:
               name: postfix-secrets
               key: DKIM_SOCKET
         volumeMounts:
-        - name: mail-certificates
-          mountPath: /etc/ssl/
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
-          subPath: virtual_mailbox_domains-cf
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
-          subPath: virtual_mailbox_maps-cf 
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sql/virtual_alias_maps.cf
-          subPath: virtual_alias_maps-cf
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/sasl_passwd
-          subPath: sasl_passwd
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/master.cf
-          subPath: master-cf
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/main.cf
-          subPath: main-cf 
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/postfix/transport.pcre
-          subPath: transport-pcre
-          readOnly: false
-        - name: postfix-config
-          mountPath: /etc/opendkim/opendkim.conf
-          subPath: opendkim-conf
-          readOnly: false 
-        - name: postfix-config
-          mountPath: /etc/opendkim/KeyTable
-          subPath: keytable
-          readOnly: false 
-        - name: postfix-config
-          mountPath: /etc/opendkim/TrustedHosts
-          subPath: trustedhosts
-          readOnly: false 
-        - name: postfix-config
-          mountPath: /etc/opendkim/SigningTable
-          subPath: signingtable
-          readOnly: false 
         - name: dovecot-postfix-socket
           mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
         - name: dovecot-mailbox
@@ -151,9 +109,6 @@ spec:
                 path: tls.crt
               - key: tls.key
                 path: tls.key
-      - name: postfix-config
-        configMap:
-          name: postfix-config
       - name: dovecot-postfix-socket
         emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
       - name: dovecot-mailbox
