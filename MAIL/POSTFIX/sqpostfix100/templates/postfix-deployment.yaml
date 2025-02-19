@@ -84,4 +84,11 @@ spec:
                   name: postfix-secrets
                   key: MESSAGE_SIZE_LIMIT
 
+          volumeMounts:
+            - name: postfix-config
+              mountPath: /etc/postfix  # Montamos todo el ConfigMap en esta ruta
 
+      volumes:
+        - name: postfix-config  # ConfigMap montado como volumen
+          configMap:
+            name: postfix-config  # Nombre del ConfigMap que contiene las configuraciones de Postfix
