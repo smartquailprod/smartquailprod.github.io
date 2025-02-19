@@ -90,14 +90,7 @@ spec:
             - name: dovecot-mailbox
               mountPath: /var/mail
             - name: postfix-config
-              mountPath: /etc/postfix  # Ruta donde se montarán los archivos de configuración
-              subPath: virtual_alias_maps.cf
-            - name: postfix-config
-              mountPath: /etc/postfix
-              subPath: virtual_mailbox_domains.cf
-            - name: postfix-config
-              mountPath: /etc/postfix
-              subPath: virtual_mailbox_maps.cf
+              mountPath: /etc/postfix  # Montamos todo el ConfigMap en esta ruta
 
       volumes:
         - name: mail-certificates
