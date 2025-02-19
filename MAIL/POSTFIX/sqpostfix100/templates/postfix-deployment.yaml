@@ -89,6 +89,16 @@ spec:
               mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP de Dovecot
             - name: dovecot-mailbox
               mountPath: /var/mail
+            - name: postfix-config
+              mountPath: /etc/postfix  # Ruta donde se montarán los archivos de configuración
+              subPath: virtual_alias_maps.cf
+            - name: postfix-config
+              mountPath: /etc/postfix
+              subPath: virtual_mailbox_domains.cf
+            - name: postfix-config
+              mountPath: /etc/postfix
+              subPath: virtual_mailbox_maps.cf
+
       volumes:
         - name: mail-certificates
           projected:
@@ -105,3 +115,6 @@ spec:
         - name: dovecot-mailbox
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc
+        - name: postfix-config  # ConfigMap montado como volumen
+          configMap:
+            name: postfix-config  # Nombre del ConfigMap que contiene las configuraciones de Postfix
