@@ -17,26 +17,31 @@ spec:
         - name: postfixadmin
           image: postfixadmin:fpm-alpine
           ports:
-            - containerPort: 80
+            - containerPort: 8080
           env:
-          - name: POSTFIX_DB_HOST
+          - name: POSTFIXADMIN_DB_HOST
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
-                key: POSTFIX_DB_HOST 
-          - name: POSTFIX_DB
+                name: postfixadmin-secrets
+                key: POSTFIXADMIN_DB_HOST
+          - name: POSTFIXADMIN_DB_NAME
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
-                key: POSTFIX_DB 
-          - name: POSTFIX_USER_DB
+                name: postfixadmin-secrets
+                key: POSTFIXADMIN_DB_NAME
+          - name: POSTFIXADMIN_DB_USER
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
-                key: POSTFIX_USER_DB
-          - name: POSTFIX_PASSWORD_DB
+                name: postfixadmin-secrets
+                key: POSTFIXADMIN_DB_USER
+          - name: POSTFIXADMIN_DB_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: postfix-secrets
-                key: POSTFIX_PASSWORD_DB
+                name: postfixadmin-secrets
+                key: POSTFIXADMIN_DB_PASSWORD
+          - name: POSTFIXADMIN_DB_TYPE
+            valueFrom:
+              secretKeyRef:
+                name: postfixadmin-secrets
+                key: POSTFIXADMIN_DB_TYPE
 
