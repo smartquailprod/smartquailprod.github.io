@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: postfixadmin-io-tls
+  name: postfixadmin-smartquail-io-tls
   namespace: mail-srv
 spec:
   secretName: postfixadmin-smartquail-io-tls # Este es el nombre del secreto donde se almacenará el certificado
