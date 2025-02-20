@@ -65,7 +65,7 @@ spec:
               mountPath: /var/mail  # Ruta para los buzones
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-auth.conf
-              subPath: auth-conf
+              subPath: 10-auth.conf
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-mail.conf
