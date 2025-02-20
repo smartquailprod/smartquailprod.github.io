@@ -69,27 +69,27 @@ spec:
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-mail.conf
-              subPath: mail-conf
+              subPath: 10-mail.conf
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-master.conf
-              subPath: master-conf
+              subPath: 10-master.conf
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-ssl.conf
-              subPath: ssl-conf
+              subPath: 10-ssl.conf
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/dovecot-sql.conf.ext
-              subPath: dovecot-sql-conf
+              subPath: dovecot-sql.conf.ext
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/auth-system.conf.ext
-              subPath: auth-system-conf 
+              subPath: auth-system.conf.ext 
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/dovecot.conf
-              subPath: dovecot-conf 
+              subPath: dovecot.conf
               readOnly: false
             - name: dovecot-postfix-socket
               mountPath: /var/spool/postfix/private  # Ruta compartida para el socket LMTP
