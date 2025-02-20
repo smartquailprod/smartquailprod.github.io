@@ -39,12 +39,4 @@ spec:
               secretKeyRef:
                 name: postfix-secrets
                 key: POSTFIX_PASSWORD_DB
-          volumeMounts:
-            - name: postfix-admin-config
-              mountPath: /var/www/html/config.inc.php
-              subPath: config.inc.php
-              readOnly: false
-      volumes:
-        - name: postfix-admin-config
-          configMap:
-            name: postfix-admin-config
+
