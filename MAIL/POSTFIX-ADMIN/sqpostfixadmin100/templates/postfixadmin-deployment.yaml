@@ -41,7 +41,7 @@ spec:
                 key: POSTFIX_PASSWORD_DB
           volumeMounts:
             - name: postfix-admin-config
-              mountPath: /var/www/html/postfixadmin/config.inc.php
+              mountPath: /var/www/html/config.inc.php
               subPath: config.inc.php
               readOnly: false
       volumes:
