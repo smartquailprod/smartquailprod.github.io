@@ -42,7 +42,7 @@ spec:
           volumeMounts:
             - name: postfix-admin-config
               mountPath: /var/www/html/postfixadmin/config.inc.php
-              subPath: configs
+              subPath: config.inc.php
               readOnly: false
       volumes:
         - name: postfix-admin-config
