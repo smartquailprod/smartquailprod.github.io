@@ -38,6 +38,11 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: MAIL_POSTFIX_HOME_PATH
+            - name: POSTFIX_IP
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_IP
             - name: POSTFIX_USER_DB
               valueFrom:
                 secretKeyRef:
