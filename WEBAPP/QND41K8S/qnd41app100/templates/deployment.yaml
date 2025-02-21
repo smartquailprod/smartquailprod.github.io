@@ -28,183 +28,182 @@ spec:
             value: "9000"
           - name: ALLOWED_HOSTS
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: ALLOWED_HOSTS
           - name: DJANGO_SETTINGS_MODULE
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: DJANGO_SETTINGS_MODULE
           - name: WAGTAIL_SITE_NAME
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: WAGTAIL_SITE_NAME
           - name: WAGTAILADMIN_BASE_URL
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: WAGTAILADMIN_BASE_URL
           - name: DJANGO_SUPERUSER_USERNAME
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: DJANGO_SUPERUSER_USERNAME
           - name: DJANGO_SUPERUSER_EMAIL
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: DJANGO_SUPERUSER_EMAIL
           - name: PGADMIN_DEFAULT_EMAIL
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: PGADMIN_DEFAULT_EMAIL
           - name: PGADMIN_PASSWORD
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: PGADMIN_PASSWORD
           - name: POSTGRES_DB
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: POSTGRES_DB
           - name: POSTGRES_HOST
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: POSTGRES_HOST
           - name: POSTGRES_USER
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: POSTGRES_USER
           - name: POSTGRES_PASSWORD
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: POSTGRES_PASSWORD
           - name: POSTGRES_ENGINE
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: POSTGRES_ENGINE
           - name: POSTGRES_PORT
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: POSTGRES_PORT
           - name: LANG
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: LANG
           - name: LC_COLLATE
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: LC_COLLATE
           - name: REDIS_HOST
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: REDIS_HOST
           - name: REDIS_PORT
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: REDIS_PORT
           - name: REDIS_USER
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: REDIS_USER
           - name: RABBITMQ_DEFAULT_USER
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: RABBITMQ_DEFAULT_USER
           - name: AWS_STORAGE_BUCKET_NAME
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: AWS_STORAGE_BUCKET_NAME
           - name: AWS_S3_ENDPOINT_URL
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: AWS_S3_ENDPOINT_URL
           - name: AWS_LOCATION
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: AWS_LOCATION
           - name: STATICFILES_STORAGE
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: STATICFILES_STORAGE
           - name: MEDIA_STORAGE
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: MEDIA_STORAGE
           - name: BROKER_URL
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: BROKER_URL
           - name: RESULT_BACKEND
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: RESULT_BACKEND
           - name: CELERY_RESULT_BACKEND
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: CELERY_RESULT_BACKEND
           - name: CELERY_BROKER_URL
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: CELERY_BROKER_URL
           - name: EMAIL_HOST
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: EMAIL_HOST
           - name: EMAIL_PORT
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: EMAIL_PORT
           - name: EMAIL_USE_TLS
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: EMAIL_USE_TLS
           - name: EMAIL_HOST_USER
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: EMAIL_HOST_USER
           - name: DEFAULT_FROM_EMAIL
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: DEFAULT_FROM_EMAIL
           - name: EMAIL_BACKEND
             valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+              secretKeyRef:
+                name: qnd-app-secrets
                 key: EMAIL_BACKEND
           - name: EMAIL_USE_SSL
-            valueFrom:
-              configMapKeyRef:
-                name: qnd41-app-config
+            secretKeyRef:
+                name: qnd-app-secrets
                 key: EMAIL_USE_SSL
           
           # Nuevas variables que se buscarán en el secreto "qnd-app-secrets"
