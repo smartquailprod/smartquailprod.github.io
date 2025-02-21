@@ -17,7 +17,7 @@ spec:
         - name: postfixadmin
           image: postfixadmin:fpm-alpine
           ports:
-            - containerPort: 8080
+            - containerPort: 9000
           env:
           - name: POSTFIXADMIN_DB_HOST
             valueFrom:
