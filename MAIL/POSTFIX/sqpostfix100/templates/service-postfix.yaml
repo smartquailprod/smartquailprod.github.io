@@ -2,23 +2,26 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postfix-service
-  namespace: {{ .Values.NamespaceCluster }}
+  namespace: {{ .Values.NamespaceCluster }}  # Asegúrate de que esta variable esté definida en el values.yaml
   labels:
     app: postfix
 spec:
   selector:
     app: postfix
   ports:
-    - protocol: TCP
+    - name: smtp
+      protocol: TCP
       port: 25
       targetPort: 25
-      nodePort: 30025  # Puerto asignado en cada nodo
-    - protocol: TCP
+      nodePort: 30025  # Asegúrate de que este puerto esté dentro del rango válido para NodePort (30000-32767)
+    - name: smtps
+      protocol: TCP
       port: 465
       targetPort: 465
-      nodePort: 30465  # Puerto asignado en cada nodo
-    - protocol: TCP
+      nodePort: 30465  # Asegúrate de que este puerto esté dentro del rango válido
+    - name: submission
+      protocol: TCP
       port: 587
       targetPort: 587
-      nodePort: 30587  # Puerto asignado en cada nodo
+      nodePort: 30587  # Asegúrate de que este puerto esté dentro del rango válido
   type: NodePort
