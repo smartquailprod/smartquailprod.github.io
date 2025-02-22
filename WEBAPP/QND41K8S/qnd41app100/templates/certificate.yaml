@@ -8,7 +8,6 @@ spec:
   duration: 2160h # Duración del certificado en horas
   renewBefore: 360h # Renovar el certificado 360 horas antes de la expiración
   isCA: false
-  keySize: 2048
   commonName: smartquail.io
   dnsNames:
     - smartquail.io
