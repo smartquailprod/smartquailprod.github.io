@@ -18,7 +18,7 @@ spec:
       containers:
       - name: {{ .Values.qnodename }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"  # Asegurar que la política de pull esté entre comillas
         ports:
         - name: {{ .Values.qnodename }}
           containerPort: 9000
@@ -202,7 +202,8 @@ spec:
                 name: qnd-app-secrets
                 key: EMAIL_BACKEND
           - name: EMAIL_USE_SSL
-            secretKeyRef:
+            valueFrom:
+              secretKeyRef:
                 name: qnd-app-secrets
                 key: EMAIL_USE_SSL
           
@@ -286,7 +287,7 @@ spec:
             valueFrom:
               secretKeyRef:
                 name: qnd-app-secrets
-                key:  GA_VIEW_ID_ENV
+                key: GA_VIEW_ID_ENV
           - name: BRAINTREE_M_ID
             valueFrom:
               secretKeyRef:
@@ -314,5 +315,3 @@ spec:
           requests:
             cpu: "{{ .Values.resources.requests.cpu }}"
             memory: "{{ .Values.resources.requests.memory }}"
-
-
