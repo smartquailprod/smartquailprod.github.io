@@ -17,4 +17,5 @@ spec:
       protocol: TCP
       port: 993  # Puerto IMAPS
       targetPort: 993
-  type: LoadBalancer  # Cambia a LoadBalancer o NodePort si necesitas acceso externo
+  type: NodePort  
+

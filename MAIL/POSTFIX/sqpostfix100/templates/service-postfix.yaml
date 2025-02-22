@@ -9,16 +9,16 @@ spec:
   selector:
     app: postfix
   ports:
-    - name: smtp
-      protocol: TCP
-      port: 25       # Puerto SMTP (recepción)
+    - protocol: TCP
+      port: 25
       targetPort: 25
-    - name: smtps
-      protocol: TCP
-      port: 465      # Puerto SMTPS (envío seguro con SSL/TLS)
+      nodePort: 30025  # Puerto asignado en cada nodo
+    - protocol: TCP
+      port: 465
       targetPort: 465
-    - name: submission
-      protocol: TCP
-      port: 587      # Puerto Submission (envío con STARTTLS)
+      nodePort: 30465  # Puerto asignado en cada nodo
+    - protocol: TCP
+      port: 587
       targetPort: 587
-  type: LoadBalancer  # Cambia a ClusterIP si solo necesitas acceso interno
+      nodePort: 30587  # Puerto asignado en cada nodo
+  type: NodePort
