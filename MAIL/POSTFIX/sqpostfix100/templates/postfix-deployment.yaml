@@ -90,7 +90,10 @@ spec:
                   key: MESSAGE_SIZE_LIMIT
           volumeMounts:
             - name: dovecot-postfix-socket
-              mountPath: /var/spool/postfix/private
+              mountPath: /var/spool/postfix/private  # Monta el socket de Dovecot en la ubicación correcta
+            - name: mail-certificates
+              mountPath: /etc/ssl/  # Monta el volumen de certificados en /etc/ssl/
+              readOnly: true  # Solo lectura
       volumes:
         - name: mail-certificates
           projected:
