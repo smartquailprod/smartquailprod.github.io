@@ -33,6 +33,17 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: HOSTNAME
+            - name: TLS_CERT_FILE
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: TLS_CERT_FILE
+            - name: TLS_KEY_FILE
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: TLS_KEY_FILE
+            
             - name: MAIL_POSTFIX_HOME_PATH
               valueFrom:
                 secretKeyRef:
