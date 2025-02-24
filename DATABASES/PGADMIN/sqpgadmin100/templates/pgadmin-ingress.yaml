@@ -23,6 +23,6 @@ spec:
                 port:
                   number: 80 
   tls:
-    - secretName: pgadmin-smartquail-io-tls
+    - secretName: pgadmin-cert
       hosts:
         - pgadmin.smartquail.io 
