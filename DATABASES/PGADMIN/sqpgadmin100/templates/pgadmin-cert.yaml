@@ -1,7 +1,7 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: pgadmin-smartquail-io-tls
+  name: pgadmin-cert
   namespace: db-srv
 spec:
   secretName: pgadmin-smartquail-io-tls # Este es el nombre del secreto donde se almacenará el certificado
