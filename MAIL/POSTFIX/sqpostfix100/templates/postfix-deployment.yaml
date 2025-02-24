@@ -88,9 +88,9 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: MESSAGE_SIZE_LIMIT
-             volumeMounts:
-                - name: dovecot-postfix-socket
-                  mountPath: /var/spool/postfix/private
+          volumeMounts:
+            - name: dovecot-postfix-socket
+              mountPath: /var/spool/postfix/private
       volumes:
         - name: mail-certificates
           projected:
@@ -107,5 +107,3 @@ spec:
         - name: dovecot-mailbox
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc
-
-
