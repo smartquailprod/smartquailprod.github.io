@@ -10,7 +10,8 @@ spec:
   selector:
     app: postfixadmin
   ports:
-     - name: http
-       port: 80
-       targetPort: 9000
+     - port: 80
+       targetPort: http
        protocol: TCP
+       name: http
+

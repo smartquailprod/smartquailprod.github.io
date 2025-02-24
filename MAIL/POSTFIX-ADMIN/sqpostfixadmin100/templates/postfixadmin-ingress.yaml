@@ -29,8 +29,13 @@ spec:
               service:
                 name: postfixadmin-service
                 port:
-                  number: 80 
+                  name: http 
   tls:
     - secretName: postfixadmin-cert
       hosts:
         - postfixadmin.smartquail.io 
+
+
+
+
+
