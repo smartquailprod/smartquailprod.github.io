@@ -206,8 +206,6 @@ spec:
               secretKeyRef:
                 name: qnd-app-secrets
                 key: EMAIL_USE_SSL
-          
-          # Nuevas variables que se buscarán en el secreto "qnd-app-secrets"
           - name: REDIS_PASSWORD
             valueFrom:
               secretKeyRef:
@@ -308,10 +306,4 @@ spec:
               secretKeyRef:
                 name: qnd-app-secrets
                 key: EMAIL_HOST_PASSWORD
-        resources:
-          limits:
-            cpu: "{{ .Values.resources.limits.cpu }}"
-            memory: "{{ .Values.resources.limits.memory }}"
-          requests:
-            cpu: "{{ .Values.resources.requests.cpu }}"
-            memory: "{{ .Values.resources.requests.memory }}"
+
