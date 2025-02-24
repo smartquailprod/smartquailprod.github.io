@@ -34,6 +34,12 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/pgadmin  # Montaje en el directorio correcto
               name: pgadmin-data  # Volumen persistente para datos
+          securityContext:
+            runAsUser: 5050  # Asegúrate de usar el UID del contenedor (por ejemplo 5050, que es típico de pgAdmin)
+            runAsGroup: 5050  # El mismo GID para asegurar consistencia
+            fsGroup: 5050  # Esto asegura que los archivos del volumen sean accesibles para el grupo
+            supplementalGroups:
+              - 5050  # Puedes agregar más grupos según sea necesario
       volumes:
         - name: pgadmin-data
           persistentVolumeClaim:

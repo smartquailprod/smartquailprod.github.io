@@ -3,12 +3,12 @@ entries:
   sqpgadmin100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-02-24T06:33:42.928873-05:00"
+    created: "2025-02-24T14:07:38.816407-05:00"
     description: A Helm chart for Kubernetes
-    digest: afb05db3af91e5abb1fe41d046e2e25ed259ed8aef2b7e467de128e99c7dd86c
+    digest: 8b3130d14090b99ca642ca331fc95ee9fd4e5bc1ebb8e8293352f4291cbcb6e3
     name: sqpgadmin100
     type: application
     urls:
     - sqpgadmin100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-02-24T06:33:42.9281-05:00"
+generated: "2025-02-24T14:07:38.81228-05:00"
