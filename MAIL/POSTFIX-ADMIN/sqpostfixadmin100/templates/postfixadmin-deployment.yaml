@@ -18,7 +18,7 @@ spec:
           image: postfixadmin:fpm-alpine
           ports:
             - name: postfixadmin
-              containerPort: 9000
+              containerPort: http
               protocol: TCP
           env:
             - name: POSTFIXADMIN_DB_HOST
@@ -46,3 +46,28 @@ spec:
                 secretKeyRef:
                   name: postfixadmin-secrets
                   key: POSTFIXADMIN_DB_TYPE
+            - name: POSTFIXADMIN_SMTP_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_SMTP_SERVER
+            - name: POSTFIXADMIN_SMTP_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_SMTP_PORT
+            - name: POSTFIXADMIN_ENCRYPT
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_ENCRYPT
+            - name: POSTFIXADMIN_DKIM
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_DKIM
+            - name: POSTFIXADMIN_DKIM_ALL_ADMINS
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_DKIM_ALL_ADMINS
