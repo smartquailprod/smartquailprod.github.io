@@ -2,20 +2,13 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: postfixadmin-ingress
-  namespace: mail-srv
+  namespace: db-srv 
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: "/"
-    nginx.ingress.kubernetes.io/router.entrypoints: web,websecure  # Ambos puntos de entrada para HTTP y HTTPS
-    nginx.ingress.kubernetes.io/router.tls: "true"  # Habilitado TLS para redirigir a HTTPS
-    nginx.ingress.kubernetes.io/enable-cors: "false"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      more_set_headers 'Access-Control-Allow-Origin' '*';
-      more_set_headers 'Access-Control-Allow-Methods' 'GET, POST, OPTIONS';
-      more_set_headers 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
-      more_set_headers 'Access-Control-Max-Age' 1728000;
-      more_set_headers 'Content-Type' 'text/plain; charset=utf-8';
-      more_set_headers 'Content-Length' 0;
-      return 204;
+    nginx.ingress.kubernetes.io/router.entrypoints: websecure
+    nginx.ingress.kubernetes.io/router.tls: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer  
+
 spec:
   ingressClassName: nginx
   rules:
@@ -28,8 +21,8 @@ spec:
               service:
                 name: postfixadmin-service
                 port:
-                  number: 80  # Asegúrate de que tu servicio "postfixadmin-service" esté expuesto en el puerto 80
+                  number: 80 
   tls:
-    - secretName: postfixadmin-smartquail-io-tls  # Asegúrate de tener un certificado TLS para HTTPS
+    - secretName: postfixadmin-smartquail-io-tls
       hosts:
         - postfixadmin.smartquail.io
