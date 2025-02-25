@@ -90,6 +90,9 @@ spec:
             - name: dovecot-postfix-socket
               mountPath: /var/spool/dovecot/private  # Ruta compartida para el socket LMTP
       volumes:
+        - name: dovecot-postfix-socket
+          persistentVolumeClaim:
+            claimName: dovecot-postfix-socket-pvc
         - name: dovecot-mailbox
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc  # El PVC correspondiente al volumen
@@ -107,6 +110,5 @@ spec:
                     - key: tls.key
                       path: tls.key
             defaultMode: 0440
-        - name: dovecot-postfix-socket
-          emptyDir: {}  # Volumen temporal que Dovecot usará para crear el socket
+
 

@@ -117,7 +117,8 @@ spec:
                     - key: tls.key
                       path: tls.key
         - name: dovecot-postfix-socket
-          emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
+          persistentVolumeClaim:
+            claimName: dovecot-postfix-socket-pvc
         - name: dovecot-mailbox
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc
