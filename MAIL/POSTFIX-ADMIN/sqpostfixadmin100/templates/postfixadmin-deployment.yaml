@@ -18,7 +18,7 @@ spec:
           image: postfixadmin
           ports:
             - name: postfixadmin
-              containerPort: 80
+              containerPort: 8080
               protocol: TCP
           env:
             - name: POSTFIXADMIN_DB_HOST
