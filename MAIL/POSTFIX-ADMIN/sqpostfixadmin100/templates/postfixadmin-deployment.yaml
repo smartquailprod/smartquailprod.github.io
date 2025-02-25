@@ -76,3 +76,12 @@ spec:
                 secretKeyRef:
                   name: postfixadmin-secrets
                   key: SERVER_NAME
+          volumeMounts:
+            - name: postfixadmin-config
+              mountPath: /etc/apache2/apache2.conf
+              subPath: apache2.conf
+              readOnly: true
+    volumes:
+        - name: postfixadmin-config
+          configMap:
+            name: postfixadmin-config
