@@ -13,9 +13,11 @@ spec:
       protocol: TCP
       port: 143  # Puerto IMAP
       targetPort: 143
+      nodePort: 30143
     - name: imaps
       protocol: TCP
       port: 993  # Puerto IMAPS
       targetPort: 993
+      nodePort: 30993
   type: NodePort  
 
