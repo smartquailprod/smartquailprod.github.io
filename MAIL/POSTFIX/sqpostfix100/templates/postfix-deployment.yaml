@@ -121,6 +121,9 @@ spec:
               mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
               subPath: virtual_mailbox_maps.cf
               readOnly: true
+            - name: dovecot-mailbox
+              mountPath: /var/mail  # Monta el volumen de buzones de correo en /var/mail
+              readOnly: false
       volumes:
         - name: mail-certificates
           projected:
@@ -137,7 +140,7 @@ spec:
             claimName: dovecot-postfix-socket-pvc
         - name: dovecot-mailbox
           persistentVolumeClaim:
-            claimName: dovecot-mailbox-pvc
+            claimName: dovecot-mailbox-pvc  # Asegúrate de tener este PVC montado y disponible
         - name: postfix-config
           configMap:
             name: postfix-config
