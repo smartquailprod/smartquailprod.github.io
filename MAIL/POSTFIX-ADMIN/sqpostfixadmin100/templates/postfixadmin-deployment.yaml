@@ -71,3 +71,8 @@ spec:
                 secretKeyRef:
                   name: postfixadmin-secrets
                   key: POSTFIXADMIN_DKIM_ALL_ADMINS
+            - name: SERVER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: SERVER_NAME
