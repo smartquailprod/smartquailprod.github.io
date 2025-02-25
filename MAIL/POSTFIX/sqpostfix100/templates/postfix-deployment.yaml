@@ -98,6 +98,11 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: MESSAGE_SIZE_LIMIT
+            - name: MAILBOX_SIZE_LIMIT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: MAILBOX_SIZE_LIMIT
           volumeMounts:
             - name: dovecot-postfix-socket
               mountPath: /var/spool/dovecot/private   # Monta el socket de Dovecot en la ubicación correcta
