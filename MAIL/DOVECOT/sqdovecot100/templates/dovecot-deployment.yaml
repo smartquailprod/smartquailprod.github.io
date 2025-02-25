@@ -58,7 +58,7 @@ spec:
                 name: dovecot-secrets
                 key: MAIL_HOME_PATH    
           volumeMounts:
-            - name: mail-certificates
+            - name: imap-certificates
               mountPath: /etc/dovecot/certs  # Certificados TLS
               readOnly: false
             - name: dovecot-mailbox
@@ -99,7 +99,7 @@ spec:
         - name: dovecot-config
           configMap:
             name: dovecot-config
-        - name: mail-certificates
+        - name: imap-certificates
           projected:
             sources:
               - secret:

@@ -22,7 +22,7 @@ dbExternalName: smartquaildb.postgres.svc.cluster.local
 homeMailBox: /var/mail/%d/%n/Maildir
 messageSizeLimit: 209715200  # 200MB
 relayNetworks:  64.18.0.0/20, 64.233.160.0/19, 66.102.0.0/20, 66.249.80.0/20, 72.14.192.0/18, 74.125.0.0/16, 108.177.0.0/17, 173.194.0.0/16, 209.85.128.0/17, 216.58.192.0/19, 35.190.0.0/17
-postfixRelay: smtp.mail.smartquail.io
+postfixRelay: smtp.smartquail.io
 postfixRelayPort: 587
 relayUser: support@smartquail.io
 relayPassword: Mms9535672@
