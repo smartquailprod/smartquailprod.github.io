@@ -43,7 +43,6 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: TLS_KEY_FILE
-            
             - name: MAIL_POSTFIX_HOME_PATH
               valueFrom:
                 secretKeyRef:
@@ -106,15 +105,15 @@ spec:
               mountPath: /etc/ssl/  # Monta el volumen de certificados en /etc/ssl/
               readOnly: true  # Solo lectura
             - name: postfix-config
-              mountPath: /etc/postfix/sql
+              mountPath: /etc/postfix/sql/virtual_alias_maps.cf
               subPath: virtual_alias_maps.cf
               readOnly: true
             - name: postfix-config
-              mountPath: /etc/postfix/sql
+              mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
               subPath: virtual_mailbox_domains.cf
               readOnly: true
             - name: postfix-config
-              mountPath: /etc/postfix/sql
+              mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
               subPath: virtual_mailbox_maps.cf
               readOnly: true
       volumes:
@@ -136,4 +135,4 @@ spec:
             claimName: dovecot-mailbox-pvc
         - name: postfix-config
           configMap:
-            name: postfix-config 
+            name: postfix-config
