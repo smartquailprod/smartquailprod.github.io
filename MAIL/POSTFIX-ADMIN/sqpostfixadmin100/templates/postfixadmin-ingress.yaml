@@ -28,7 +28,7 @@ spec:
               service:
                 name: postfixadmin-service
                 port:
-                  name: http  # Asegúrate de que tu servicio "postfixadmin-service" esté expuesto en el puerto 80
+                  number: 80  # Asegúrate de que tu servicio "postfixadmin-service" esté expuesto en el puerto 80
   tls:
     - secretName: postfixadmin-smartquail-io-tls  # Asegúrate de tener un certificado TLS para HTTPS
       hosts:
