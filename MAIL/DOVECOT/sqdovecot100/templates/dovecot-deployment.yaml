@@ -89,7 +89,8 @@ spec:
               subPath: dovecot.conf
               readOnly: false
             - name: dovecot-postfix-socket
-              mountPath: /var/spool/dovecot/private  # Ruta compartida para el socket LMTP
+              mountPath: /var/spool/dovecot/private 
+              readOnly: false
       volumes:
         - name: dovecot-postfix-socket
           persistentVolumeClaim:
