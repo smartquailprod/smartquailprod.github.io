@@ -12,7 +12,7 @@ spec:
   storageClassName: standard  # Cambiado a una clase de almacenamiento estándar
   volumeMode: Filesystem  # Modo de volumen
   hostPath:
-    path:  /var/mail  # Ruta en el nodo anfitrión donde se almacenará el volumen
+    path:  /var/mail/Maildir  # Ruta en el nodo anfitrión donde se almacenará el volumen
     type: DirectoryOrCreate  # Crea el directorio si no existe
 
 ---
