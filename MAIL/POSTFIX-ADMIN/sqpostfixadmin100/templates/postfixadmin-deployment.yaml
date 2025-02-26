@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: postfixadmin
-          image: postfixadmin:3.3.15
+          image: smartquail/qndpostfixadmin:latest
           ports:
             - name: postfixadmin
               containerPort: 80
