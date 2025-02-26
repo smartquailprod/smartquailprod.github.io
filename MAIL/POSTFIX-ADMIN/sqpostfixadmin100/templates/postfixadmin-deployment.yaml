@@ -71,5 +71,55 @@ spec:
                 secretKeyRef:
                   name: postfixadmin-secrets
                   key: POSTFIXADMIN_DKIM_ALL_ADMINS
+            - name: SERVER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: SERVER_NAME
+            - name: POSTFIXADMIN_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_DOMAIN
+            - name: POSTFIXADMIN_ADMIN_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key:  POSTFIXADMIN_ADMIN_EMAIL
+            - name: POSTFIXADMIN_MAILBOX_SIZE_LIMIT
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_MAILBOX_SIZE_LIMIT
+            - name: POSTFIXADMIN_MAX_EMAILS
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_MAX_EMAILS
+            - name: POSTFIXADMIN_LANGUAGE
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_LANGUAGE
+            - name: POSTFIXADMIN_REQUIRE_SETUP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_REQUIRE_SETUP_PASSWORD
+            - name: POSTFIXADMIN_MAX_ADMIN_USERS
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_MAX_ADMIN_USERS
+            - name: POSTFIXADMIN_MAX_USER_ACCOUNTS
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_MAX_USER_ACCOUNTS
+            - name: POSTFIXADMIN_SETUP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postfixadmin-secrets
+                  key: POSTFIXADMIN_SETUP_PASSWORD
 
 
