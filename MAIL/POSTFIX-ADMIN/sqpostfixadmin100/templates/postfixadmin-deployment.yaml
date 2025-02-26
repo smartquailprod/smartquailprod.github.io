@@ -81,7 +81,7 @@ spec:
               mountPath: /etc/apache2/apache2.conf
               subPath: apache2.conf
               readOnly: true
-    volumes:
+      volumes:
         - name: postfixadmin-config
           configMap:
-            name: postfixadmin-config
+            name: postfixadmin-config  # El nombre del ConfigMap
