@@ -18,7 +18,7 @@ spec:
           image: postfixadmin:3.3.15
           ports:
             - name: postfixadmin
-              containerPort: 8080
+              containerPort: 80
               protocol: TCP
           env:
             - name: POSTFIXADMIN_DB_HOST
@@ -76,12 +76,4 @@ spec:
                 secretKeyRef:
                   name: postfixadmin-secrets
                   key: SERVER_NAME
-          volumeMounts:
-            - name: postfixadmin-config
-              mountPath: /etc/apache2/apache2.conf
-              subPath: apache2.conf
-              readOnly: true
-      volumes:
-        - name: postfixadmin-config
-          configMap:
-            name: postfixadmin-config  # El nombre del ConfigMap
+

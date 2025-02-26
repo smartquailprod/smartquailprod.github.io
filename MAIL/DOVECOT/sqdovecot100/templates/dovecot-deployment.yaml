@@ -62,7 +62,7 @@ spec:
               mountPath: /etc/dovecot/certs  # Certificados TLS
               readOnly: false
             - name: dovecot-mailbox
-              mountPath: /var/mail  # Ruta para los buzones
+              mountPath: /var/mail/Maildir  # Ruta para los buzones
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-auth.conf
