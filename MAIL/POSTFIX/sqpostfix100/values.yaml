@@ -1,10 +1,10 @@
 NameSpaceCluster: mail-srv
 mailboxSize: 5Gi
 #POSTFIX IMAGE
-postfiximage: smartquail/qndpostfix:latest
+postfiximage: smartquail/qndpostfix200:latest
 #postfiximage: boky/postfix:edge-alpine 
 #DOVECOTE IMAGE
-dovecoteimage: dovecot/dovecot:latest 
+dovecoteimage: dovecot/dovecot200:latest 
 
 # SERVER VALUES
 domain: smartquail.io

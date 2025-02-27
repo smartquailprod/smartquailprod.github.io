@@ -3,7 +3,7 @@ mailboxSize: 5Gi
 #POSTFIX IMAGE
 postfiximage: boky/postfix:edge-alpine 
 #DOVECOTE IMAGE
-dovecot_image: smartquail/qnddovecot:latest 
+dovecot_image: smartquail/qnddovecot200:latest 
 
 # SERVER VALUES
 domain: smartquail.io
