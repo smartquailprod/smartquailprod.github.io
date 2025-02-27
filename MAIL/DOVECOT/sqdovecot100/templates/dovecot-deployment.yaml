@@ -75,6 +75,9 @@ spec:
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-ssl.conf
               subPath: 10-ssl.conf
+            - name: dovecot-config
+              mountPath: /etc/dovecot/conf.d/10-master.conf
+              subPath: 10-master.conf
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/dovecot-sql.conf.ext
