@@ -3,12 +3,12 @@ entries:
   sqdovecot100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-02-27T17:14:36.641783-05:00"
+    created: "2025-02-27T18:58:15.053826-05:00"
     description: SmartQuailMailServers® - ArchVersion V1.0.0
-    digest: 1abf240fba04ea4288fdf357e1e8c5251e4b38a8c7ca93df0cab843e367a97d5
+    digest: 39e1aa05cb3813994fefce4f1139c50196486551885c7ac798eba6e2384f5292
     name: sqdovecot100
     type: application
     urls:
     - sqdovecot100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-02-27T17:14:36.639163-05:00"
+generated: "2025-02-27T18:58:15.048342-05:00"

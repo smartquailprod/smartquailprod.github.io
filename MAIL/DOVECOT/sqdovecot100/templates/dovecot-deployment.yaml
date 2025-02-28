@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: dovecot
-          image: {{ .Values.dovecot_image }}  # Reemplaza con una imagen adecuada
+          image: {{ .Values.dovecot_image }}  # Ensure this is correctly set in values.yaml
           ports:
             - containerPort: 143 # Puerto IMAP
             - containerPort: 993 # Puerto IMAPS
@@ -60,9 +60,9 @@ spec:
           volumeMounts:
             - name: imap-certificates
               mountPath: /etc/dovecot/certs  # Certificados TLS
-              readOnly: false
+              readOnly: true
             - name: dovecot-mailbox
-              mountPath: /home/support/mail/Maildir  # Ruta para los buzones
+              mountPath: /var/mail/  # Ruta para los buzones
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-auth.conf
@@ -75,6 +75,7 @@ spec:
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-ssl.conf
               subPath: 10-ssl.conf
+              readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/conf.d/10-master.conf
               subPath: 10-master.conf
@@ -84,8 +85,8 @@ spec:
               subPath: dovecot-sql.conf.ext
               readOnly: false
             - name: dovecot-config
-              mountPath: /etc/dovecot/auth-system.conf.ext
-              subPath: auth-system.conf.ext 
+              mountPath: /etc/dovecot/auth-sql.conf.ext
+              subPath: auth-sql.conf.ext
               readOnly: false
             - name: dovecot-config
               mountPath: /etc/dovecot/dovecot.conf
