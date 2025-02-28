@@ -93,7 +93,7 @@ spec:
               subPath: dovecot.conf
               readOnly: false
             - name: dovecot-postfix-socket
-              mountPath: /var/spool/dovecot/private 
+              mountPath: /var/run/dovecot/ 
               readOnly: false
       volumes:
         - name: dovecot-postfix-socket
