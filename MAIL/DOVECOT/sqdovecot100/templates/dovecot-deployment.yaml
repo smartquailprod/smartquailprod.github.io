@@ -95,10 +95,7 @@ spec:
             - name: dovecot-postfix-socket
               mountPath: /var/run/dovecot/ 
               readOnly: false
-          lifecycle:
-            postStart:
-              exec:
-                command: ["/bin/sh", "-c", "socket_script.sh"]
+
       volumes:
         - name: dovecot-postfix-socket
           persistentVolumeClaim:
