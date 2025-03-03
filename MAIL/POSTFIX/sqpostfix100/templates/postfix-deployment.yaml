@@ -123,7 +123,7 @@ spec:
               subPath: virtual_mailbox_maps.cf
               readOnly: true
             - name: dovecot-mailbox
-              mountPath: /home/support/mail/Maildir  # Monta el volumen de buzones de correo en /var/mail
+              mountPath: /var/mail/ # Monta el volumen de buzones de correo en /var/mail
               readOnly: false
       volumes:
         - name: mail-certificates
