@@ -1,0 +1,55 @@
+# Default values for qnd100.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+qnodename: qnd011app
+qnodenamespace: www-apps
+ingress_name: qnd011-app-ingress
+nodeRole: app
+
+#Certificate
+
+secret_name: smartquail-io-tls
+qnd_commonName : smartquail.io
+qnd_dns_names : wapp01.smartquail.io
+#Services
+postgres_db : QND41SDB
+qnodedatabasename: smartquaildb
+databaseservicetype: ExternalName
+databaseExternalName: smartquaildb.db-srv.svc.cluster.local
+databaseport: 5432
+#redis
+#qnodecachename: redis
+#cacheservicetype: ExternalName
+#cacheExternalName: redis.cache.svc.cluster.local
+#cacheport: 6379
+#redis
+qnodebrokername: rabbitmq
+brokerservicetype: ExternalName
+brokerExternalName: rabbitmq.brk-srv.svc.cluster.local
+brokerport: 5672
+
+
+qnodecachename: redis
+cacheservicetype: ExternalName
+cacheserviceExternalName: redis.cache-srv.svc.cluster.local
+cacheport: 6379
+
+
+image:
+  repository: smartquail/qnd011app
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+
+resources: 
+   limits:
+     cpu: 900m
+     memory: 1Gi
+   requests:
+     cpu: 500m
+     memory: 512Mi
+
+
