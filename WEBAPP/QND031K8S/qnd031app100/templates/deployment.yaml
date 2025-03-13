@@ -101,11 +101,7 @@ spec:
               secretKeyRef:
                 name: qnd-app-secrets
                 key: REDIS_PORT
-          - name: REDIS_USER
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: REDIS_USER
+
           - name: RABBITMQ_DEFAULT_USER
             valueFrom:
               secretKeyRef:
@@ -191,11 +187,6 @@ spec:
               secretKeyRef:
                 name: qnd-app-secrets
                 key: EMAIL_USE_SSL
-          - name: REDIS_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: REDIS_PASSWORD
           - name: DJANGO_SECRET_KEY
             valueFrom:
               secretKeyRef:
