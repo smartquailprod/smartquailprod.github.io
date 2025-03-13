@@ -31,9 +31,6 @@ spec:
               mountPath: /usr/local/etc/redis/aclfile  # Ruta del archivo aclfile en el contenedor
               subPath: aclfile
               readOnly: true
-            - name: redis-secrets
-              mountPath: /etc/redis/secrets
-              readOnly: true
           env:
             - name: REDIS_USER
               valueFrom:
