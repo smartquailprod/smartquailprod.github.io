@@ -26,11 +26,6 @@ spec:
         env:
           - name: PORT
             value: "9000"
-          - name: ALLOWED_HOSTS
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: ALLOWED_HOSTS
           - name: DJANGO_SETTINGS_MODULE
             valueFrom:
               secretKeyRef:
