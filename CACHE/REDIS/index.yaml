@@ -3,12 +3,12 @@ entries:
   sqredis100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-03-13T18:11:13.585965-05:00"
+    created: "2025-03-13T18:15:45.70452-05:00"
     description: A Helm chart for Kubernetes
-    digest: a72c91096f66999f85ef263524f32f719494c7a1dfce264dbaa96aaaaf95166d
+    digest: 23c722396067a71c4c63661697f77bf6c6d65b30fa1fc7c738e5807c24318ab3
     name: sqredis100
     type: application
     urls:
     - sqredis100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-03-13T18:11:13.583134-05:00"
+generated: "2025-03-13T18:15:45.703977-05:00"

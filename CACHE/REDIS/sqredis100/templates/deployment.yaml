@@ -20,6 +20,17 @@ spec:
           image: redis:6.2  # Especificar una versión estable de Redis
           ports:
             - containerPort: 6379
+          volumeMounts:
+            - name: redis-data
+              mountPath: /mnt/data/redis   # El directorio donde Redis almacenará sus datos 
+            - name: redis-config
+              mountPath: /usr/local/etc/redis/redis.conf  # Ruta del archivo redis.conf en el contenedor
+              subPath: redis.conf
+              readOnly: true  # No modificar el archivo de configuración
+            - name: redis-config
+              mountPath: /usr/local/etc/redis/aclfile  # Ruta del archivo aclfile en el contenedor
+              subPath: aclfile
+              readOnly: true  # No modificar el archivo aclfile
           env:
             - name: REDIS_USER
               valueFrom:
@@ -38,4 +49,10 @@ spec:
             requests:
               memory: "128Mi"
               cpu: "50m"
-
+      volumes:
+        - name: redis-data
+          persistentVolumeClaim:
+            claimName: redis-pvc  # Asegúrate de que este PVC esté creado previamente
+        - name: redis-config
+          configMap:
+            name: redis-config   # Este ConfigMap debe contener los archivos redis.conf y aclfile
