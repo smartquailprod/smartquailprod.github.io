@@ -31,16 +31,6 @@ spec:
               secretKeyRef:
                 name: qnd-app-secrets
                 key: DJANGO_SETTINGS_MODULE
-          - name: WAGTAIL_SITE_NAME
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: WAGTAIL_SITE_NAME
-          - name: WAGTAILADMIN_BASE_URL
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: WAGTAILADMIN_BASE_URL
           - name: DJANGO_SUPERUSER_USERNAME
             valueFrom:
               secretKeyRef:
