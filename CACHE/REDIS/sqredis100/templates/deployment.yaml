@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: redis
-          image: redis:latest
+          image: redis:6.2  # Especificar una versión estable de Redis
           ports:
             - containerPort: 6379
           volumeMounts:
@@ -26,11 +26,11 @@ spec:
             - name: redis-config
               mountPath: /usr/local/etc/redis/redis.conf  # Ruta del archivo redis.conf en el contenedor
               subPath: redis.conf
-              readOnly: true
+              readOnly: true  # No modificar el archivo de configuración
             - name: redis-config
               mountPath: /usr/local/etc/redis/aclfile  # Ruta del archivo aclfile en el contenedor
               subPath: aclfile
-              readOnly: true
+              readOnly: true  # No modificar el archivo aclfile
           env:
             - name: REDIS_USER
               valueFrom:
@@ -56,6 +56,3 @@ spec:
         - name: redis-config
           configMap:
             name: redis-config   # Este ConfigMap debe contener los archivos redis.conf y aclfile
-        - name: redis-secrets
-          secret:
-            secretName: redis-secrets  # Este Secret debe contener las credenciales de acceso (REDIS_USER y REDIS_PASSWORD)
