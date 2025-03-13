@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: qnd41-app-ingress
+  name: qnd031-app-ingress
   namespace: {{ .Values.qnodenamespace }}
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: "/"
@@ -22,7 +22,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: wapp01.smartquail.io
+    - host: meddes.smartquail.io
       http:
         paths:
           - path: /
@@ -35,4 +35,4 @@ spec:
   tls:
     - secretName: {{ .Values.secret_name }}
       hosts:
-        -  wapp01.smartquail.io
+        -  meddes.smartquail.io
