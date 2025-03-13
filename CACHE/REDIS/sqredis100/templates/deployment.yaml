@@ -22,24 +22,16 @@ spec:
             - containerPort: 6379
           volumeMounts:
             - name: redis-data
-              mountPath: /data  # El directorio donde Redis almacenará sus datos 
-            - name: redis-config
-              mountPath: /usr/local/etc/redis/redis.conf  # Ruta del archivo redis.conf en el contenedor
-              subPath: redis.conf
-              readOnly: true
-            - name: redis-config
-              mountPath: /usr/local/etc/redis/aclfile  # Ruta del archivo aclfile en el contenedor
-              subPath: aclfile
-              readOnly: true
+              mountPath: /mnt/data/redis  # El directorio donde Redis almacenará sus datos 
             - name: redis-secrets
               mountPath: /etc/redis/secrets
               readOnly: true
           env:
             - name: REDIS_USER
               valueFrom:
-                configMapKeyRef:
-                  name: redis-config  # Nombre del ConfigMap que contiene las claves
-                  key: REDIS_USER     # La clave en el ConfigMap que contiene el nombre de usuario
+                secretKeyRef:
+                  name: redis-secrets  # Nombre del Secret que contiene la contraseña
+                  key: REDIS_USER  # La clave en el Secret que contiene la contraseña
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -56,9 +48,6 @@ spec:
         - name: redis-data
           persistentVolumeClaim:
             claimName: redis-pvc  # Asegúrate de que este PVC esté creado previamente
-        - name: redis-config
-          configMap:
-            name: redis-config   # Este ConfigMap debe contener los archivos redis.conf y aclfile
         - name: redis-secrets
           secret:
             secretName: redis-secrets  # Este Secret debe contener las credenciales de acceso (REDIS_USER y REDIS_PASSWORD)
