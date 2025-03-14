@@ -31,6 +31,21 @@ spec:
               secretKeyRef:
                 name: qnd-app-secrets
                 key: DJANGO_SETTINGS_MODULE
+          - name: IP
+            valueFrom:
+              secretKeyRef:
+                name: qnd-app-secrets
+                key: IP
+          - name: DOMAIN
+            valueFrom:
+              secretKeyRef:
+                name: qnd-app-secrets
+                key: DOMAIN
+          - name: HOSTNAME
+            valueFrom:
+              secretKeyRef:
+                name: qnd-app-secrets
+                key: HOSTNAME
           - name: DJANGO_SUPERUSER_USERNAME
             valueFrom:
               secretKeyRef:
