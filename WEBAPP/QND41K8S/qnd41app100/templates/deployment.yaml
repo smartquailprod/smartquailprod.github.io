@@ -26,284 +26,275 @@ spec:
         env:
           - name: PORT
             value: "9000"
-          - name: ALLOWED_HOSTS
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: ALLOWED_HOSTS
           - name: DJANGO_SETTINGS_MODULE
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: DJANGO_SETTINGS_MODULE
-          - name: WAGTAIL_SITE_NAME
+          - name: IP
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
-                key: WAGTAIL_SITE_NAME
-          - name: WAGTAILADMIN_BASE_URL
+                name: {{ .Values.qnodename }}-app-secrets
+                key: IP
+          - name: DOMAIN
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
-                key: WAGTAILADMIN_BASE_URL
+                name: {{ .Values.qnodename }}-app-secrets
+                key: DOMAIN
+          - name: HOSTNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-app-secrets
+                key: HOSTNAME
           - name: DJANGO_SUPERUSER_USERNAME
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: DJANGO_SUPERUSER_USERNAME
           - name: DJANGO_SUPERUSER_EMAIL
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: DJANGO_SUPERUSER_EMAIL
           - name: PGADMIN_DEFAULT_EMAIL
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: PGADMIN_DEFAULT_EMAIL
           - name: PGADMIN_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: PGADMIN_PASSWORD
           - name: POSTGRES_DB
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: POSTGRES_DB
           - name: POSTGRES_HOST
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: POSTGRES_HOST
           - name: POSTGRES_USER
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: POSTGRES_USER
           - name: POSTGRES_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: POSTGRES_PASSWORD
           - name: POSTGRES_ENGINE
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: POSTGRES_ENGINE
           - name: POSTGRES_PORT
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: POSTGRES_PORT
           - name: LANG
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: LANG
           - name: LC_COLLATE
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: LC_COLLATE
           - name: REDIS_HOST
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: REDIS_HOST
           - name: REDIS_PORT
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: REDIS_PORT
-          - name: REDIS_USER
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: REDIS_USER
+
           - name: RABBITMQ_DEFAULT_USER
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: RABBITMQ_DEFAULT_USER
           - name: AWS_STORAGE_BUCKET_NAME
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: AWS_STORAGE_BUCKET_NAME
           - name: AWS_S3_ENDPOINT_URL
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: AWS_S3_ENDPOINT_URL
           - name: AWS_LOCATION
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: AWS_LOCATION
           - name: STATICFILES_STORAGE
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: STATICFILES_STORAGE
           - name: MEDIA_STORAGE
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: MEDIA_STORAGE
           - name: BROKER_URL
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: BROKER_URL
           - name: RESULT_BACKEND
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: RESULT_BACKEND
           - name: CELERY_RESULT_BACKEND
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: CELERY_RESULT_BACKEND
           - name: CELERY_BROKER_URL
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: CELERY_BROKER_URL
           - name: EMAIL_HOST
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_HOST
           - name: EMAIL_PORT
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_PORT
           - name: EMAIL_USE_TLS
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_USE_TLS
           - name: EMAIL_HOST_USER
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_HOST_USER
           - name: DEFAULT_FROM_EMAIL
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: DEFAULT_FROM_EMAIL
           - name: EMAIL_BACKEND
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_BACKEND
           - name: EMAIL_USE_SSL
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_USE_SSL
-          - name: REDIS_PASSWORD
-            valueFrom:
-              secretKeyRef:
-                name: qnd-app-secrets
-                key: REDIS_PASSWORD
           - name: DJANGO_SECRET_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: DJANGO_SECRET_KEY
           - name: DJANGO_SUPERUSER_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: DJANGO_SUPERUSER_PASSWORD
           - name: DJANGO_SUPERUSER_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: DJANGO_SUPERUSER_KEY
           - name: AWS_ACCESS_KEY_ID
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: AWS_ACCESS_KEY_ID
           - name: AWS_SECRET_ACCESS_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: AWS_SECRET_ACCESS_KEY
           - name: RABBITMQ_DEFAULT_PASS
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: RABBITMQ_DEFAULT_PASS
           - name: SOCIAL_AUTH_FACEBOOK_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: SOCIAL_AUTH_FACEBOOK_KEY
           - name: SOCIAL_AUTH_FACEBOOK_SECRET
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: SOCIAL_AUTH_FACEBOOK_SECRET
           - name: SOCIAL_AUTH_FACEBOOK_SCOPE
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: SOCIAL_AUTH_FACEBOOK_SCOPE
           - name: SOCIAL_AUTH_TWITTER_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: SOCIAL_AUTH_TWITTER_KEY
           - name: SOCIAL_AUTH_TWITTER_SECRET
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: SOCIAL_AUTH_TWITTER_SECRET
           - name: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: SOCIAL_AUTH_GOOGLE_OAUTH2_KEY
           - name: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET
           - name: GA_KEY_CONTENT_ENV
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: GA_KEY_CONTENT_ENV
           - name: GA_VIEW_ID_ENV
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: GA_VIEW_ID_ENV
           - name: BRAINTREE_M_ID
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: BRAINTREE_M_ID
           - name: BRAINTREE_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: BRAINTREE_KEY
           - name: BRAINTREE_PRIVATE_KEY
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: BRAINTREE_PRIVATE_KEY
           - name: EMAIL_HOST_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: qnd-app-secrets
+                name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_HOST_PASSWORD
 
