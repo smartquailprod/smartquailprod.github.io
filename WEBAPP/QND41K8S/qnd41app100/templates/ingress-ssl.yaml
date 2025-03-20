@@ -35,4 +35,4 @@ spec:
   tls:
     - secretName: {{ .Values.secret_name }}
       hosts:
-        - smartquail.io
+        - www.smartquail.io
