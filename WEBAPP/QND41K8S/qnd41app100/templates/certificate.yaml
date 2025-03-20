@@ -10,7 +10,6 @@ spec:
   isCA: false
   commonName: smartquail.io
   dnsNames:
-    - smartquail.io
     - www.smartquail.io
   issuerRef:
     name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
