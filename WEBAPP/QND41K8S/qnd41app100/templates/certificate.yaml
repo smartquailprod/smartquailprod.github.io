@@ -11,6 +11,7 @@ spec:
   commonName: www.smartquail.io
   dnsNames:
     - www.smartquail.io
+    - smartquail.io  # Añadir smartquail.io a la lista de dnsNames
   issuerRef:
     name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
     kind: ClusterIssuer
