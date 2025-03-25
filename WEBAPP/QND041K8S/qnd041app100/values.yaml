@@ -38,7 +38,7 @@ cacheport: 6379
 
 
 image:
-  repository: smartquail/qnd031app
+  repository: smartquail/qnd041app
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
