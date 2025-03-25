@@ -10,7 +10,7 @@ nodeRole: app
 
 #Certificate
 
-secret_name: smartquail-io-tls
+secret_name: meddes-smartquail-io-tls
 qnd_commonName : smartquail.io
 qnd_dns_names : meddes.smartquail.io
 #Services

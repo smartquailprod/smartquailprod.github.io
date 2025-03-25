@@ -1,17 +1,17 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: smartquail-cert
+  name: smartquail-io-ssl-certs
   namespace: www-apps
 spec:
-  secretName: smartquail-io-tls
+  secretName: smartquail-io-ssl-certs
   duration: 2160h # Duración del certificado en horas
   renewBefore: 360h # Renovar el certificado 360 horas antes de la expiración
   isCA: false
-  commonName: smartquail.io
+  commonName: www.smartquail.io
   dnsNames:
-    - smartquail.io
     - www.smartquail.io
+    - smartquail.io  # Añadir smartquail.io a la lista de dnsNames
   issuerRef:
     name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
     kind: ClusterIssuer
