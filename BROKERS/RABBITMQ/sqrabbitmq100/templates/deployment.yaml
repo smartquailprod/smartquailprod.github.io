@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: rabbitmq
-        image: rabbitmq:3-management # Imagen de RabbitMQ con la interfaz de administración
+        image: rabbitmq:3-management  # Imagen de RabbitMQ con la interfaz de administración
         ports:
         - containerPort: 5672  # Puerto de RabbitMQ para conexiones
         - containerPort: 15672 # Puerto para la interfaz de administración
@@ -30,11 +30,41 @@ spec:
             secretKeyRef:
               name: rabbitmq-secrets
               key: RABBITMQ_DEFAULT_USER
-        - name: RABBITMQ_ADMIN_PASSWORD 
+        - name: RABBITMQ_DEFAULT_PASS
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
-              key: RABBITMQ_ADMIN_PASSWORD 
+              key: RABBITMQ_DEFAULT_PASS
+        - name: RABBITMQ_DEFAULT_VHOST
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_DEFAULT_VHOST
+        - name: RABBITMQ_ERLANG_COOKIE
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_ERLANG_COOKIE
+        - name: RABBITMQ_MANAGEMENT_PLUGIN
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_MANAGEMENT_PLUGIN
+        - name: RABBITMQ_MANAGEMENT_PORT
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_MANAGEMENT_PORT
+        - name: RABBITMQ_TCP_LISTENER_PORT
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_TCP_LISTENER_PORT
+        - name: RABBITMQ_SSL_LISTENER_PORT
+          valueFrom:
+            secretKeyRef:
+              name: rabbitmq-secrets
+              key: RABBITMQ_SSL_LISTENER_PORT
       volumes:
       - name: rabbitmq-data
         persistentVolumeClaim:
