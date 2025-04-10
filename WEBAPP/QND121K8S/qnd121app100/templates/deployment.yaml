@@ -299,10 +299,10 @@ spec:
 
           resources:
             requests:
-              cpu: 500m
+              cpu: 600m
               memory: 128Mi
             limits:
-              cpu: 900m
+              cpu: 1000m
               memory: 256Mi
 
           livenessProbe:
