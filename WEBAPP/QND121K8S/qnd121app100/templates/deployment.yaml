@@ -297,13 +297,6 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_PASSWORD
 
-          resources:
-            requests:
-              cpu: 950m
-              memory: 128Mi
-            limits:
-              cpu: 1000m
-              memory: 512Mi
 
           livenessProbe:
             httpGet:
