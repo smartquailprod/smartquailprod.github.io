@@ -299,10 +299,10 @@ spec:
 
           resources:
             requests:
-              cpu: "500m"          # 500 milicores de CPU
+              cpu: "600m"          # 500 milicores de CPU
               memory: "256Mi"      # 256 MiB de memoria
             limits:
-              cpu: "900m"          # 900 milicores de CPU
+              cpu: "1000m"          # 900 milicores de CPU
               memory: "512Mi"      # 512 MiB de memoria
 
           livenessProbe:
