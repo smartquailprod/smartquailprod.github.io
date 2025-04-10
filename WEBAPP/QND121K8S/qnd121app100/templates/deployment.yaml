@@ -297,21 +297,3 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_PASSWORD
 
-
-          livenessProbe:
-            httpGet:
-              path: /health/
-              port: 9000
-            initialDelaySeconds: 20
-            periodSeconds: 10
-            timeoutSeconds: 5
-            failureThreshold: 3
-
-          readinessProbe:
-            httpGet:
-              path: /health/
-              port: 9000
-            initialDelaySeconds: 10
-            periodSeconds: 5
-            timeoutSeconds: 3
-            failureThreshold: 3
