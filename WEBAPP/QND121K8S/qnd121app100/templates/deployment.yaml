@@ -300,10 +300,10 @@ spec:
           resources:
             requests:
               cpu: 500m          # 500 milicores de CPU
-              memory: 128Mi      # 256 MiB de memoria
+              memory: 256Mi      # 256 MiB de memoria
             limits:
-              cpu: 1          # 900 milicores de CPU
-              memory: 512Mi      # 512 MiB de memoria
+              cpu: 900m          # 900 milicores de CPU
+              memory: 1Gi      # 512 MiB de memoria
 
           livenessProbe:
             httpGet:
