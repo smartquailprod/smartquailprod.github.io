@@ -10,8 +10,8 @@ spec:
   - port: 5672
     targetPort: 5672  # Puerto para la comunicación AMQP
     name: amqp
-  - port: 15672
-    targetPort: 15672  # Puerto para la interfaz de administración
+  - port: 15671
+    targetPort: 15671  # Puerto para la interfaz de administración
     name: management
   selector:
     app: rabbitmq
