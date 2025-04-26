@@ -17,10 +17,10 @@ spec:
     spec:
       containers:
       - name: rabbitmq
-        image: rabbitmq:3-management  # Imagen de RabbitMQ con la interfaz de administración
+        image: rabbitmq:3-management
         ports:
-        - containerPort: 5672  # Puerto de RabbitMQ para conexiones
-        - containerPort: 15672 # Puerto para la interfaz de administración
+        - containerPort: 5672
+        - containerPort: 15672
         volumeMounts:
         - name: rabbitmq-data
           mountPath: /var/lib/rabbitmq
@@ -65,6 +65,28 @@ spec:
             secretKeyRef:
               name: rabbitmq-secrets
               key: RABBITMQ_SSL_LISTENER_PORT
+
+        # 🩺 Healthchecks
+        livenessProbe:
+          exec:
+            command:
+              - rabbitmq-diagnostics
+              - check_port_connectivity
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+
+        readinessProbe:
+          exec:
+            command:
+              - rabbitmq-diagnostics
+              - check_local_alarms
+          initialDelaySeconds: 20
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+
       volumes:
       - name: rabbitmq-data
         persistentVolumeClaim:
