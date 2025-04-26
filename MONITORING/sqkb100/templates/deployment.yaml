@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: monitoring  # Cambiado a 'monitoring'
+  labels:
+    app: kibana
+spec:
+  replicas: 1  # Número de réplicas de Kibana
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:8.7.1  # Asegúrate de usar la versión correcta
+        ports:
+        - containerPort: 5601  # Puerto en el que Kibana estará accesible
+        env:
+        - name: ELASTICSEARCH_HOSTS
+          value: "http://elasticsearch.monitoring.svc.cluster.local:9200"  # Dirección de Elasticsearch en el namespace 'monitoring'
+        volumeMounts:
+        - name: kibana-data
+          mountPath: /usr/share/kibana/data
+        # Configuración de probes para liveness y readiness
+        livenessProbe:
+          httpGet:
+            path: /api/status
+            port: 5601
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/status
+            port: 5601
+          initialDelaySeconds: 20
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: kibana-data
+        emptyDir: {}  # Usa un volumen persistente si es necesario para producción
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: monitoring  # Cambiado a 'monitoring'
+spec:
+  ports:
+    - port: 5601
+      targetPort: 5601
+  selector:
+    app: kibana
