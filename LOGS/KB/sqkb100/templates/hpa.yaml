@@ -1,0 +1,25 @@
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: kibana-hpa
+  namespace: logs-srv  # Asegúrate de usar el namespace correcto
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: kibana  # Nombre del deployment de Kibana
+  minReplicas: 1  # Mínimo número de réplicas
+  maxReplicas: 5  # Máximo número de réplicas
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 80  # Ajusta este umbral según tus necesidades
+    - type: Resource
+      resource:
+        name: memory
+        target:
+          type: Utilization
+          averageUtilization: 80  # Ajusta este umbral según tus necesidades

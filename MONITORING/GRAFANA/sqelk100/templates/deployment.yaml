@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+  namespace: logs-srv  # Asegúrate de usar el namespace correcto
+  labels:
+    app: elasticsearch
+spec:
+  replicas: 1  # Puedes aumentar esto para mayor alta disponibilidad
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+      - name: elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1  # Asegúrate de usar la versión correcta
+        ports:
+        - containerPort: 9200  # Puerto de Elasticsearch
+        env:
+        - name: discovery.type
+          value: single-node  # Se establece para un único nodo. Para clústeres más grandes, deberías cambiar esto
+        - name: ELASTICSEARCH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch-secrets
+              key: elasticsearch-username  # Asegúrate de tener este secreto con tus credenciales
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: elasticsearch-secrets
+              key: elasticsearch-password  # Asegúrate de tener este secreto con tus credenciales
+        volumeMounts:
+        - name: elasticsearch-data
+          mountPath: /usr/share/elasticsearch/data  # Volumen persistente
+      volumes:
+      - name: elasticsearch-data
+        persistentVolumeClaim:
+          claimName: elasticsearch-pvc  # Asegúrate de que este PVC esté disponible

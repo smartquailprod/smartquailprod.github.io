@@ -1,0 +1,21 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: kibana-vpa
+  namespace: logs-srv  # Asegúrate de usar el namespace correcto
+spec:
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: kibana  # Nombre del deployment de Kibana
+  updatePolicy:
+    updateMode: "Auto"  # "Auto" para aplicar los cambios automáticamente
+  resourcePolicy:
+    containerPolicies:
+      - containerName: kibana
+        minAllowed:
+          cpu: 200m  # Valor mínimo de CPU permitido para el contenedor de Kibana
+          memory: 512Mi  # Valor mínimo de memoria permitido para el contenedor de Kibana
+        maxAllowed:
+          cpu: 1  # Valor máximo de CPU permitido para el contenedor de Kibana
+          memory: 4Gi  # Valor máximo de memoria permitido para el contenedor de Kibana

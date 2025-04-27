@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: elasticsearch-pvc
+  namespace: logs-srv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi  # Ajusta el tamaño del volumen según tus necesidades
+  storageClassName: standard  # Asegúrate de que esta clase de almacenamiento esté disponible en tu clúster

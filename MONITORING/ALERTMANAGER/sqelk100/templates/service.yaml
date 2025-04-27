@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+  namespace: logs-srv  # Asegúrate de usar el namespace correcto
+spec:
+  ports:
+    - port: 9200  # Puerto donde Elasticsearch será accesible
+      targetPort: 9200
+  selector:
+    app: elasticsearch

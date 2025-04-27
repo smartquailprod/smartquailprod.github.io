@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: logs-srv # Cambia a tu namespace si es necesario
+  labels:
+    app: kibana
+spec:
+  replicas: 1  # Número de réplicas de Kibana
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+      - name: kibana
+        image: docker.elastic.co/kibana/kibana:8.7.1  # Asegúrate de usar la versión correcta
+        ports:
+        - containerPort: 5601  # Puerto en el que Kibana estará accesible
+        env:
+        - name: ELASTICSEARCH_HOSTS
+          value: "http://elasticsearch:9200"  # Dirección de Elasticsearch en el namespace 'monitoring'
+        - name: ELASTICSEARCH_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: kibana-secrets
+              key: elasticsearch-username  # Almacena tu usuario de Elasticsearch en un Secret
+        - name: ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: kibana-secrets
+              key: elasticsearch-password  # Almacena tu contraseña de Elasticsearch en un Secret
+        - name: SERVER_NAME
+          value: "kibana.monitoring.svc.cluster.local"  # Nombre del servidor de Kibana
+        volumeMounts:
+        - name: kibana-data
+          mountPath: /usr/share/kibana/data  # El volumen persistente se monta aquí
+        livenessProbe:
+          httpGet:
+            path: /api/status  # Kibana ofrece una API para comprobar su estado
+            port: 5601
+          initialDelaySeconds: 30
+          periodSeconds: 30
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /api/status  # Kibana ofrece una API para comprobar su estado
+            port: 5601
+          initialDelaySeconds: 20
+          periodSeconds: 15
+          timeoutSeconds: 5
+          failureThreshold: 3
+      volumes:
+      - name: kibana-data
+        persistentVolumeClaim:
+          claimName: kibana-pvc  # El PVC debe ser creado previamente
