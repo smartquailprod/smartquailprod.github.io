@@ -25,7 +25,9 @@ spec:
           protocol: TCP
         volumeMounts:
         - name: app-logs
-          mountPath: /var/log/app
+          mountPath: /var/log/qnd031app/
+        - name: uwsgi-logs
+          mountPath: /var/log/uwsgi/
 
         livenessProbe:
           httpGet:
@@ -46,11 +48,14 @@ spec:
           failureThreshold: 3
         env:
         - name: PORT
-          value: "9000"
-        - name: DJANGO_LOG_FILE
-          value: "/var/log/app/app.log"
+          value: "9000" 
 
         # Django & App Environment
+        - name: DJANGO_LOG_FILE
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: DJANGO_LOG_FILE
         - name: ALLOWED_HOSTS
           valueFrom:
             secretKeyRef:
@@ -350,8 +355,10 @@ spec:
       - name: fluent-bit
         image: fluent/fluent-bit:2.1.8
         volumeMounts:
-        - name: app-logs
-          mountPath: /var/log/app
+        - name: qnd031app-logs
+          mountPath: /var/log/qnd031app
+        - name: uwsgi-logs
+          mountPath: /var/log/uwsgi
         - name: fluent-bit-config
           mountPath: /fluent-bit/etc/
       volumes:

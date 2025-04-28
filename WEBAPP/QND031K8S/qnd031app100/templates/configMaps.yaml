@@ -13,18 +13,37 @@ data:
 
     [INPUT]
         Name        tail
-        Path        /var/log/app/app.log
+        Path        /var/log/qnd031app/qnd031app.log
         Tag         app.django
-        DB          /var/log/app/log.db
+        DB          /var/log/qnd031app/qnd031app.db
         Parser      docker
+        Refresh_Interval 5
+
+    [INPUT]
+        Name        tail
+        Path        /var/log/uwsgi/uwsgi.log
+        Tag         app.uwsgi
+        DB          /var/log/uwsgi/uwsgi.db
+        Parser      uwsgi
         Refresh_Interval 5
 
     [OUTPUT]
         Name  es
-        Match *
+        Match app.django
         Host  elasticsearch
         Port  9200
         Index django-logs
+        Type  _doc
+        Logstash_Format On
+        Replace_Dots On
+        Retry_Limit False
+
+    [OUTPUT]
+        Name  es
+        Match app.uwsgi
+        Host  elasticsearch
+        Port  9200
+        Index uwsgi-logs
         Type  _doc
         Logstash_Format On
         Replace_Dots On
@@ -36,4 +55,12 @@ data:
         Format json
         Time_Key time
         Time_Format %Y-%m-%dT%H:%M:%S.%L
+        Time_Keep On
+
+    [PARSER]
+        Name   uwsgi
+        Format regex
+        Regex  ^(?<time>[^ ]+ [^ ]+) (?<level>[a-zA-Z]+) (?<message>.*)
+        Time_Key    time
+        Time_Format %Y-%m-%d %H:%M:%S
         Time_Keep On
