@@ -34,7 +34,7 @@ spec:
               name: kibana-secrets
               key: elasticsearch-password  # Almacena tu contraseña de Elasticsearch en un Secret
         - name: SERVER_NAME
-          value: "kibana.monitoring.svc.cluster.local"  # Nombre del servidor de Kibana
+          value: "kibana"  # Nombre del servidor de Kibana
         volumeMounts:
         - name: kibana-data
           mountPath: /usr/share/kibana/data  # El volumen persistente se monta aquí
