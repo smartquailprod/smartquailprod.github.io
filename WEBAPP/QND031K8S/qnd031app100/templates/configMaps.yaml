@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+  namespace: {{ .Values.qnodenamespace }}
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush        5
+        Daemon       Off
+        Log_Level    info
+        Parsers_File parsers.conf
+
+    [INPUT]
+        Name        tail
+        Path        /var/log/app/app.log
+        Tag         app.django
+        DB          /var/log/app/log.db
+        Parser      docker
+        Refresh_Interval 5
+
+    [OUTPUT]
+        Name  es
+        Match *
+        Host  elasticsearch
+        Port  9200
+        Index django-logs
+        Type  _doc
+        Logstash_Format On
+        Replace_Dots On
+        Retry_Limit False
+
+  parsers.conf: |
+    [PARSER]
+        Name   docker
+        Format json
+        Time_Key time
+        Time_Format %Y-%m-%dT%H:%M:%S.%L
+        Time_Keep On
