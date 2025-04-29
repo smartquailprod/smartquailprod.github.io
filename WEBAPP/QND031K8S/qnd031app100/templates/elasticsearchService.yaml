@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.qnodeelasticname }}
+  namespace: {{ .Values.qnodenamespace }}
+  labels:
+    app: {{ .Values.qnodeelasticname }}
+spec:
+  type: {{ .Values.databaseservicetype }}
+  externalName: {{ .Values.elasticserviceExternalName }}
+  ports:
+  - port: {{ .Values.elasticport }}
+    protocol: TCP

@@ -36,6 +36,11 @@ cacheservicetype: ExternalName
 cacheserviceExternalName: redis.cache-srv.svc.cluster.local
 cacheport: 6379
 
+qnodeelasticname: elasticsearch
+elasticservicetype: ExternalName
+elasticserviceExternalName: elasticsearch.logs-srv.svc.cluster.local
+elasticport: 9200 
+
 
 image:
   repository: smartquail/qnd031app

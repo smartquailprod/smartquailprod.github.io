@@ -355,7 +355,7 @@ spec:
       - name: fluent-bit
         image: fluent/fluent-bit:2.1.8
         volumeMounts:
-        - name: qnd031app-logs
+        - name: app-logs
           mountPath: /var/log/qnd031app
         - name: uwsgi-logs
           mountPath: /var/log/uwsgi
@@ -363,6 +363,8 @@ spec:
           mountPath: /fluent-bit/etc/
       volumes:
       - name: app-logs
+        emptyDir: {}
+      - name: uwsgi-logs
         emptyDir: {}
       - name: fluent-bit-config
         configMap:

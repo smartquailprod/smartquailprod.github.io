@@ -8,9 +8,9 @@ spec:
   duration: 2160h # Duración del certificado en horas
   renewBefore: 360h # Renovar el certificado 360 horas antes de la expiración
   isCA: false
-  commonName: meddes.smartquail.io
+  commonName: qnd03101.smartquail.io
   dnsNames:
-    - meddes.smartquail.io
+    - qnd03101.smartquail.io
     - smartquail.io  # Agregar smartquail.io como dnsName adicional
   issuerRef:
     name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
