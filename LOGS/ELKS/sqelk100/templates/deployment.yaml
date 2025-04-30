@@ -6,7 +6,7 @@ metadata:
   labels:
     app: elasticsearch
 spec:
-  replicas: 1  # Puedes aumentar esto para mayor alta disponibilidad
+  replicas: 1
   selector:
     matchLabels:
       app: elasticsearch
@@ -16,27 +16,27 @@ spec:
         app: elasticsearch
     spec:
       containers:
-      - name: elasticsearch
-        image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1  # Asegúrate de usar la versión correcta
-        ports:
-        - containerPort: 9200  # Puerto de Elasticsearch
-        env:
-        - name: discovery.type
-          value: single-node  # Se establece para un único nodo. Para clústeres más grandes, deberías cambiar esto
-        - name: ELASTICSEARCH_USERNAME
-          valueFrom:
-            secretKeyRef:
-              name: elasticsearch-secrets
-              key: ELASTICSEARCH_USERNAME # Asegúrate de tener este secreto con tus credenciales
-        - name: ELASTICSEARCH_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: elasticsearch-secrets
-              key: ELASTICSEARCH_PASSWORD # Asegúrate de tener este secreto con tus credenciales
-        volumeMounts:
-        - name: elasticsearch-data
-          mountPath: /usr/share/elasticsearch/data  # Volumen persistente
+        - name: elasticsearch
+          image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
+          ports:
+            - containerPort: 9200
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: ELASTICSEARCH_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secrets
+                  key: ELASTICSEARCH_USERNAME
+            - name: ELASTICSEARCH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: elasticsearch-secrets
+                  key: ELASTICSEARCH_PASSWORD
+          volumeMounts:
+            - name: elasticsearch-data
+              mountPath: /usr/share/elasticsearch/data
       volumes:
-      - name: elasticsearch-data
-        persistentVolumeClaim:
-          claimName: elasticsearch-pvc  # Asegúrate de que este PVC esté disponible
+        - name: elasticsearch-data
+          persistentVolumeClaim:
+            claimName: elasticsearch-pvc
