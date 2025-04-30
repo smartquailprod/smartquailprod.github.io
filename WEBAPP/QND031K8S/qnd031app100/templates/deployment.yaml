@@ -46,6 +46,13 @@ spec:
           periodSeconds: 5
           timeoutSeconds: 2
           failureThreshold: 3
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
         env:
         - name: PORT
           value: "9000" 

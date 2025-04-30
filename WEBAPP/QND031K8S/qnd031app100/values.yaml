@@ -48,10 +48,9 @@ image:
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
 
-
 resources: 
    limits:
-     cpu: 900m
+     cpu: 1
      memory: 1Gi
    requests:
      cpu: 500m
