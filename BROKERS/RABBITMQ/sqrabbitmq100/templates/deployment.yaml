@@ -19,11 +19,11 @@ spec:
       - name: rabbitmq
         image: rabbitmq:3-management
         ports:
-        - containerPort: 5672  # Puerto de RabbitMQ para la comunicación
-        - containerPort: 15672  # Puerto de la interfaz de administración de RabbitMQ
+        - containerPort: 5672
+        - containerPort: 15672
         volumeMounts:
         - name: rabbitmq-data
-          mountPath: /var/lib/rabbitmq  # Volumen persistente de RabbitMQ
+          mountPath: /var/lib/rabbitmq
         env:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:
@@ -66,7 +66,6 @@ spec:
               name: rabbitmq-secrets
               key: RABBITMQ_SSL_LISTENER_PORT
 
-        # 🩺 Healthchecks
         livenessProbe:
           exec:
             command:
@@ -87,40 +86,44 @@ spec:
           timeoutSeconds: 5
           failureThreshold: 3
 
-      - name: fluentd
-        image: fluent/fluentd:v1.14-1  # Imagen de Fluentd para enviar logs
-        ports:
-        - containerPort: 24224  # Puerto de Fluentd para la recolección de logs
+      - name: fluent-bit
+        image: fluent/fluent-bit:2.2
+        args: ["-c", "/fluent-bit/etc/fluent-bit.conf"]
         env:
-        - name: FLUENTD_ELASTICSEARCH_HOST
+        - name: FLUENT_ELASTICSEARCH_HOST
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
               key: FLUENTD_ELASTICSEARCH_HOST
-        - name: FLUENTD_ELASTICSEARCH_USER
+        - name: FLUENT_ELASTICSEARCH_USER
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
               key: FLUENTD_ELASTICSEARCH_USER
-        - name: FLUENTD_ELASTICSEARCH_PASS
+        - name: FLUENT_ELASTICSEARCH_PASS
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
               key: FLUENTD_ELASTICSEARCH_PASS
         volumeMounts:
-        - name: fluentd-config
-          mountPath: /fluentd/etc
-        - name: fluentd-logs
-          mountPath: /fluentd/log  # Directorio temporal para los logs recolectados
+        - name: fluent-bit-config
+          mountPath: /fluent-bit/etc
+        - name: varlog
+          mountPath: /var/log
+        - name: dockercontainers
+          mountPath: /var/lib/docker/containers
+          readOnly: true
 
       volumes:
       - name: rabbitmq-data
         persistentVolumeClaim:
-          claimName: rabbitmq-pvc  # PVC para el volumen persistente de RabbitMQ
-      - name: fluentd-config
+          claimName: rabbitmq-pvc
+      - name: fluent-bit-config
         configMap:
-          name: fluentd-config  # Configuración de Fluentd (ConfigMap)
-      - name: fluentd-logs
-        emptyDir: {}  # Directorio temporal para los logs
-
-
+          name: fluent-bit-config
+      - name: varlog
+        hostPath:
+          path: /var/log
+      - name: dockercontainers
+        hostPath:
+          path: /var/lib/docker/containers

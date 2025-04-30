@@ -63,6 +63,22 @@ spec:
             secretKeyRef:
               name: {{ .Values.qnodename }}-app-secrets
               key: DJANGO_LOG_FILE
+        - name: DJANGO_SETTINGS_MODULE
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: DJANGO_SETTINGS_MODULE
+        - name: ROOT_URLCONF
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: ROOT_URLCONF
+
+        - name: WSGI_APPLICATION
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: WSGI_APPLICATION
         - name: ALLOWED_HOSTS
           valueFrom:
             secretKeyRef:
@@ -361,6 +377,28 @@ spec:
 
       - name: fluent-bit
         image: fluent/fluent-bit:2.1.8
+        env:
+        - name: FLUENT_ELASTICSEARCH_HOST
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: FLUENT_ELASTICSEARCH_HOST
+        - name: FLUENT_ELASTICSEARCH_PORT
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: FLUENT_ELASTICSEARCH_PORT
+        - name: FLUENT_ELASTICSEARCH_USER
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: FLUENT_ELASTICSEARCH_USER
+        - name: FLUENT_ELASTICSEARCH_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: {{ .Values.qnodename }}-app-secrets
+              key: FLUENT_ELASTICSEARCH_PASSWORD
+
         volumeMounts:
         - name: app-logs
           mountPath: /var/log/qnd031app

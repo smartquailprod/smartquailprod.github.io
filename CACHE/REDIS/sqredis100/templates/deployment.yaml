@@ -22,26 +22,29 @@ spec:
             - containerPort: 6379
           volumeMounts:
             - name: redis-data
-              mountPath: /mnt/data/redis   # El directorio donde Redis almacenará sus datos 
+              mountPath: /mnt/data/redis
             - name: redis-config
-              mountPath: /usr/local/etc/redis/redis.conf  # Ruta del archivo redis.conf en el contenedor
+              mountPath: /usr/local/etc/redis/redis.conf
               subPath: redis.conf
-              readOnly: true  # No modificar el archivo de configuración
+              readOnly: true
             - name: redis-config
-              mountPath: /usr/local/etc/redis/aclfile  # Ruta del archivo aclfile en el contenedor
+              mountPath: /usr/local/etc/redis/aclfile
               subPath: aclfile
-              readOnly: true  # No modificar el archivo aclfile
+              readOnly: true
+            - name: redis-logs
+              mountPath: /var/log/redis
           env:
             - name: REDIS_USER
               valueFrom:
                 secretKeyRef:
-                  name: redis-secrets  # Nombre del Secret que contiene la contraseña
-                  key: REDIS_USER  # La clave en el Secret que contiene la contraseña
+                  name: redis-secrets
+                  key: REDIS_USER
             - name: REDIS_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: redis-secrets  # Nombre del Secret que contiene la contraseña
-                  key: REDIS_PASSWORD  # La clave en el Secret que contiene la contraseña
+                  name: redis-secrets
+                  key: REDIS_PASSWORD
+          command: [ "redis-server", "/usr/local/etc/redis/redis.conf", "--logfile", "/var/log/redis/redis.log" ]
           resources:
             limits:
               memory: "256Mi"
@@ -49,10 +52,25 @@ spec:
             requests:
               memory: "128Mi"
               cpu: "50m"
+
+        - name: fluent-bit
+          image: fluent/fluent-bit:2.1.8
+          volumeMounts:
+            - name: redis-logs
+              mountPath: /var/log/redis
+            - name: fluent-bit-config
+              mountPath: /fluent-bit/etc/
+              readOnly: true
+
       volumes:
         - name: redis-data
           persistentVolumeClaim:
-            claimName: redis-pvc  # Asegúrate de que este PVC esté creado previamente
+            claimName: redis-pvc
         - name: redis-config
           configMap:
-            name: redis-config   # Este ConfigMap debe contener los archivos redis.conf y aclfile
+            name: redis-config
+        - name: redis-logs
+          emptyDir: {}
+        - name: fluent-bit-config
+          configMap:
+            name: fluent-bit-config

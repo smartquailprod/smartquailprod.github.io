@@ -25,17 +25,15 @@ spec:
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
               name: postgres-data
-
-            - name: postgres-config-volume
-              mountPath: /docker-entrypoint-initdb.d/  # PostgreSQL ejecutará cualquier script en este directorio
+            - mountPath: /docker-entrypoint-initdb.d/
+              name: postgres-config-volume
               readOnly: true
-
-            - name: postgres-config-volume
-              mountPath: /etc/postgresql/postgresql.conf
-              subPath: postgresql-conf  # Monta solo el archivo postgresql.conf
+            - mountPath: /etc/postgresql/postgresql.conf
+              name: postgres-config-volume
+              subPath: postgresql-conf
               readOnly: true
-
-          # PostgreSQL ejecutará los scripts desde /docker-entrypoint-initdb.d/
+            - mountPath: /var/log/postgresql
+              name: postgres-logs
           command: ["docker-entrypoint.sh", "postgres"]
           env:
             - name: POSTGRES_USER
@@ -47,18 +45,34 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
-                  key: POSTGRES_PASSWORD      
+                  key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_DB
 
+        - name: fluent-bit
+          image: fluent/fluent-bit:2.1.8
+          volumeMounts:
+            - name: postgres-logs
+              mountPath: /var/log/postgresql
+            - name: fluent-bit-config
+              mountPath: /fluent-bit/etc/
+              readOnly: true
+
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
             claimName: {{ .Values.postgres_name }}-pv-claim
-        
+
         - name: postgres-config-volume
           configMap:
-            name: postgres-config  # Un solo ConfigMap con init.sh y postgresql.conf
+            name: postgres-config
+
+        - name: postgres-logs
+          emptyDir: {}
+
+        - name: fluent-bit-config
+          configMap:
+            name: fluent-bit-config

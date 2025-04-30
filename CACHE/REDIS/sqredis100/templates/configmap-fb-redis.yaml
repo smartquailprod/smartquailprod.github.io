@@ -1,0 +1,27 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fluent-bit-config
+  namespace: cache-srv
+data:
+  fluent-bit.conf: |
+    [SERVICE]
+        Flush        1
+        Log_Level    info
+        Daemon       Off
+
+    [INPUT]
+        Name         tail
+        Path         /var/log/redis/redis.log
+        Tag          redis.log
+        DB           /var/log/flb_redis.db
+        Parser       docker
+
+    [OUTPUT]
+        Name         es
+        Match        *
+        Host         elasticsearch
+        Port         9200
+        Index        redis-logs
+        Type         _doc
+        Logstash_Format On
