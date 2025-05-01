@@ -1,12 +1,32 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elasticsearch-pv-volume
+  labels:
+    type: local
+    app: elasticsearch
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/data"
+    type: DirectoryOrCreate
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: kibana-pvc
+  name: elasticsearch-pv-claim  # Corregido el typo aquí
   namespace: logs-srv
+  labels:
+    app: elasticsearch
 spec:
+  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 5Gi
-  storageClassName: do-block-storage # Asegúrate de usar tu storage class disponible
+      storage: 1Gi
