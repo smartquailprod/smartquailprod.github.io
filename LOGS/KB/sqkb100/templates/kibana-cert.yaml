@@ -8,9 +8,9 @@ spec:
   duration: 2160h  # Duración del certificado en horas
   renewBefore: 360h  # Renovar el certificado 360 horas antes de la expiración
   isCA: false  # No es un certificado de autoridad
-  commonName: sqkb100.smartquail.io
+  commonName: kibana.smartquail.io
   dnsNames:
-    - sqkb100.smartquail.io
+    - kibana.smartquail.io
   issuerRef:
     name: letsencrypt-cluster-issuer # El issuer que deseas usar (esto debe estar configurado previamente)
     kind: ClusterIssuer
