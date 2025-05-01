@@ -19,7 +19,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: elasticsearch-pv-claim  # Corregido el typo aquí
+  name: elasticsearch-pv-claim
   namespace: logs-srv
   labels:
     app: elasticsearch

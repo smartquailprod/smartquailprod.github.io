@@ -1,13 +1,32 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: elasticsearch-pv-volume
+  labels:
+    type: local
+    app: elasticsearch
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "/mnt/data"
+    type: DirectoryOrCreate
+---
+apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: elasticsearch-pvc
-  namespace: logs-srv  # Asegúrate de que el namespace coincide con el de tu PV
+  name: elasticsearch-pv-claim
+  namespace: logs-srv
+  labels:
+    app: elasticsearch
 spec:
+  storageClassName: manual
   accessModes:
-    - ReadWriteOnce  # Debe coincidir con el acceso solicitado en el PV
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  # Debe coincidir con la capacidad solicitada en el PV
-  storageClassName: do-block-storage  # Debe coincidir con la clase de almacenamiento del PV
-  volumeMode: Filesystem  # Debe coincidir con el modo de volumen del PV
+      storage: 1Gi
