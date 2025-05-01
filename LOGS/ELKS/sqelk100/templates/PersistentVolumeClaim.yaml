@@ -9,4 +9,4 @@ spec:
   resources:
     requests:
       storage: 1Gi  # Ajusta el tamaño del volumen según tus necesidades
-  storageClassName: standard  # Asegúrate de que esta clase de almacenamiento esté disponible en tu clúster
+  storageClassName: do-block-storage # Asegúrate de que esta clase de almacenamiento esté disponible en tu clúster
