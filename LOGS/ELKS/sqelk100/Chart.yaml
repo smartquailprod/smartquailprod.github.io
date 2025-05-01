@@ -1,5 +1,5 @@
 apiVersion: v2
-name: sqeks100
+name: sqelk100
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
