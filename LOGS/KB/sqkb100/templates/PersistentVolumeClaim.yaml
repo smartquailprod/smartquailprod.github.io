@@ -9,4 +9,4 @@ spec:
   resources:
     requests:
       storage: 5Gi
-  storageClassName: standard  # Asegúrate de usar tu storage class disponible
+  storageClassName: do-block-storage # Asegúrate de usar tu storage class disponible
