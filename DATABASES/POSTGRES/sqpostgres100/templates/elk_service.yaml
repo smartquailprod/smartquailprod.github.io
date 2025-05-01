@@ -5,8 +5,6 @@ metadata:
   namespace: db-srv
   labels:
     app: elasticsearch
+spec:
   type: ExternalName
   externalName: elasticsearch.logs-srv.svc.cluster.local
-  ports:
-  - port: 9200 
-    protocol: TCP
