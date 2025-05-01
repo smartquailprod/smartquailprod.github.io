@@ -34,13 +34,13 @@ spec:
                   name: elasticsearch-secrets
                   key: ELASTICSEARCH_PASSWORD
             - name: ES_JAVA_OPTS
-              value: "-Xms512m -Xmx512m"
+              value: "-Xms1g -Xmx1g"
           resources:
             requests:
-              memory: "1Gi"
+              memory: "1.5Gi"
               cpu: "0.5"
             limits:
-              memory: "1.5Gi"
+              memory: "2Gi"
               cpu: "1"
           volumeMounts:
             - name: elasticsearch-data

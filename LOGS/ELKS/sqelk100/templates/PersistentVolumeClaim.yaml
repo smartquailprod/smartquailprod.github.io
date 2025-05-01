@@ -14,7 +14,7 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/mnt/data"
+    path: "/usr/share/elasticsearch/data/"
     type: DirectoryOrCreate
 ---
 apiVersion: v1
