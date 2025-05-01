@@ -20,7 +20,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: elasticsearch-pv-claim
+  name: elasticsearch-pvc
   namespace: logs-srv
   labels:
     app: elasticsearch
