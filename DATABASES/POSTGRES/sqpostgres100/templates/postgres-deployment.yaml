@@ -32,7 +32,7 @@ spec:
               name: postgres-config-volume
               subPath: postgresql.conf
               readOnly: false
-            - mountPath: /var/log/postgresql
+            - mountPath: /etc/postgresql/postgresql.log
               name: postgres-logs
           command: ["postgres"]
           args: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
@@ -71,7 +71,7 @@ spec:
                   key: FLUENT_ELASTICSEARCH_PASSWORD
           volumeMounts:
             - name: postgres-logs
-              mountPath: /var/log/postgresql
+              mountPath: /etc/postgresql/postgresql.log
             - name: fluent-bit-config
               mountPath: /fluent-bit/etc/
               readOnly: true
