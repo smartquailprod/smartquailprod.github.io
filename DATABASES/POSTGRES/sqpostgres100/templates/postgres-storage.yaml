@@ -11,12 +11,11 @@ spec:
   capacity:
     storage: 1Gi
   accessModes:
-    - ReadWriteOnce  # Usamos ReadWriteOnce para volúmenes locales (cuidado si se va a compartir entre múltiples pods)
-  persistentVolumeReclaimPolicy: Retain  # Esto asegura que el volumen no se elimine accidentalmente
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/mnt/data"  # Asegúrate de que esta ruta exista en el nodo donde se va a montar el volumen
-    type: DirectoryOrCreate  # Esto garantiza que el directorio sea creado si no existe
-
+    path: "/mnt/postgresdata-{{ .Values.postgres_name }}"  # Ruta personalizada para evitar conflictos
+    type: DirectoryOrCreate
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -28,7 +27,7 @@ metadata:
 spec:
   storageClassName: standard
   accessModes:
-    - ReadWriteOnce  # Debe coincidir con el PersistentVolume, por lo que se usa ReadWriteOnce aquí también
+    - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
