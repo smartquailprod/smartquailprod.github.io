@@ -6,14 +6,13 @@ metadata:
     type: local
     app: kibana
 spec:
-  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/mnt/data/kibana"
+    path: "/mnt/data/"
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -24,7 +23,6 @@ metadata:
   labels:
     app: kibana
 spec:
-  storageClassName: manual
   accessModes:
     - ReadWriteOnce
   resources:

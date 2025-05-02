@@ -54,9 +54,6 @@ spec:
             periodSeconds: 15
             timeoutSeconds: 5
             failureThreshold: 3
-          securityContext:
-            runAsUser: 999
-            runAsGroup: 999
       volumes:
         - name: kibana-data
           persistentVolumeClaim:
