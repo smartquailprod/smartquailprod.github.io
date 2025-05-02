@@ -32,12 +32,12 @@ spec:
             - name: ELASTICSEARCH_USERNAME
               valueFrom:
                 secretKeyRef:
-                  name: elasticsearch-secrets
+                  name: kibana-secrets
                   key: ELASTICSEARCH_USERNAME
             - name: ELASTICSEARCH_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: elasticsearch-secrets
+                  name: kibana-secrets
                   key: ELASTICSEARCH_PASSWORD
             - name: SERVER_NAME
               value: "kibana"
