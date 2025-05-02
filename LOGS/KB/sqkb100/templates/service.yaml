@@ -3,12 +3,10 @@ kind: Service
 metadata:
   name: kibana
   namespace: logs-srv
-  labels:
-    app: kibana
 spec:
-  ports:
-    - port: 5601  # El puerto que se usa para acceder a Kibana
-      targetPort: 5601  # El puerto interno del contenedor de Kibana
   selector:
-    app: kibana  # El selector debe coincidir con las etiquetas de tu pod de Kibana
-  type: ClusterIP  # Esto hace que el servicio sea accesible dentro del clúster
+    app: kibana
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5601
