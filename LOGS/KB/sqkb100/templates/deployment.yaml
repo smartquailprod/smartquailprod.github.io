@@ -16,12 +16,14 @@ spec:
         app: kibana
     spec:
       securityContext:
-        runAsUser: 1000           # UID del contenedor Kibana (puedes verificarlo con el comando `id`)
-        runAsGroup: 1000          # GID del contenedor Kibana
-        fsGroup: 1000            # Asegura acceso de lectura y escritura en volúmenes
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
       containers:
         - name: kibana
           image: docker.elastic.co/kibana/kibana:8.7.1
+          command: ["/bin/sh"]
+          args: ["-c", "/usr/share/kibana/bin/kibana --config /usr/share/kibana/config/custom/kibana.yml"]
           ports:
             - containerPort: 5601
           env:
@@ -42,6 +44,9 @@ spec:
           volumeMounts:
             - name: kibana-data
               mountPath: /usr/share/kibana/data
+            - name: kibana-config
+              mountPath: /usr/share/kibana/config/custom/kibana.yml
+              subPath: kibana.yml
           livenessProbe:
             httpGet:
               path: /api/status
@@ -62,3 +67,6 @@ spec:
         - name: kibana-data
           persistentVolumeClaim:
             claimName: kibana-pvc
+        - name: kibana-config
+          configMap:
+            name: kibana-config
