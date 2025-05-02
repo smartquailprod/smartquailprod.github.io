@@ -20,11 +20,15 @@ data:
         Parser        docker
         Mem_Buf_Limit 5MB
 
-    [OUTPUT]
+    [Output]
         Name          es
         Match         *
         Host          elasticsearch
         Port          9200
-        Index         postgres-logs
+        Index         postgresql-logs
         Type          _doc
         Logstash_Format On
+        Logstash_Prefix postgresql
+        HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
+

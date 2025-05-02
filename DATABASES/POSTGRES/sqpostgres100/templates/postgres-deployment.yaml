@@ -54,6 +54,17 @@ spec:
 
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
+          env:
+            - name: FLUENT_ELASTICSEARCH_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: FLUENT_ELASTICSEARCH_USER
+            - name: FLUENT_ELASTICSEARCH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-secrets
+                  key: FLUENT_ELASTICSEARCH_PASSWORD
           volumeMounts:
             - name: postgres-logs
               mountPath: /var/log/postgresql
