@@ -15,6 +15,10 @@ spec:
       labels:
         app: kibana
     spec:
+      securityContext:
+        runAsUser: 1000           # UID del contenedor Kibana (puedes verificarlo con el comando `id`)
+        runAsGroup: 1000          # GID del contenedor Kibana
+        fsGroup: 1000            # Asegura acceso de lectura y escritura en volúmenes
       containers:
         - name: kibana
           image: docker.elastic.co/kibana/kibana:8.7.1
@@ -22,7 +26,7 @@ spec:
             - containerPort: 5601
           env:
             - name: ELASTICSEARCH_HOSTS
-              value: "http://elasticsearch:9200"  # URL completa requerida
+              value: "http://elasticsearch:9200"
             - name: ELASTICSEARCH_USERNAME
               valueFrom:
                 secretKeyRef:
