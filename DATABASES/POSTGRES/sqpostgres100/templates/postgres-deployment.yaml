@@ -30,6 +30,7 @@ spec:
               readOnly: true
             - mountPath: /var/lib/postgresql/data/postgresql.conf
               name: postgres-config-volume
+              readOnly: false 
               subPath: postgresql-config
             - mountPath: /var/log/postgresql
               name: postgres-logs
