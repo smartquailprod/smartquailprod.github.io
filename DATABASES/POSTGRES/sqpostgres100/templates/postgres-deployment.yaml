@@ -27,7 +27,7 @@ spec:
             runAsGroup: 999
             fsGroup: 999
           volumeMounts:
-            - mountPath: /var/lib/postgresql/data
+            - mountPath: /var/lib/postgresql/pgdata
               name: postgres-data
             - mountPath: /docker-entrypoint-initdb.d/
               name: postgres-config-volume
