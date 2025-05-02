@@ -3,10 +3,13 @@ kind: Service
 metadata:
   name: kibana
   namespace: logs-srv
+  labels:
+    app: kibana
 spec:
   selector:
     app: kibana
   ports:
-    - protocol: TCP
-      port: 80
-      targetPort: 5601
+  - protocol: TCP
+    port: 80
+    targetPort: 5601
+  type: ClusterIP
