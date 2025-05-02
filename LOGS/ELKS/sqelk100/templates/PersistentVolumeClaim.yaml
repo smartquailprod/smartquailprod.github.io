@@ -27,7 +27,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: standard  # O usa el nombre específico del StorageClass de tu clúster
+  storageClassName: manual  # O usa el nombre específico del StorageClass de tu clúster
   resources:
     requests:
       storage: 1Gi
