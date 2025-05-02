@@ -38,6 +38,8 @@ spec:
               readOnly: false
             - mountPath: /var/log/postgresql
               name: postgres-logs
+          # Command & args sólo si necesitas personalizar la forma en que se arranca postgres
+          # Si no es necesario, puedes eliminar estas líneas
           command: ["postgres"]
           args: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
           env:
