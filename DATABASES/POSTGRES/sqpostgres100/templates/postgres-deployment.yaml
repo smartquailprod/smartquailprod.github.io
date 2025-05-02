@@ -52,6 +52,9 @@ spec:
                 secretKeyRef:
                   name: postgres-secrets
                   key: POSTGRES_DB
+          securityContext:
+            runAsUser: 999
+            allowPrivilegeEscalation: false
 
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
