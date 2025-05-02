@@ -30,8 +30,7 @@ spec:
               readOnly: true
             - mountPath: /var/lib/postgresql/data/postgresql.conf
               name: postgres-config-volume
-              subPath: postgresql-conf
-              readOnly: true
+              subPath: postgresql-config
             - mountPath: /var/log/postgresql
               name: postgres-logs
           command: ["docker-entrypoint.sh", "postgres"]
