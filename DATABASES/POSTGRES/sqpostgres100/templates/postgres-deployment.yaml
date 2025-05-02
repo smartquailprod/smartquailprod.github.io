@@ -28,7 +28,7 @@ spec:
             - mountPath: /docker-entrypoint-initdb.d/
               name: postgres-config-volume
               readOnly: true
-            - mountPath: /etc/postgresql/postgresql.conf
+            - mountPath: /var/lib/postgresql/data/postgresql.conf
               name: postgres-config-volume
               subPath: postgresql-conf
               readOnly: true
