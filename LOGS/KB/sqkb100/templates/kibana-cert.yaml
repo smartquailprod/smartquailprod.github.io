@@ -10,6 +10,7 @@ spec:
   isCA: false  # No es un certificado de autoridad
   commonName: kibana.smartquail.io
   dnsNames:
+    - smartquail.io 
     - kibana.smartquail.io
   issuerRef:
     name: letsencrypt-cluster-issuer # El issuer que deseas usar (esto debe estar configurado previamente)
