@@ -7,7 +7,6 @@ metadata:
     type: local
     app: elasticsearch
 spec:
-  storageClassName: manual
   capacity:
     storage: 1Gi
   accessModes:
@@ -27,7 +26,6 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
-  storageClassName: manual  # O usa el nombre específico del StorageClass de tu clúster
   resources:
     requests:
       storage: 1Gi
