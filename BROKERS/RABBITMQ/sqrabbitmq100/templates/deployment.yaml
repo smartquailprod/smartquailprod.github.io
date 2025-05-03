@@ -74,21 +74,21 @@ spec:
         image: fluent/fluent-bit:2.2
         args: ["-c", "/fluent-bit/etc/fluent-bit.conf"]
         env:
-        - name: FLUENT_ELASTICSEARCH_HOST
+        - name: ELASTICSEARCH_HOST
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
-              key: FLUENTD_ELASTICSEARCH_HOST
+              key: ELASTICSEARCH_HOST
         - name: FLUENT_ELASTICSEARCH_USER
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
-              key: FLUENTD_ELASTICSEARCH_USER
-        - name: FLUENT_ELASTICSEARCH_PASS
+              key: FLUENT_ELASTICSEARCH_USER
+        - name: FLUENT_ELASTICSEARCH_PASSWORD
           valueFrom:
             secretKeyRef:
               name: rabbitmq-secrets
-              key: FLUENTD_ELASTICSEARCH_PASS
+              key: FLUENT_ELASTICSEARCH_PASSWORD
         volumeMounts:
         - name: fluent-bit-config
           mountPath: /fluent-bit/etc
