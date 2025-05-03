@@ -20,6 +20,15 @@ spec:
         runAsUser: 999
         runAsGroup: 999
         fsGroup: 999
+
+      initContainers:
+        - name: fix-permissions
+          image: busybox
+          command: ["sh", "-c", "chown -R 999:999 /var/lib/postgresql/pgdata"]
+          volumeMounts:
+            - name: postgres-data
+              mountPath: /var/lib/postgresql/pgdata
+
       containers:
         - name: {{ .Values.postgres_name }}
           image: "postgres:16.6"
@@ -38,8 +47,6 @@ spec:
               readOnly: false
             - mountPath: /var/log/postgresql
               name: postgres-logs
-          # Command & args sólo si necesitas personalizar la forma en que se arranca postgres
-          # Si no es necesario, puedes eliminar estas líneas
           command: ["postgres"]
           args: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
           env:
