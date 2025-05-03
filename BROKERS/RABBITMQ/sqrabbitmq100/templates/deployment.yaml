@@ -15,6 +15,8 @@ spec:
       labels:
         app: rabbitmq
     spec:
+      securityContext:
+        fsGroup: 999
       containers:
       - name: rabbitmq
         image: rabbitmq:3-management
@@ -24,6 +26,8 @@ spec:
         volumeMounts:
         - name: rabbitmq-data
           mountPath: /var/lib/rabbitmq
+        - name: rabbitmq-logs
+          mountPath: /var/log/rabbitmq
         env:
         - name: RABBITMQ_DEFAULT_USER
           valueFrom:
@@ -45,26 +49,6 @@ spec:
             secretKeyRef:
               name: rabbitmq-secrets
               key: RABBITMQ_ERLANG_COOKIE
-        - name: RABBITMQ_MANAGEMENT_PLUGIN
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_MANAGEMENT_PLUGIN
-        - name: RABBITMQ_MANAGEMENT_PORT
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_MANAGEMENT_PORT
-        - name: RABBITMQ_TCP_LISTENER_PORT
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_TCP_LISTENER_PORT
-        - name: RABBITMQ_SSL_LISTENER_PORT
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_SSL_LISTENER_PORT
 
         livenessProbe:
           exec:
@@ -108,22 +92,15 @@ spec:
         volumeMounts:
         - name: fluent-bit-config
           mountPath: /fluent-bit/etc
-        - name: varlog
-          mountPath: /var/log
-        - name: dockercontainers
-          mountPath: /var/lib/docker/containers
-          readOnly: true
+        - name: rabbitmq-logs
+          mountPath: /var/log/rabbitmq
 
       volumes:
       - name: rabbitmq-data
         persistentVolumeClaim:
           claimName: rabbitmq-pvc
+      - name: rabbitmq-logs
+        emptyDir: {}
       - name: fluent-bit-config
         configMap:
           name: fluent-bit-config
-      - name: varlog
-        hostPath:
-          path: /var/log
-      - name: dockercontainers
-        hostPath:
-          path: /var/lib/docker/containers

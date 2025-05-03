@@ -3,13 +3,8 @@ kind: Service
 metadata:
   name: elasticsearch
   namespace: brk-srv
+  labels:
+    app: elasticsearch
 spec:
-  ports:
-    - port: 9200
-      targetPort: 9200
-  clusterIP: None  # Para especificar que es un servicio de acceso directo a un endpoint
-  selector:
-    app: elasticsearch  # Puedes ajustar el selector según el label de tu despliegue de Elasticsearch
-  endpoints:
-    - ip: elasticsearch.monitoring.svc.cluster.local
-      port: 9200
+  type: ExternalName
+  externalName: elasticsearch.logs-srv.svc.cluster.local
