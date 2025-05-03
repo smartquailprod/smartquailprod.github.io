@@ -47,22 +47,7 @@ spec:
             - name: kibana-config
               mountPath: /usr/share/kibana/config/custom/kibana.yml
               subPath: kibana.yml
-          livenessProbe:
-            httpGet:
-              path: /api/status
-              port: 5601
-            initialDelaySeconds: 120      # Incrementamos el tiempo de espera inicial
-            periodSeconds: 30
-            timeoutSeconds: 5
-            failureThreshold: 3
-          readinessProbe:
-            httpGet:
-              path: /api/status
-              port: 5601
-            initialDelaySeconds: 120      # Incrementamos el tiempo de espera inicial
-            periodSeconds: 15
-            timeoutSeconds: 5
-            failureThreshold: 3
+
       volumes:
         - name: kibana-data
           persistentVolumeClaim:
