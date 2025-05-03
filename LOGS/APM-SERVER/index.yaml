@@ -3,12 +3,12 @@ entries:
   sqapm100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-05-03T16:02:22.984649-05:00"
+    created: "2025-05-03T16:57:07.955512-05:00"
     description: A Helm chart for Kubernetes
-    digest: 28231a67987b0ff2edbcd3d4c6859a7f41093a6b138299f5696d6b2b828cb212
+    digest: 11f7d5b46ef1ead8eea095c70ff8773433a072caf0f627088e3fec2228d43d9e
     name: sqapm100
     type: application
     urls:
     - sqapm100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-05-03T16:02:22.984089-05:00"
+generated: "2025-05-03T16:57:07.954922-05:00"

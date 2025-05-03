@@ -36,10 +36,10 @@ spec:
               value: ""  # Token secreto (opcional)
           resources:
             requests:
-              memory: "1Gi"  # Memoria mínima solicitada (2 GB)
+              memory: "512Mi"  # Memoria mínima solicitada (2 GB)
               cpu: "500m"    # CPU mínima solicitada (0.5 vCPU)
             limits:
-              memory: "2Gi"  # Memoria máxima permitida (4 GB)
+              memory: "1Gi"  # Memoria máxima permitida (4 GB)
               cpu: "1"       # CPU máxima permitida (1 vCPU)
           volumeMounts:
             - name: config-volume
