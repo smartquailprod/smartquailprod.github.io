@@ -19,6 +19,10 @@ spec:
       - name: {{ .Values.qnodename }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        securityContext:
+          runAsUser: 1000  # UID de qnd111
+          runAsGroup: 1000
+          fsGroup: 1000    # Asegura acceso al volumen
         ports:
         - name: http
           containerPort: 9000
@@ -377,6 +381,8 @@ spec:
 
       - name: fluent-bit
         image: fluent/fluent-bit:2.1.8
+        securityContext:
+          runAsUser: 0   
         env:
         - name: FLUENT_ELASTICSEARCH_HOST
           valueFrom:
