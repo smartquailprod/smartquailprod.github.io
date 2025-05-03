@@ -44,7 +44,7 @@ spec:
           args: ["-c", "config_file=/etc/postgresql/postgresql.conf"]
           env:
             - name: PGDATA
-              value: /etc/postgresql/pgdata
+              value: /var/lib/postgresql/pgdata
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
