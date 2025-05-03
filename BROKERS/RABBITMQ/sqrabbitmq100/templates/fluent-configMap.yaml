@@ -17,7 +17,7 @@ data:
         Tag               rabbitmq.*
         Refresh_Interval  5
         Rotate_Wait       30
-        DB                /fluent-bit/state/rabbitmq.db
+        DB                /fluent-bit/etc/rabbitmq.db
         Mem_Buf_Limit     5MB
         Skip_Long_Lines   On
 
@@ -29,7 +29,7 @@ data:
     [OUTPUT]
         Name          es
         Match         rabbitmq.*
-        Host          ${FLUENT_ELASTICSEARCH_HOST}
+        Host          ${ELASTICSEARCH_HOST}
         Port          9200
         HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASS}
