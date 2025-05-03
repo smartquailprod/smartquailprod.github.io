@@ -32,7 +32,7 @@ data:
     log_checkpoints = on
     log_temp_files = 0  # Registra todos los archivos temporales
     pg_stat_statements.track = all
-    log_directory = '/etc/log/postgresql'  # Directorio de los logs
+    log_directory = '/var/log/postgresql'  # Directorio de los logs
     log_filename = 'postgresql.log'        # Nombre del archivo de log
     log_statement = 'ddl' 
     log_duration = on

@@ -20,6 +20,8 @@ spec:
         - name: {{ .Values.postgres_name }}
           image: "postgres:16.6"
           imagePullPolicy: Always
+          command: ["postgres"]
+          args: ["-c", "config_file=/docker-entrypoint-initdb.d/postgresql.conf"]
           ports:
             - containerPort: 5432
           volumeMounts:
@@ -65,7 +67,7 @@ spec:
               mountPath: /var/log/postgresql
             - name: fluent-bit-config
               mountPath: /fluent-bit/etc/
-              readOnly: true
+              readOnly: false
 
       volumes:
         - name: postgres-data

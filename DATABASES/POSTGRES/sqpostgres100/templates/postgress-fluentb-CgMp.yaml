@@ -13,9 +13,9 @@ data:
 
     [INPUT]
         Name          tail
-        Path          /etc/postgresql/postgresql.log
+        Path          /var/log/postgresql/postgresql.log
         Tag           postgres.log
-        DB            /etc/postgresql/flb_postgres.db
+        DB            /var/log/postgresql/flb_postgres.db
         Refresh_Interval 10
         Rotate_Wait   30
         Parser        json
