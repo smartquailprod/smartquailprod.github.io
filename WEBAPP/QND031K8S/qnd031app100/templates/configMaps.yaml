@@ -37,6 +37,8 @@ data:
         Logstash_Format On
         Replace_Dots On
         Retry_Limit False
+        HTTP_User ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd ${FLUENT_ELASTICSEARCH_PASSWORD}
 
     [OUTPUT]
         Name  es
@@ -48,6 +50,8 @@ data:
         Logstash_Format On
         Replace_Dots On
         Retry_Limit False
+        HTTP_User ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd ${FLUENT_ELASTICSEARCH_PASSWORD}
 
   parsers.conf: |
     [PARSER]
