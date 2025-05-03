@@ -16,10 +16,6 @@ spec:
         app: {{ .Values.postgres_app_name }}
     spec:
       restartPolicy: Always
-      securityContext:
-        runAsUser: 999
-        runAsGroup: 999
-        fsGroup: 999
 
       initContainers:
         - name: fix-permissions
@@ -35,6 +31,10 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 5432
+          securityContext:
+            runAsUser: 999
+            runAsGroup: 999
+            fsGroup: 999
           volumeMounts:
             - mountPath: /var/lib/postgresql/pgdata
               name: postgres-data
