@@ -32,7 +32,7 @@ data:
         Host          ${ELASTICSEARCH_HOST}
         Port          9200
         HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
-        HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASS}
+        HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
         Index         rabbitmq-logs
         Type          _doc
         Logstash_Format On

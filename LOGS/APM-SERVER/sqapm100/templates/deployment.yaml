@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apm-server
+  namespace: logs-srv
+  labels:
+    app: apm-server
+spec:
+  replicas: 1  # Número de réplicas. Ajusta según la carga de trabajo
+  selector:
+    matchLabels:
+      app: apm-server
+  template:
+    metadata:
+      labels:
+        app: apm-server
+    spec:
+      containers:
+        - name: apm-server
+          image: docker.elastic.co/apm/apm-server:7.16.0  # Usa la versión correcta de APM Server
+          ports:
+            - containerPort: 8200  # Puerto en el que APM Server escucha
+          env:
+            - name: ELASTICSEARCH_HOST
+              value: "http://elasticsearch:9200"  # Dirección de tu clúster de Elasticsearch
+            - name: ELASTICSEARCH_USERNAME
+              value: "elastic"  # Usuario para conectarse a Elasticsearch
+            - name: ELASTICSEARCH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: apm-secret  # Secreto que contiene la contraseña de Elasticsearch
+                  key:  ELASTICSEARCH_PASSWORD # Nombre de la clave dentro del secreto
+            - name: APM_SERVER_HOST
+              value: "0.0.0.0:8200"  # Dirección y puerto donde el APM Server escucha
+            - name: APM_SERVER_SECRET_TOKEN
+              value: ""  # Token secreto (opcional)
+          resources:
+            requests:
+              memory: "1Gi"  # Memoria mínima solicitada (2 GB)
+              cpu: "500m"    # CPU mínima solicitada (0.5 vCPU)
+            limits:
+              memory: "2Gi"  # Memoria máxima permitida (4 GB)
+              cpu: "1"       # CPU máxima permitida (1 vCPU)
+          volumeMounts:
+            - name: config-volume
+              mountPath: /usr/share/apm-server/config/apm-server.yml  # Ruta donde se monta la configuración
+              subPath: apm-server.yml  # Archivo específico dentro del ConfigMap
+      volumes:
+        - name: config-volume
+          configMap:
+            name: apm-server-config  # ConfigMap que contiene tu archivo apm-server.yml
+
+

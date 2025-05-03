@@ -91,6 +91,7 @@ spec:
         volumeMounts:
         - name: fluent-bit-config
           mountPath: /fluent-bit/etc
+          readOnly: false
         - name: rabbitmq-logs
           mountPath: /var/log/rabbitmq
           readOnly: false

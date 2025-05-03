@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: apm-server-config
+  namespace: logs-srv
+data:
+  apm-server.yml: |
+    # Coloca aquí la configuración básica del APM Server en formato YAML.
+    apm-server:
+      host: "0.0.0.0:8200"
+      secret_token: ""
+    output.elasticsearch:
+      hosts: ["http://elasticsearch:9200"]
+      username: "elastic"
+      password: "password"
+    logging:
+      level: info
+      to_files: true
+      files:
+        path: /var/log/apm-server
+        name: apm-server

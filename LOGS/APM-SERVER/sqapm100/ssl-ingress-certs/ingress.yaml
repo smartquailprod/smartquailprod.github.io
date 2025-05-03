@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: elasticsearch-ingress
+  namespace: logs-srv
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+    - host: elasticsearch.smartquail.io  # Cambia a tu dominio
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: elasticsearch
+                port:
+                  number: 9200
+  tls:
+    - hosts:
+        - elasticsearch.smartquail.io   # El dominio para TLS
+      secretName: elasticsearch-tls-secret  # Nombre del secreto que contiene el certificado SSL

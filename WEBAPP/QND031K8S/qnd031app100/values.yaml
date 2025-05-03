@@ -41,6 +41,11 @@ elasticservicetype: ExternalName
 elasticserviceExternalName: elasticsearch.logs-srv.svc.cluster.local
 elasticport: 9200 
 
+qnodeapmname: apm-server
+apmservicetype: ExternalName
+apmserviceExternalName: apm-server.logs-srv.svc.cluster.local
+apmport: 8200 
+
 
 image:
   repository: smartquail/qnd031app
