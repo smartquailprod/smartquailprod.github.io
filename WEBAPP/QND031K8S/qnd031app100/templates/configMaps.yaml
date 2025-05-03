@@ -33,7 +33,6 @@ data:
         Host  elasticsearch
         Port  9200
         Index django-logs
-        Type  _doc
         Logstash_Format On
         Replace_Dots On
         Retry_Limit False
@@ -46,7 +45,6 @@ data:
         Host  elasticsearch
         Port  9200
         Index uwsgi-logs
-        Type  _doc
         Logstash_Format On
         Replace_Dots On
         Retry_Limit False
