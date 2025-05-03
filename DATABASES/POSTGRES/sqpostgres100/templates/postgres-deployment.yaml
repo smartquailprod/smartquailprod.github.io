@@ -17,9 +17,9 @@ spec:
     spec:
       restartPolicy: Always
       securityContext:
-        runAsUser: 1000
-        runAsGroup: 1000
-        fsGroup: 1000
+        runAsUser: 999
+        runAsGroup: 999
+        fsGroup: 999
       containers:
         - name: {{ .Values.postgres_name }}
           image: "postgres:16.6"

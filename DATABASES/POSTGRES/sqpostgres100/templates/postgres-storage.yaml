@@ -14,7 +14,7 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/mnt/postgresdata-{{ .Values.postgres_name }}"  # Ruta personalizada para evitar conflictos
+    path: "/mnt/data/"  # Ruta personalizada para evitar conflictos
     type: DirectoryOrCreate
 ---
 apiVersion: v1
