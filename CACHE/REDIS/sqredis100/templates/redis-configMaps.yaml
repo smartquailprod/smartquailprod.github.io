@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: redis-config
+  namespace: cache-srv
+data:
+  redis.conf: |
+    bind 0.0.0.0
+    port 6379
+    protected-mode yes
+    dir /mnt/data/redis
+    loglevel notice
+    logfile "/var/log/redis/redis.log"
+    dbfilename dump.rdb
+    requirepass ${REDIS_PASSWORD}
+    aclfile /usr/local/etc/redis/aclfile
+
+  aclfile: |
+    user default on nopass ~* +@all
+    user ${REDIS_USER} on >${REDIS_PASSWORD} ~* +@all
