@@ -34,10 +34,7 @@ data:
         HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
         Index         rabbitmq-logs
-        Logstash_Format On
-        # Asegurarse de que no se añada '_type' ni en la configuración
-        Type           _doc  # **Importante:** Esta línea puede ser innecesaria en versiones más recientes de Elasticsearch
-        # No debe haber un parámetro 'Type' ni _type
+
 
   parsers.conf: |
     [PARSER]
