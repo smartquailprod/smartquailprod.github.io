@@ -36,6 +36,8 @@ data:
         Index         rabbitmq-logs
         Logstash_Format true  
         Logstash_Prefix rabbitmq-logs
+        Type            "" 
+        
   parsers.conf: |
     [PARSER]
         Name   rabbitmq
