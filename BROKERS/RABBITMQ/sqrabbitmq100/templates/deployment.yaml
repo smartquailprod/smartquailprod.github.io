@@ -53,7 +53,7 @@ spec:
               name: rabbitmq-secrets
               key: RABBITMQ_ERLANG_COOKIE
       - name: fluent-bit
-        image: fluent/fluent-bit:2.2
+        image: fluent/fluent-bit:1.8.3
         env:
         - name: ELASTICSEARCH_HOST
           valueFrom:
