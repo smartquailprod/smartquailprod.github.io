@@ -49,27 +49,6 @@ spec:
             secretKeyRef:
               name: rabbitmq-secrets
               key: RABBITMQ_ERLANG_COOKIE
-
-        livenessProbe:
-          exec:
-            command:
-              - rabbitmq-diagnostics
-              - check_port_connectivity
-          initialDelaySeconds: 30
-          periodSeconds: 30
-          timeoutSeconds: 5
-          failureThreshold: 3
-
-        readinessProbe:
-          exec:
-            command:
-              - rabbitmq-diagnostics
-              - check_local_alarms
-          initialDelaySeconds: 20
-          periodSeconds: 15
-          timeoutSeconds: 5
-          failureThreshold: 3
-
       - name: fluent-bit
         image: fluent/fluent-bit:2.2
         env:

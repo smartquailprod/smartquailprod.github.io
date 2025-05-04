@@ -3,12 +3,12 @@ entries:
   sqrabbitmq100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-05-03T14:54:53.966116-05:00"
+    created: "2025-05-03T20:08:22.84531-05:00"
     description: A Helm chart for Kubernetes
-    digest: a049f32d87c321693624497d9590302b5c1dfbd5ad70e846d7f0575bec6e69ee
+    digest: 77aba9491db40d70dff980cd9da81c10e221ca9d8c09f155d34e58a970bf9753
     name: sqrabbitmq100
     type: application
     urls:
     - sqrabbitmq100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-05-03T14:54:53.964998-05:00"
+generated: "2025-05-03T20:08:22.844572-05:00"
