@@ -35,6 +35,7 @@ data:
         HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
         Index         rabbitmq-logs
         Logstash_Format true  
+        Logstash_Prefix rabbitmq-logs
   parsers.conf: |
     [PARSER]
         Name   rabbitmq
