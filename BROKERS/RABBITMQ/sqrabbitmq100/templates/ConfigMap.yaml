@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rabbitmq-config
+  namespace: brk-srv
+data:
+  rabbitmq.conf: |
+    ## Configuración de los logs ##
+    log.dir = /var/log/rabbitmq
+    log.file = rabbit@rabbitmq.log
+    log.level = info
+
+    ## Habilitar el uso de los logs de gestión ##
+    management.log.dir = /var/log/rabbitmq
+    management.log.file = rabbitmq_management.log
+    management.log.level = info
+
+    ## Habilitar la administración de plugins ##
+    management.listener.port = 15672
+
+    ## Configuración de las colas ##
+    queue_slave_consistency = on
+
+    ## Otras configuraciones útiles ##
+    listeners.tcp.default = 5672
+    listeners.ssl.default = 5671
+    default_vhost = /
+    default_user = guest
+    default_pass = guest
