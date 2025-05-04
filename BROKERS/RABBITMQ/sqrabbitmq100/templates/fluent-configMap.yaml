@@ -34,9 +34,10 @@ data:
         HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
         Index         rabbitmq-logs
-        # Eliminar "Type" completamente para Elasticsearch 7.x y versiones posteriores
         Logstash_Format On
-        # No se necesita el parámetro "_type"
+        # Asegurarse de que no se añada '_type' ni en la configuración
+        Type           _doc  # **Importante:** Esta línea puede ser innecesaria en versiones más recientes de Elasticsearch
+        # No debe haber un parámetro 'Type' ni _type
 
   parsers.conf: |
     [PARSER]
