@@ -34,7 +34,7 @@ data:
         HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
         Index         rabbitmq-logs
-
+        Logstash_Format On  # Esto asegura que los logs sigan el formato de Logstash
 
   parsers.conf: |
     [PARSER]
