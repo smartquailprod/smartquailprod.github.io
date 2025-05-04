@@ -34,8 +34,7 @@ data:
         HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
         Index         rabbitmq-logs
-        Logstash_Format true  # Esto debería ser un valor booleano
-
+        Logstash_Format true  
   parsers.conf: |
     [PARSER]
         Name   rabbitmq
