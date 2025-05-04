@@ -17,7 +17,7 @@ data:
         Tag               rabbitmq.*
         Refresh_Interval  5
         Rotate_Wait       30
-        DB                /fluent-bit/etc/rabbitmq.db
+        DB                /tmp/rabbitmq.db
         Mem_Buf_Limit     5MB
         Skip_Long_Lines   On
 
