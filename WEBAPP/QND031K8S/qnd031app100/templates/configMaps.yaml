@@ -37,7 +37,7 @@ data:
         Retry_Limit      False
         HTTP_User        ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd      ${FLUENT_ELASTICSEARCH_PASSWORD}
-        Type             _doc   # Esto asegura que no se use _type, y en su lugar se usará _doc como el tipo predeterminado
+
 
     [OUTPUT]
         Name             es
@@ -49,7 +49,7 @@ data:
         Retry_Limit      False
         HTTP_User        ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd      ${FLUENT_ELASTICSEARCH_PASSWORD}
-        Type             _doc   # Esto asegura que no se use _type
+
 
   parsers.conf: |
     [PARSER]
