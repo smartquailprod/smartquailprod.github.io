@@ -29,15 +29,18 @@ data:
     [OUTPUT]
         Name          es
         Match         rabbitmq.*
-        Host          ${ELASTICSEARCH_HOST}
+        Host          elasticsearch
         Port          9200
         HTTP_User     ${FLUENT_ELASTICSEARCH_USER}
         HTTP_Passwd   ${FLUENT_ELASTICSEARCH_PASSWORD}
         Index         rabbitmq-logs
-        Logstash_Format true  
-        Logstash_Prefix rabbitmq-logs
-        Type            "" 
-        
+        Time_Key      @timestamp
+        Replace_Dots     On
+        Retry_Limit      False
+        Suppress_Type_Name On
+
+
+
   parsers.conf: |
     [PARSER]
         Name   rabbitmq
