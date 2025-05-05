@@ -6,54 +6,57 @@ metadata:
 data:
   fluent-bit.conf: |
     [SERVICE]
-        Flush            5
-        Daemon           Off
-        Log_Level        info
-        Parsers_File     parsers.conf
+        Flush              5
+        Daemon             Off
+        Log_Level          info
+        Parsers_File       parsers.conf
 
     [INPUT]
-        Name             tail
-        Path             /var/log/qnd031app/qnd031app.log
-        Tag              app.qnd031app
-        DB               /var/log/qnd031app/qnd031app.db
-        Parser           qnd031app
-        Refresh_Interval 5
+        Name               tail
+        Path               /var/log/qnd031app/qnd031app.log
+        Tag                app.qnd031app
+        DB                 /var/log/qnd031app/qnd031app.db
+        Parser             qnd031app
+        Refresh_Interval   5
 
     [INPUT]
-        Name             tail
-        Path             /var/log/uwsgi/uwsgi.log
-        Tag              app.uwsgi
-        DB               /var/log/uwsgi/uwsgi.db
-        Parser           uwsgi
-        Refresh_Interval 5
+        Name               tail
+        Path               /var/log/uwsgi/uwsgi.log
+        Tag                app.uwsgi
+        DB                 /var/log/uwsgi/uwsgi.db
+        Parser             uwsgi
+        Refresh_Interval   5
+
+    [FILTER]
+        Name               grep
+        Match              app.*
+        Regex              log  ^.+$
 
     [OUTPUT]
-        Name             es
-        Match            app.qnd031app
-        Host             elasticsearch
-        Port             9200
-        Index            qnd031app-logs
-        Time_Key         @timestamp
-        Replace_Dots     On
-        Retry_Limit      False
-        HTTP_User        ${FLUENT_ELASTICSEARCH_USER}
-        HTTP_Passwd      ${FLUENT_ELASTICSEARCH_PASSWORD}
+        Name               es
+        Match              app.qnd031app
+        Host               elasticsearch
+        Port               9200
+        Index              qnd031app-logs
+        Time_Key           @timestamp
+        Replace_Dots       On
+        Retry_Limit        False
+        HTTP_User          ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd        ${FLUENT_ELASTICSEARCH_PASSWORD}
         Suppress_Type_Name On
-
 
     [OUTPUT]
-        Name             es
-        Match            app.uwsgi
-        Host             elasticsearch
-        Port             9200
-        Index            uwsgi-logs
-        Time_Key         @timestamp
-        Replace_Dots     On
-        Retry_Limit      False
-        HTTP_User        ${FLUENT_ELASTICSEARCH_USER}
-        HTTP_Passwd      ${FLUENT_ELASTICSEARCH_PASSWORD}
+        Name               es
+        Match              app.uwsgi
+        Host               elasticsearch
+        Port               9200
+        Index              uwsgi-logs
+        Time_Key           @timestamp
+        Replace_Dots       On
+        Retry_Limit        False
+        HTTP_User          ${FLUENT_ELASTICSEARCH_USER}
+        HTTP_Passwd        ${FLUENT_ELASTICSEARCH_PASSWORD}
         Suppress_Type_Name On
-
 
   parsers.conf: |
     [PARSER]
