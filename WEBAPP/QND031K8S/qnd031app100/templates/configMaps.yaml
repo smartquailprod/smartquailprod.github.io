@@ -16,7 +16,7 @@ data:
         Path             /var/log/qnd031app/qnd031app.log
         Tag              app.qnd031app
         DB               /var/log/qnd031app/qnd031app.db
-        Parser           docker
+        Parser           qnd031app
         Refresh_Interval 5
 
     [INPUT]
@@ -57,10 +57,10 @@ data:
 
   parsers.conf: |
     [PARSER]
-        Name             docker
+        Name             qnd031app
         Format           json
         Time_Key         time
-        Time_Format      %Y-%m-%dT%H:%M:%S.%L
+        Time_Format      %Y-%m-%dT%H:%M:%S.%f
         Time_Keep        On
 
     [PARSER]
