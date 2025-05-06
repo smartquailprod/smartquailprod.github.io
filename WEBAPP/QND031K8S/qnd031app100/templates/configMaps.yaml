@@ -27,10 +27,7 @@ data:
         Parser             uwsgi
         Refresh_Interval   5
 
-    [FILTER]
-        Name               grep
-        Match              app.*
-        Regex              log  ^.+$
+
 
     [OUTPUT]
         Name               es

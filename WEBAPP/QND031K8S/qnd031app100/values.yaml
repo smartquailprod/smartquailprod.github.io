@@ -43,7 +43,7 @@ elasticport: 9200
 
 qnodeapmname: apm-server
 apmservicetype: ExternalName
-apmserviceExternalName: apm-server.logs-srv.svc.cluster.local
+apmserviceExternalName: apm-server-apm-server.logs-srv.svc.cluster.local
 apmport: 8200 
 
 
