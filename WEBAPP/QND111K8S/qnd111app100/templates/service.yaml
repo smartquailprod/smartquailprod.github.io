@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.qnodename }}
+  namespace: {{ .Values.qnodenamespace }}
+  labels:
+    app: {{ .Values.qnodename }}
+spec:
+  type: ClusterIP
+  selector:
+    app: {{ .Values.qnodename }}
+  ports:
+     - name: http
+       port: 80
+       targetPort: 9000
+       protocol: TCP
+
+
+
+    
