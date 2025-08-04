@@ -5,12 +5,13 @@ metadata:
   namespace: www-apps
 spec:
   secretName: ec-smartquail-io-tls
-  duration: 2160h # Duración del certificado en horas
-  renewBefore: 360h # Renovar el certificado 360 horas antes de la expiración
+  duration: 2160h
+  renewBefore: 360h
   isCA: false
   commonName: smartquail.io
   dnsNames:
+    - smartquail.io
     - ec.smartquail.io
   issuerRef:
-    name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
+    name: letsencrypt-cluster-issuer
     kind: ClusterIssuer
