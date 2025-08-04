@@ -392,13 +392,13 @@ spec:
           mountPath: /var/log/qnd041app
         - name: uwsgi-logs
           mountPath: /var/log/uwsgi
-        - name: fluent-bit-config
+        - name: fluent-bit-config-qnd041app
           mountPath: /fluent-bit/etc/
       volumes:
       - name: app-logs
         emptyDir: {}
       - name: uwsgi-logs
         emptyDir: {}
-      - name: fluent-bit-config
+      - name: fluent-bit-config-qnd041app
         configMap:
-          name: fluent-bit-config
+          name: fluent-bit-config-qnd041app
