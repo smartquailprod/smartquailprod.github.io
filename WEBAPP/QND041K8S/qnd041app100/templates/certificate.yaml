@@ -1,16 +1,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: hdbeneficios-smartquail-io-tls
+  name: ec-smartquail-io-tls
   namespace: www-apps
 spec:
-  secretName: hdbeneficios-smartquail-io-tls
+  secretName: ec-smartquail-io-tls
   duration: 2160h # Duración del certificado en horas
   renewBefore: 360h # Renovar el certificado 360 horas antes de la expiración
   isCA: false
   commonName: smartquail.io
   dnsNames:
-    - hdbeneficios.smartquail.io
+    - ec.smartquail.io
   issuerRef:
     name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
     kind: ClusterIssuer

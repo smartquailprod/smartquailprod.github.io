@@ -22,7 +22,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: hdbeneficios.smartquail.io
+    - host: ec.smartquail.io
       http:
         paths:
           - path: /
@@ -35,4 +35,4 @@ spec:
   tls:
     - secretName: {{ .Values.secret_name }}
       hosts:
-        -  hdbeneficios.smartquail.io
+        -  ec.smartquail.io

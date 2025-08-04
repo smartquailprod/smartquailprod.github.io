@@ -12,9 +12,9 @@ nodeRole: app
 
 secret_name: smartquail-io-tls
 qnd_commonName : smartquail.io
-qnd_dns_names : meddes.smartquail.io
+qnd_dns_names : ec.smartquail.io
 #Services
-postgres_db : QND031STDB
+postgres_db : QND041STDB
 qnodedatabasename: smartquaildb
 databaseservicetype: ExternalName
 databaseExternalName: smartquaildb.db-srv.svc.cluster.local
