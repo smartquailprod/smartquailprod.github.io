@@ -34,17 +34,17 @@ spec:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: postgres-secrets-2
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: postgres-secrets-2
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: postgres-secrets-2
                   key: POSTGRES_DB
 
         - name: fluent-bit
@@ -53,12 +53,12 @@ spec:
             - name: FLUENT_ELASTICSEARCH_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: postgres-secrets-2
                   key: FLUENT_ELASTICSEARCH_USER
             - name: FLUENT_ELASTICSEARCH_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets
+                  name: postgres-secrets-2
                   key: FLUENT_ELASTICSEARCH_PASSWORD
           volumeMounts:
             - name: postgres-logs-2
@@ -70,7 +70,7 @@ spec:
       volumes:
         - name: postgres-data-2
           persistentVolumeClaim:
-            claimName: {{ .Values.postgres_name }}-pv-claim
+            claimName: postgres-pv-claim
 
         - name: postgres-config-volume-2
           configMap:
