@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: {{ .Values.postgres_name }}-pv-volume
+  name: {{ .Values.postgres_name }}-pv-volume-2
   namespace: {{ .Values.postgres_namespace }}
   labels:
     type: local
@@ -20,7 +20,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.postgres_name }}-pv-claim
+  name: {{ .Values.postgres_name }}-pv-claim-2
   namespace: {{ .Values.postgres_namespace }}
   labels:
     app: {{ .Values.postgres_name }}
