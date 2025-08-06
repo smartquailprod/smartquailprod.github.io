@@ -17,7 +17,7 @@ qnd_dns_names : ec.smartquail.io
 postgres_db : QND041STDB
 qnodedatabasename: smartquaildb
 databaseservicetype: ExternalName
-databaseExternalName: smartquaildb.db-srv.svc.cluster.local
+databaseExternalName: smartquaildb17.db-srv.svc.cluster.local
 databaseport: 5432
 #redis
 #qnodecachename: redis
