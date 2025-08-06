@@ -68,7 +68,7 @@ spec:
               readOnly: false
 
       volumes:
-        - name: postgres-data
+        - name: postgres-data-2
           persistentVolumeClaim:
             claimName: {{ .Values.postgres_name }}-pv-claim
 
