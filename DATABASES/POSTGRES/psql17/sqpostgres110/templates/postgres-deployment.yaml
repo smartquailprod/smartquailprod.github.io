@@ -70,7 +70,7 @@ spec:
       volumes:
         - name: postgres-data-2
           persistentVolumeClaim:
-            claimName: postgres-pv-claim-2
+            claimName: {{ .Values.postgres_name }}-pv-claim
 
         - name: postgres-config-volume-2
           configMap:
