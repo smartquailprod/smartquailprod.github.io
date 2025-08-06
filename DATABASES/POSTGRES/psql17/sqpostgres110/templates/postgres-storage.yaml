@@ -9,13 +9,14 @@ metadata:
 spec:
   storageClassName: standard
   capacity:
-    storage: 500Mi
+    storage: {{ .Values.postgres_storage | default "500Mi" }}
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: "/mnt/data/postgres/data"  # Ruta personalizada para evitar conflictos
+    path: "/mnt/data/{{ .Values.postgres_name }}/data"  # Directorio independiente
     type: DirectoryOrCreate
+
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -30,4 +31,4 @@ spec:
     - ReadWriteOnce
   resources:
     requests:
-      storage: 500Mi
+      storage: {{ .Values.postgres_storage | default "500Mi" }}
