@@ -1,50 +1,50 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.postgres_name }}
-  namespace: {{ .Values.postgres_namespace }}
+  name: postgres17
+  namespace: db-srv
   labels:
-    app: {{ .Values.postgres_app_name }}
+    app: postgres17
 spec:
-  replicas: {{ .Values.replicaCount }}
+  replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.postgres_app_name }}
+      app: postgres17
   template:
     metadata:
       labels:
-        app: {{ .Values.postgres_app_name }}
+        app: postgres17
     spec:
       restartPolicy: Always
       containers:
-        - name: {{ .Values.postgres_name }}
+        - name: postgres17
           image: "postgres:17"
           imagePullPolicy: Always
           ports:
             - containerPort: 5932
           volumeMounts:
-            - name: postgres-data-2
+            - name: postgres17-data
               mountPath: /var/lib/postgresql/data
-            - name: postgres-config-volume-2
+            - name: postgres17-init
               mountPath: /docker-entrypoint-initdb.d/
               readOnly: true
-            - name: postgres-logs-2
+            - name: postgres17-logs
               mountPath: /var/log/postgresql
           env:
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets-2
+                  name: postgres17-secrets
                   key: POSTGRES_USER
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets-2
+                  name: postgres17-secrets
                   key: POSTGRES_PASSWORD
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets-2
+                  name: postgres17-secrets
                   key: POSTGRES_DB
 
         - name: fluent-bit
@@ -53,32 +53,32 @@ spec:
             - name: FLUENT_ELASTICSEARCH_USER
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets-2
+                  name: postgres17-secrets
                   key: FLUENT_ELASTICSEARCH_USER
             - name: FLUENT_ELASTICSEARCH_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secrets-2
+                  name: postgres17-secrets
                   key: FLUENT_ELASTICSEARCH_PASSWORD
           volumeMounts:
-            - name: postgres-logs-2
+            - name: postgres17-logs
               mountPath: /var/log/postgresql
-            - name: fluent-bit-config-2
+            - name: fluent-bit-config
               mountPath: /fluent-bit/etc/
-              readOnly: false
+              readOnly: true
 
       volumes:
-        - name: postgres-data-2
+        - name: postgres17-data
           persistentVolumeClaim:
-            claimName: {{ .Values.postgres_name }}-pv-claim
+            claimName: postgres17-pv-claim
 
-        - name: postgres-config-volume-2
+        - name: postgres17-init
           configMap:
-            name: postgres-config
+            name: postgres17-init-config
 
-        - name: postgres-logs-2
+        - name: postgres17-logs
           emptyDir: {}
 
-        - name: fluent-bit-config-2
+        - name: fluent-bit-config
           configMap:
             name: fluent-bit-config
