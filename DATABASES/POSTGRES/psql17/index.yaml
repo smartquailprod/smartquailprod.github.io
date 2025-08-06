@@ -3,12 +3,12 @@ entries:
   sqpostgres110:
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2025-08-05T21:26:29.860383-05:00"
+    created: "2025-08-05T21:34:39.532559-05:00"
     description: A Helm chart for Kubernetes
-    digest: d230965862b060128a84c7321b63bfb41109030ed93a4ba19d39912199188da6
+    digest: 8e539e7747b9c2b9096e3e563b94ce49693ff03ba02b76c4e9c2ac38a9011ace
     name: sqpostgres110
     type: application
     urls:
     - sqpostgres110-1.1.0.tgz
     version: 1.1.0
-generated: "2025-08-05T21:26:29.856294-05:00"
+generated: "2025-08-05T21:34:39.531978-05:00"
