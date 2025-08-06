@@ -3,6 +3,6 @@ postgres_namespace: db-srv
 postgres_image: postgres
 postgres_app_name: postgres
 postgres_secrets: postgres17-secrets
-postgres_port : 5932
+postgres_port : 5432
 replicaCount: 1
 nodeRole: app
