@@ -4,10 +4,10 @@ metadata:
   name: smartquaildb17
   namespace: db-srv
   labels:
-    app: postgres
+    app: postgres17
 spec:
   selector:
-    app: postgres
+    app: postgres17
   ports:
   - protocol: TCP
     port: 5432
