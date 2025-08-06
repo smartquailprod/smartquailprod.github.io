@@ -1,4 +1,4 @@
-postgres_name: postgres
+postgres_name: postgres17
 postgres_namespace: db-srv
 postgres_image: postgres
 postgres_app_name: postgres
