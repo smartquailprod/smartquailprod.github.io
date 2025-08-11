@@ -26,5 +26,5 @@ spec:
     - ReadWriteOnce  # Mantiene coherencia con el PV
   resources:
     requests:
-      storage: 5Gi  # Espacio solicitado para el volumen
+      storage: 1Gi  # Espacio solicitado para el volumen
   storageClassName: standard  # Clase de almacenamiento estándar
