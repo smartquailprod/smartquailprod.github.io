@@ -116,7 +116,7 @@ spec:
 
           volumeMounts:
             - name: mail-certificates
-              mountPath: /etc/ssl/postfix
+              mountPath: /etc/ssl
               readOnly: true
             - name: dovecot-mailbox
               mountPath: /var/mail
