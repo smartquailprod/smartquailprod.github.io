@@ -17,75 +17,67 @@ spec:
     spec:
       containers:
         - name: dovecot
-          image: {{ .Values.dovecot_image }}  # Ensure this is correctly set in values.yaml
+          image: {{ .Values.dovecot_image }}
           ports:
-            - containerPort: 143 # Puerto IMAP
-            - containerPort: 993 # Puerto IMAPS
+            - containerPort: 143   # Puerto IMAP
+            - containerPort: 993   # Puerto IMAPS
+            - containerPort: 12345 # Puerto TCP para auth SASL (ajusta al puerto que uses)
           env:
-          - name: DOMAIN
-            valueFrom:
-              secretKeyRef:
-                name: dovecot-secrets
-                key: DOMAIN
-          - name: MAIL_LOCATION_PATH
-            valueFrom:
-              secretKeyRef:
-                name: dovecot-secrets
-                key: MAIL_LOCATION_PATH
-          - name: POSTFIX_DB_HOST
-            valueFrom:
-              secretKeyRef:
-                name: dovecot-secrets
-                key: POSTFIX_DB_HOST 
-          - name: POSTFIX_DB
-            valueFrom:
-              secretKeyRef:
-                name: dovecot-secrets
-                key: POSTFIX_DB 
-          - name: POSTFIX_USER_DB
-            valueFrom:
-              secretKeyRef:
-                name: dovecot-secrets
-                key: POSTFIX_USER_DB
-          - name: POSTFIX_PASSWORD_DB
-            valueFrom:
-              secretKeyRef:
-                name: dovecot-secrets
-                key: POSTFIX_PASSWORD_DB
-          - name: MAIL_HOME_PATH
-            valueFrom:
-              secretKeyRef:
-                name: dovecot-secrets
-                key: MAIL_HOME_PATH    
+            - name: DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: dovecot-secrets
+                  key: DOMAIN
+            - name: MAIL_LOCATION_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: dovecot-secrets
+                  key: MAIL_LOCATION_PATH
+            - name: POSTFIX_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: dovecot-secrets
+                  key: POSTFIX_DB_HOST
+            - name: POSTFIX_DB
+              valueFrom:
+                secretKeyRef:
+                  name: dovecot-secrets
+                  key: POSTFIX_DB
+            - name: POSTFIX_USER_DB
+              valueFrom:
+                secretKeyRef:
+                  name: dovecot-secrets
+                  key: POSTFIX_USER_DB
+            - name: POSTFIX_PASSWORD_DB
+              valueFrom:
+                secretKeyRef:
+                  name: dovecot-secrets
+                  key: POSTFIX_PASSWORD_DB
+            - name: MAIL_HOME_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: dovecot-secrets
+                  key: MAIL_HOME_PATH
           volumeMounts:
             - name: imap-certificates
-              mountPath: /etc/dovecot/certs  # Certificados TLS
+              mountPath: /etc/dovecot/private/
               readOnly: true
             - name: dovecot-mailbox
-              mountPath: /var/mail/  # Ruta para los buzones
-              readOnly: false
-
-            - name: dovecot-postfix-socket
-              mountPath: /var/run/dovecot/ 
+              mountPath: /var/mail/
               readOnly: false
 
       volumes:
-        - name: dovecot-postfix-socket
-          persistentVolumeClaim:
-            claimName: dovecot-postfix-socket-pvc
         - name: dovecot-mailbox
           persistentVolumeClaim:
-            claimName: dovecot-mailbox-pvc  # El PVC correspondiente al volumen
+            claimName: dovecot-mailbox-pvc
         - name: imap-certificates
           projected:
             sources:
               - secret:
-                  name: {{ .Values.tlsSecretName }}  # Usando la variable definida en values.yaml
+                  name: {{ .Values.tlsSecretName }}
                   items:
                     - key: tls.crt
                       path: tls.crt
                     - key: tls.key
                       path: tls.key
             defaultMode: 0440
-
-

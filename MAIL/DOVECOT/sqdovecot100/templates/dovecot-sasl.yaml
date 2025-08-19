@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dovecot-sasl
+  namespace: {{ .Values.NameSpaceCluster }}
+  labels:
+    app: dovecot
+spec:
+  selector:
+    app: dovecot
+  ports:
+    - name: sasl-tcp
+      protocol: TCP
+      port: 12345  # Puerto SASL
+      targetPort: 12345
+  type: ClusterIP

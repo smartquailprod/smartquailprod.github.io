@@ -103,11 +103,17 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: TLS_KEY_FILE
-            - name: DKIM_SOCKET
+
+            - name: SASL_TCP_HOST
               valueFrom:
                 secretKeyRef:
                   name: postfix-secrets
-                  key: DKIM_SOCKET
+                  key: SASL_TCP_HOST
+            - name: SASL_TCP_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: SASL_TCP_PORT
       volumes:
         - name: mail-certificates
           projected:
@@ -119,8 +125,6 @@ spec:
                       path: tls.crt
                     - key: tls.key
                       path: tls.key
-        - name: dovecot-postfix-socket
-          emptyDir: {}  # Volumen temporal compartido entre Postfix y Dovecot
         - name: dovecot-mailbox
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc
