@@ -119,7 +119,7 @@ spec:
               mountPath: /etc/ssl
               readOnly: true
             - name: dovecot-mailbox
-              mountPath: /var/mail/vhosts/
+              mountPath: /var/mail/
             - name: postfix-config-volume
               mountPath: /etc/postfix/sql  # Ruta donde Postfix buscará los archivos .cf
               readOnly: true

@@ -64,7 +64,7 @@ spec:
               mountPath: /etc/dovecot/private/
               readOnly: true
             - name: dovecot-mailbox
-              mountPath: /var/mail/vhosts/
+              mountPath: /var/mail/
               readOnly: false
 
       volumes:
