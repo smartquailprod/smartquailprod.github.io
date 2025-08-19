@@ -39,7 +39,7 @@ dnsName: mail.smartquail.io
 
 # SASL Settings
 saslUsername: support@smartquail.io
-saslPassword: Mms9535672@
+saslPassword: mms9535672@
 # Dovecote settings
 mailHomePath: /var/mail/%d/%u
 mailLocationPath: maildir:/var/mail/%d/%n/Maildir

@@ -6,28 +6,28 @@ metadata:
 data:
 
   virtual_mailbox_domains.cf: |
-    user = ${POSTFIX_USER_DB}
-    password = ${POSTFIX_PASSWORD_DB}
-    dbname = ${POSTFIX_DB}
-    hosts = ${POSTFIX_DB_HOST}
+    user     = sqadmindb  
+    password = Support1719@
+    dbname = QND041MAILDB
+    hosts = smartquaildb
 
     # Query para obtener el dominio de un buzón de correo
     query = SELECT domain FROM virtual_domains WHERE domain='%s'
 
   virtual_alias_maps.cf: |
-    user = ${POSTFIX_USER_DB}
-    password = ${POSTFIX_PASSWORD_DB}
-    dbname = ${POSTFIX_DB}
-    hosts = ${POSTFIX_DB_HOST}
+    user     = sqadmindb  
+    password = Support1719@
+    dbname = QND041MAILDB
+    hosts = smartquaildb
 
     # Query para obtener el destino de un alias
     query = SELECT destination FROM virtual_aliases WHERE source='%s'
 
   virtual_mailbox_maps.cf: |
-    user = ${POSTFIX_USER_DB}
-    password = ${POSTFIX_PASSWORD_DB}
-    dbname = ${POSTFIX_DB}
-    hosts = ${POSTFIX_DB_HOST}
+    user     = sqadmindb  
+    password = Support1719@
+    dbname = QND041MAILDB
+    hosts = smartquaildb
 
     # Consulta para obtener la ruta del buzón de correo
     query = SELECT CONCAT('/var/mail/', domain, '/', email, '/Maildir/') FROM virtual_users, virtual_domains WHERE virtual_users.domain_id = virtual_domains.id AND email='%s'
