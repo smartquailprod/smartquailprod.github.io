@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: dovecot-lmtp
+  namespace: {{ .Values.NameSpaceCluster }}  # o "mail-srv" si no usás Helm
+  labels:
+    app: dovecot
+spec:
+  selector:
+    app: dovecot
+  ports:
+    - name: lmtp
+      protocol: TCP
+      port: 24          # Puerto expuesto dentro del clúster
+      targetPort: 24    # Puerto LMTP en el contenedor Dovecot
+  type: ClusterIP        # No expongas LMTP fuera del clúster

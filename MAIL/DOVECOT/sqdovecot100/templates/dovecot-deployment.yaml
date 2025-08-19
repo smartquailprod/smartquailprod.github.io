@@ -22,6 +22,7 @@ spec:
             - containerPort: 143   # Puerto IMAP
             - containerPort: 993   # Puerto IMAPS
             - containerPort: 12345 # Puerto TCP para auth SASL (ajusta al puerto que uses)
+            - containerPort: 24   # Puerto LMTP
           env:
             - name: DOMAIN
               valueFrom:
