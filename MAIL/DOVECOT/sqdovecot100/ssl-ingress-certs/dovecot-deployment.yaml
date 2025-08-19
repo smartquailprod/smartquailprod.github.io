@@ -64,7 +64,34 @@ spec:
             - name: dovecot-mailbox
               mountPath: /var/mail/  # Ruta para los buzones
               readOnly: false
-
+            - name: dovecot-config
+              mountPath: /etc/dovecot/conf.d/10-auth.conf
+              subPath: 10-auth.conf
+              readOnly: false
+            - name: dovecot-config
+              mountPath: /etc/dovecot/conf.d/10-mail.conf
+              subPath: 10-mail.conf
+              readOnly: false
+            - name: dovecot-config
+              mountPath: /etc/dovecot/conf.d/10-ssl.conf
+              subPath: 10-ssl.conf
+              readOnly: false
+            - name: dovecot-config
+              mountPath: /etc/dovecot/conf.d/10-master.conf
+              subPath: 10-master.conf
+              readOnly: false
+            - name: dovecot-config
+              mountPath: /etc/dovecot/dovecot-sql.conf.ext
+              subPath: dovecot-sql.conf.ext
+              readOnly: false
+            - name: dovecot-config
+              mountPath: /etc/dovecot/auth-sql.conf.ext
+              subPath: auth-sql.conf.ext
+              readOnly: false
+            - name: dovecot-config
+              mountPath: /etc/dovecot/dovecot.conf
+              subPath: dovecot.conf
+              readOnly: false
             - name: dovecot-postfix-socket
               mountPath: /var/run/dovecot/ 
               readOnly: false
@@ -76,6 +103,9 @@ spec:
         - name: dovecot-mailbox
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc  # El PVC correspondiente al volumen
+        - name: dovecot-config
+          configMap:
+            name: dovecot-config
         - name: imap-certificates
           projected:
             sources:
