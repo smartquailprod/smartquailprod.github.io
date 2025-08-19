@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: postfix
-          image: {{ .Values.postfiximage }} # Imagen de Postfix con OpenDKIM incluido
+          image: {{ .Values.postfiximage }}
           ports:
             - containerPort: 25
             - containerPort: 465
@@ -57,7 +57,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: postfix-secrets
-                  key: POSTFIX_DB_HOST        
+                  key: POSTFIX_DB_HOST
             - name: POSTFIX_RELAY_USER
               valueFrom:
                 secretKeyRef:
@@ -103,7 +103,6 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: TLS_KEY_FILE
-
             - name: SASL_TCP_HOST
               valueFrom:
                 secretKeyRef:
@@ -114,6 +113,17 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: SASL_TCP_PORT
+
+          volumeMounts:
+            - name: mail-certificates
+              mountPath: /etc/ssl/postfix
+              readOnly: true
+            - name: dovecot-mailbox
+              mountPath: /var/mail
+            - name: postfix-config-volume
+              mountPath: /etc/postfix/sql  # Ruta donde Postfix buscará los archivos .cf
+              readOnly: true
+
       volumes:
         - name: mail-certificates
           projected:
@@ -128,3 +138,6 @@ spec:
         - name: dovecot-mailbox
           persistentVolumeClaim:
             claimName: dovecot-mailbox-pvc
+        - name: postfix-config-volume
+          configMap:
+            name: postfix-config
