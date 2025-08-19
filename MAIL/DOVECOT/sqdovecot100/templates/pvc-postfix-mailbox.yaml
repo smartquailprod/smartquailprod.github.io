@@ -3,28 +3,29 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: dovecot-mailbox
-  namespace: mail-srv 
+  # Nota: Los PVs son recursos a nivel cluster, no uses "namespace" aquí
 spec:
   capacity:
-    storage: 5Gi  # Tamaño del volumen
+    storage: 5Gi
   accessModes:
-    - ReadWriteOnce  # Modificado para el acceso estándar
-  storageClassName: standard  # Cambiado a una clase de almacenamiento estándar
-  volumeMode: Filesystem  # Modo de volumen
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain  # Para evitar que se borre si se elimina el PVC
   hostPath:
-    path: /var/mail/ # Ruta en el nodo anfitrión donde se almacenará el volumen
-    type: DirectoryOrCreate  # Crea el directorio si no existe
-
+    path: /var/mail/
+    type: DirectoryOrCreate
+  # No se define storageClassName → Volumen estático
 ---
+
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: dovecot-mailbox-pvc
-  namespace: mail-srv 
+  namespace: mail-srv
 spec:
   accessModes:
-    - ReadWriteOnce  # Mantiene coherencia con el PV
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi  # Espacio solicitado para el volumen
-  storageClassName: standard  # Clase de almacenamiento estándar
+      storage: 1Gi
+  volumeName: dovecot-mailbox  # Enlaza explícitamente con el PV
