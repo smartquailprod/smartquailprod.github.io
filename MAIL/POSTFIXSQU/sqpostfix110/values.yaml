@@ -1,7 +1,7 @@
 NameSpaceCluster: mail-srv
 mailboxSize: 5Gi
 #POSTFIX IMAGE
-postfiximage: smartquail/qndpostfix:latest
+postfiximage: smartquail/qndpostfix200:latest
 #DOVECOTE IMAGE
 dovecoteimage: dovecot/dovecot:latest 
 
