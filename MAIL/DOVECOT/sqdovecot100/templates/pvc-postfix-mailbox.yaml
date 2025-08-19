@@ -6,7 +6,7 @@ metadata:
   # Nota: Los PVs son recursos a nivel cluster, no uses "namespace" aquí
 spec:
   capacity:
-    storage: 5Gi
+    storage: 1Gi
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
