@@ -10,11 +10,11 @@ spec:
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
-  persistentVolumeReclaimPolicy: Retain  # Evita que se borre el PV si se elimina el PVC
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
     path: /var/mail/
     type: DirectoryOrCreate
-  # No definas storageClassName para un volumen estático que enlazas directamente con PVC
+  # No storageClassName definido aquí
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
@@ -27,5 +27,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  volumeName: dovecot-mailbox  # Enlaza explícitamente con el PV "dovecot-mailbox"
-  # No definas storageClassName aquí para que coincida con PV sin storageClass
+  volumeName: dovecot-mailbox
+  storageClassName: ""  # Indica explícitamente que no quieres storageClass
