@@ -21,4 +21,4 @@ spec:
       protocol: TCP
       port: 587      # Puerto Submission (envío con STARTTLS)
       targetPort: 587
-  type: LoadBalancer  # Cambia a ClusterIP si solo necesitas acceso interno
+  type: NodePort  # Cambia a ClusterIP si solo necesitas acceso interno

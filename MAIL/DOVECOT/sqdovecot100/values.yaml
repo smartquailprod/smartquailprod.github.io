@@ -11,8 +11,9 @@ hostname: mail.smartquail.io
 
 # DATABASE VARIABLES
 db_username: sqadmindb
-db_password: smartquaildev1719pass
-db_name: POSTFIXDB
+db_password: Support1719@
+db_name: QND041MAILDB
+
 db_host: smartquaildb
 dbservicetype: ExternalName
 dbExternalName: smartquaildb.db-srv.svc.cluster.local
