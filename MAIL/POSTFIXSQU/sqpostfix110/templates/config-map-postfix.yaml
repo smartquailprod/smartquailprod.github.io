@@ -30,4 +30,5 @@ data:
     hosts = smartquaildb
 
     # Consulta para obtener la ruta del buzón de correo
-    query = SELECT CONCAT('/var/mail/', domain, '/', email, '/Maildir/') FROM virtual_users, virtual_domains WHERE virtual_users.domain_id = virtual_domains.id AND email='%s'
+    query = SELECT CONCAT('/var/mail/vhosts/', domain, '/', SUBSTRING_INDEX(email, '@', 1), '/Maildir/') FROM virtual_users, virtual_domains WHERE virtual_users.domain_id = virtual_domains.id AND email='%s'
+
