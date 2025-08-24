@@ -30,8 +30,4 @@ spec:
       port: 995          # POP3 con SSL/TLS
       targetPort: 995
       nodePort: 30995
-    - name: submission
-      protocol: TCP
-      port: 587          # Submission para clientes (envío con STARTTLS)
-      targetPort: 587
-      nodePort: 31193
+
