@@ -8,17 +8,20 @@ metadata:
 spec:
   selector:
     app: postfix
+  type: NodePort  # Acceso externo a través de puertos del nodo
   ports:
     - name: smtp
       protocol: TCP
-      port: 25       # Puerto SMTP (recepción)
+      port: 25
       targetPort: 25
+      nodePort: 31381   # Fijado: SMTP estándar
     - name: smtps
       protocol: TCP
-      port: 465      # Puerto SMTPS (envío seguro con SSL/TLS)
+      port: 465
       targetPort: 465
+      nodePort: 32613   # Fijado: SMTPS
     - name: submission
       protocol: TCP
-      port: 587      # Puerto Submission (envío con STARTTLS)
+      port: 587
       targetPort: 587
-  type: NodePort  # Cambia a ClusterIP si solo necesitas acceso interno
+      nodePort: 31193   # Fijado: Submission (STARTTLS)
