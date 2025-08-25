@@ -62,7 +62,7 @@ spec:
                   key: MAIL_HOME_PATH
           volumeMounts:
             - name: imap-certificates
-              mountPath: /etc/dovecot/private/
+              mountPath: /etc/dovecot/ssl/
               readOnly: true
             - name: dovecot-mailbox
               mountPath: /var/mail/
