@@ -28,10 +28,10 @@ spec:
             - name: smtp
               containerPort: 25
               hostPort: 25
-        - name: smtps
-          containerPort: 465
-        - name: submission
-          containerPort: 587
+            - name: smtps
+              containerPort: 465
+            - name: submission
+              containerPort: 587
           env:
             - name: DOMAIN
               valueFrom:
@@ -171,4 +171,3 @@ spec:
         - name: postfix-config-volume
           configMap:
             name: postfix-config
-
