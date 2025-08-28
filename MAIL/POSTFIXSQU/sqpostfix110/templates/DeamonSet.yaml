@@ -24,16 +24,22 @@ spec:
       securityContext:
         fsGroup: 1000  # Grupo que tendrá acceso a /var/mail
 
+      # Eliminamos initContainer fix-permissions porque falla si el volumen no permite chown
+      # En caso de que quieras volver a intentar, revisa el tipo de volumen y permisos en el host
+
       initContainers:
-        - name: fix-permissions
+        - name: copy-postfix-config
           image: busybox
-          command: ["sh", "-c", "chown -R 1000:1000 /var/mail || true"]
-          securityContext:
-            runAsUser: 0
-            runAsGroup: 0
+          command:
+            - sh
+            - -c
+            - cp -r /postfix-config/* /postfix-config-writable/
           volumeMounts:
-            - name: dovecot-mailbox
-              mountPath: /var/mail
+            - name: postfix-config-volume
+              mountPath: /postfix-config
+              readOnly: true
+            - name: postfix-config-writable
+              mountPath: /postfix-config-writable
 
       containers:
         - name: postfix
@@ -82,8 +88,8 @@ spec:
               memory: "32Mi"
 
           securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
+            runAsUser: 0            # correr como root para evitar problemas de usuario inexistente
+            runAsGroup: 0
             allowPrivilegeEscalation: false
             capabilities:
               drop:
@@ -101,9 +107,9 @@ spec:
             - name: mail-certificates
               mountPath: /etc/ssl
               readOnly: true
-            - name: postfix-config-volume
+            - name: postfix-config-writable
               mountPath: /etc/postfix/sql
-              readOnly: true
+              readOnly: false
 
       volumes:
         - name: dovecot-mailbox
@@ -122,3 +128,5 @@ spec:
         - name: postfix-config-volume
           configMap:
             name: postfix-config
+        - name: postfix-config-writable
+          emptyDir: {}
