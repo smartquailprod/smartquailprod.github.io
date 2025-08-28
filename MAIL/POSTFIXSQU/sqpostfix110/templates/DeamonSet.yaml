@@ -131,10 +131,10 @@ spec:
           resources:
             requests:
               memory: "32Mi"
-              cpu: "50m"
+              cpu: "5m"    # ← Mínimo para pruebas
             limits:
               memory: "64Mi"
-              cpu: "50m"
+              cpu: "10m"   # ← Mínimo para pruebas
           securityContext:
             capabilities:
               drop:
