@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: iptables-redirect
+  namespace: mail-srv
+  labels:
+    app: iptables-redirect
+spec:
+  selector:
+    matchLabels:
+      app: iptables-redirect
+  template:
+    metadata:
+      labels:
+        app: iptables-redirect
+    spec:
+      containers:
+      - name: iptables
+        image: debian:bullseye  # Usa una imagen con iptables
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            apt-get update && apt-get install -y iptables &&
+            iptables -t nat -A PREROUTING -p tcp --dport 25 -j REDIRECT --to-port 31381 &&
+            sleep infinity
+        securityContext:
+          privileged: true
+      hostNetwork: true
+      hostPID: true
+      dnsPolicy: ClusterFirstWithHostNet

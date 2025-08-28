@@ -10,11 +10,6 @@ spec:
     app: postfix
   type: NodePort  # Acceso externo a través de puertos del nodo
   ports:
-    - name: smtp
-      protocol: TCP
-      port: 25
-      targetPort: 25
-      nodePort: 31381   # Fijado: SMTP estándar
     - name: smtps
       protocol: TCP
       port: 465
