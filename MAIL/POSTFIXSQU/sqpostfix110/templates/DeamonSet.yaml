@@ -20,6 +20,10 @@ spec:
       terminationGracePeriodSeconds: 30
       hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
+
+      securityContext:
+        fsGroup: 1000  # Permitir acceso grupal a /var/mail
+
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
@@ -117,24 +121,28 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: SASL_TCP_PORT
+
           livenessProbe:
             failureThreshold: 2
             tcpSocket:
               port: 25
             initialDelaySeconds: 10
             periodSeconds: 60
+
           readinessProbe:
             failureThreshold: 2
             tcpSocket:
               port: 25
             periodSeconds: 60
+
           resources:
             requests:
-              memory: "32Mi"
-              cpu: "5m"    # ← Mínimo para pruebas
+              cpu: "5m"
+              memory: "16Mi"
             limits:
-              memory: "64Mi"
-              cpu: "10m"   # ← Mínimo para pruebas
+              cpu: "10m"
+              memory: "32Mi"
+
           securityContext:
             capabilities:
               drop:
@@ -145,6 +153,7 @@ spec:
                 - SETUID
                 - SETGID
                 - NET_BIND_SERVICE
+
           volumeMounts:
             - name: dovecot-mailbox
               mountPath: /var/mail
@@ -154,6 +163,7 @@ spec:
             - name: postfix-config-volume
               mountPath: /etc/postfix/sql
               readOnly: true
+
       volumes:
         - name: dovecot-mailbox
           persistentVolumeClaim:
