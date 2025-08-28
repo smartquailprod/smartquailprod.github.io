@@ -48,7 +48,7 @@ spec:
             - name: submission
               containerPort: 587
           env:
-            # [Aquí van todos tus env vars desde secrets, igual que tenías]
+            # Aquí van tus variables de entorno
             - name: DOMAIN
               valueFrom:
                 secretKeyRef:
