@@ -22,24 +22,7 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
 
       securityContext:
-        fsGroup: 1000  # Grupo que tendrá acceso a /var/mail
-
-      # Eliminamos initContainer fix-permissions porque falla si el volumen no permite chown
-      # En caso de que quieras volver a intentar, revisa el tipo de volumen y permisos en el host
-
-      initContainers:
-        - name: copy-postfix-config
-          image: busybox
-          command:
-            - sh
-            - -c
-            - cp -r /postfix-config/* /postfix-config-writable/
-          volumeMounts:
-            - name: postfix-config-volume
-              mountPath: /postfix-config
-              readOnly: true
-            - name: postfix-config-writable
-              mountPath: /postfix-config-writable
+        fsGroup: 1000  # Permitir acceso grupal a /var/mail
 
       containers:
         - name: postfix
@@ -54,17 +37,90 @@ spec:
             - name: submission
               containerPort: 587
           env:
-            # Aquí van tus variables de entorno
             - name: DOMAIN
               valueFrom:
                 secretKeyRef:
                   name: postfix-secrets
                   key: DOMAIN
-            # ... resto igual ...
+            - name: HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: HOSTNAME
+            - name: POSTFIX_USER_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_USER_DB
+            - name: POSTFIX_PASSWORD_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_PASSWORD_DB
+            - name: POSTFIX_IP
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_IP
+            - name: POSTFIX_DB
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_DB
+            - name: POSTFIX_DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_DB_HOST
+            - name: POSTFIX_RELAY_USER
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_USER
+            - name: POSTFIX_RELAY_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_PASSWORD
+            - name: POSTFIX_RELAY
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY
+            - name: POSTFIX_RELAY_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: POSTFIX_RELAY_PORT
+            - name: RELAY_NETWORKS
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: RELAY_NETWORKS
+            - name: MESSAGE_SIZE_LIMIT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: MESSAGE_SIZE_LIMIT
+            - name: MAIL_HOME_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: MAIL_HOME_PATH
             - name: TLS_CERT_FILE
               value: /etc/ssl/tls.crt
             - name: TLS_KEY_FILE
               value: /etc/ssl/tls.key
+            - name: SASL_TCP_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: SASL_TCP_HOST
+            - name: SASL_TCP_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: postfix-secrets
+                  key: SASL_TCP_PORT
 
           livenessProbe:
             failureThreshold: 2
@@ -88,9 +144,6 @@ spec:
               memory: "32Mi"
 
           securityContext:
-            runAsUser: 0            # correr como root para evitar problemas de usuario inexistente
-            runAsGroup: 0
-            allowPrivilegeEscalation: false
             capabilities:
               drop:
                 - ALL
@@ -107,9 +160,9 @@ spec:
             - name: mail-certificates
               mountPath: /etc/ssl
               readOnly: true
-            - name: postfix-config-writable
+            - name: postfix-config-volume
               mountPath: /etc/postfix/sql
-              readOnly: false
+              readOnly: true
 
       volumes:
         - name: dovecot-mailbox
@@ -128,5 +181,3 @@ spec:
         - name: postfix-config-volume
           configMap:
             name: postfix-config
-        - name: postfix-config-writable
-          emptyDir: {}
