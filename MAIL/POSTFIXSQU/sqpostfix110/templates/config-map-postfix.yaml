@@ -30,7 +30,7 @@ data:
     hosts = smartquaildb
 
     # Consulta para obtener la ruta del buzón de correo (PostgreSQL compatible)
-    query = SELECT CONCAT('/var/mail/vhosts/', domain, '/', SPLIT_PART(email, '@', 1), '/Maildir/')
+    query = SELECT CONCAT('/var/mailbox/vhosts/', domain, '/', SPLIT_PART(email, '@', 1), '/Maildir/')
             FROM virtual_users, virtual_domains
             WHERE virtual_users.domain_id = virtual_domains.id AND email='%s'
 
