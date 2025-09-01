@@ -68,8 +68,8 @@ spec:
             - name: imap-certificates
               mountPath: /etc/dovecot/ssl/
               readOnly: true
-            - name: dovecot-mailbox
-              mountPath: /var/mail/
+            - name: mailbox
+              mountPath: /var/mailbox/
               readOnly: false
 
       volumes:

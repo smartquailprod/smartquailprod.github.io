@@ -157,7 +157,7 @@ spec:
 
           volumeMounts:
             - name: mailbox
-              mountPath: /var/mail
+              mountPath: /var/mailbox
             - name: mail-certificates
               mountPath: /etc/ssl
               readOnly: true

@@ -13,7 +13,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain  # Evita borrado accidental
   storageClassName: do-block-storage      # Aquí la clave: debe coincidir con PVC
   hostPath:
-    path: /var/mail # Ruta en el nodo donde se almacenarán los datos
+    path: /var/mailbox # Ruta en el nodo donde se almacenarán los datos
     type: DirectoryOrCreate
 ---
 apiVersion: v1
