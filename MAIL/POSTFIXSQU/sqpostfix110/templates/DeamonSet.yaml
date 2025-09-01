@@ -25,18 +25,6 @@ spec:
         runAsUser: 0
         runAsGroup: 0
 
-      ## 🔧 INIT CONTAINER para setear permisos del PVC
-      initContainers:
-        - name: fix-maildir-permissions
-          image: busybox
-          command: ["sh", "-c", "chown -R 5000:5000 /var/mail || true"]
-          securityContext:
-            runAsUser: 0
-            runAsGroup: 0
-          volumeMounts:
-            - name: dovecot-mailbox
-              mountPath: /var/mail
-
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
