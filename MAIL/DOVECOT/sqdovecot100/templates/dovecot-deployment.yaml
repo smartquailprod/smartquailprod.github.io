@@ -73,9 +73,9 @@ spec:
               readOnly: false
 
       volumes:
-        - name: dovecot-mailbox
+        - name: mailbox
           persistentVolumeClaim:
-            claimName: dovecot-mailbox-pvc
+            claimName: mailbox-pvc
         - name: imap-certificates
           projected:
             sources:

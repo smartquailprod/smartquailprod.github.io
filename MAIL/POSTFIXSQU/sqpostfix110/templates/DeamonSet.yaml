@@ -156,7 +156,7 @@ spec:
                 - NET_BIND_SERVICE
 
           volumeMounts:
-            - name: dovecot-mailbox
+            - name: mailbox
               mountPath: /var/mail
             - name: mail-certificates
               mountPath: /etc/ssl
@@ -166,9 +166,9 @@ spec:
               readOnly: true
 
       volumes:
-        - name: dovecot-mailbox
+        - name: mailbox
           persistentVolumeClaim:
-            claimName: dovecot-mailbox-pvc
+            claimName: mailbox-pvc
         - name: mail-certificates
           projected:
             sources:
