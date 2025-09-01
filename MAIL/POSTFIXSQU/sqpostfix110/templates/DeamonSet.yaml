@@ -22,7 +22,8 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
 
       securityContext:
-        fsGroup: 1000  # Permitir acceso grupal a /var/mail
+          runAsUser: 0
+          runAsGroup: 0
 
       containers:
         - name: postfix
