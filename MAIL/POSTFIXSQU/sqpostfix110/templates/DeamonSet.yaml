@@ -24,15 +24,14 @@ spec:
       securityContext:
         runAsUser: 0
         runAsGroup: 0
-        fsGroup: 1002            # Grupo que debe poder modificar /var/mailbox
+        fsGroup: 1002            # Grupo vmail para /var/mailbox
         fsGroupChangePolicy: "Always"
 
-      # Init container para corregir permisos en el volumen mailbox
+      # Init container para corregir permisos en mailbox y crear estructura básica Maildir
       initContainers:
       - name: fix-mailbox-permissions
         image: busybox
         securityContext:
-          privileged: true       # Necesario para chown en hostPath
           runAsUser: 0
         volumeMounts:
         - name: mailbox
@@ -41,10 +40,21 @@ spec:
         - sh
         - -c
         - |
-          echo "Fixing permissions on /var/mailbox"
-          chown -R 1002:1002 /var/mailbox
-          chmod -R 700 /var/mailbox
-          echo "Permissions fixed"
+          echo "Fixing ownership and permissions on /var/mailbox"
+          chown -R 1002:1002 /var/mailbox && echo "Ownership fixed" || echo "Failed to fix ownership"
+          chmod -R 700 /var/mailbox && echo "Permissions fixed" || echo "Failed to fix permissions"
+
+          # Crear estructura Maildir básica para support@smartquail.io si no existe
+          MAILDIR="/var/mailbox/vhosts/smartquail.io/support/Maildir"
+          if [ ! -d "$MAILDIR" ]; then
+            echo "Creating Maildir structure for support@smartquail.io"
+            mkdir -p "$MAILDIR"/{cur,new,tmp}
+            chown -R 1002:1002 /var/mailbox/vhosts/smartquail.io/support
+            chmod -R 700 /var/mailbox/vhosts/smartquail.io/support
+            echo "Maildir structure created"
+          else
+            echo "Maildir structure already exists"
+          fi
 
       containers:
         - name: postfix
@@ -64,7 +74,7 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: DOMAIN
-            # ... (resto variables env omitidas por brevedad, manténlas igual)
+            # (aquí incluir el resto de variables de entorno tal cual las tienes)
           livenessProbe:
             failureThreshold: 2
             tcpSocket:
