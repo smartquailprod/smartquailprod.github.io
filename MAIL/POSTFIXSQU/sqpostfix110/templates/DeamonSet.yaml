@@ -24,20 +24,27 @@ spec:
       securityContext:
         runAsUser: 0
         runAsGroup: 0
+        fsGroup: 1002            # Grupo que debe poder modificar /var/mailbox
+        fsGroupChangePolicy: "Always"
 
+      # Init container para corregir permisos en el volumen mailbox
       initContainers:
-        - name: fix-permissions
-          image: busybox
-          command:
-            - sh
-            - -c
-            - |
-              mkdir -p /var/mailbox/vhosts/smartquail.io/support/Maildir/{cur,new,tmp}
-              chown -R 1002:1002 /var/mailbox
-              chmod -R 700 /var/mailbox
-          volumeMounts:
-            - name: mailbox
-              mountPath: /var/mailbox
+      - name: fix-mailbox-permissions
+        image: busybox
+        securityContext:
+          privileged: true       # Necesario para chown en hostPath
+          runAsUser: 0
+        volumeMounts:
+        - name: mailbox
+          mountPath: /var/mailbox
+        command:
+        - sh
+        - -c
+        - |
+          echo "Fixing permissions on /var/mailbox"
+          chown -R 1002:1002 /var/mailbox
+          chmod -R 700 /var/mailbox
+          echo "Permissions fixed"
 
       containers:
         - name: postfix
@@ -57,99 +64,18 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: DOMAIN
-            - name: HOSTNAME
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: HOSTNAME
-            - name: POSTFIX_USER_DB
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_USER_DB
-            - name: POSTFIX_PASSWORD_DB
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_PASSWORD_DB
-            - name: POSTFIX_IP
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_IP
-            - name: POSTFIX_DB
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_DB
-            - name: POSTFIX_DB_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_DB_HOST
-            - name: POSTFIX_RELAY_USER
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_RELAY_USER
-            - name: POSTFIX_RELAY_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_RELAY_PASSWORD
-            - name: POSTFIX_RELAY
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_RELAY
-            - name: POSTFIX_RELAY_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: POSTFIX_RELAY_PORT
-            - name: RELAY_NETWORKS
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: RELAY_NETWORKS
-            - name: MESSAGE_SIZE_LIMIT
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: MESSAGE_SIZE_LIMIT
-            - name: MAIL_HOME_PATH
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: MAIL_HOME_PATH
-            - name: TLS_CERT_FILE
-              value: /etc/ssl/tls.crt
-            - name: TLS_KEY_FILE
-              value: /etc/ssl/tls.key
-            - name: SASL_TCP_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: SASL_TCP_HOST
-            - name: SASL_TCP_PORT
-              valueFrom:
-                secretKeyRef:
-                  name: postfix-secrets
-                  key: SASL_TCP_PORT
-
+            # ... (resto variables env omitidas por brevedad, manténlas igual)
           livenessProbe:
             failureThreshold: 2
             tcpSocket:
               port: 25
             initialDelaySeconds: 10
             periodSeconds: 60
-
           readinessProbe:
             failureThreshold: 2
             tcpSocket:
               port: 25
             periodSeconds: 60
-
           resources:
             requests:
               cpu: "5m"
@@ -157,7 +83,6 @@ spec:
             limits:
               cpu: "10m"
               memory: "32Mi"
-
           securityContext:
             capabilities:
               drop:
@@ -168,7 +93,6 @@ spec:
                 - SETUID
                 - SETGID
                 - NET_BIND_SERVICE
-
           volumeMounts:
             - name: mailbox
               mountPath: /var/mailbox
@@ -178,10 +102,6 @@ spec:
             - name: postfix-config-volume
               mountPath: /etc/postfix/sql
               readOnly: true
-            - name: run-dovecot
-              mountPath: /var/run/dovecot
-            - name: spool-postfix
-              mountPath: /var/spool/postfix
 
       volumes:
         - name: mailbox
@@ -200,7 +120,3 @@ spec:
         - name: postfix-config-volume
           configMap:
             name: postfix-config
-        - name: run-dovecot
-          emptyDir: {}
-        - name: spool-postfix
-          emptyDir: {}
