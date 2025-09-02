@@ -69,7 +69,7 @@ spec:
               mountPath: /etc/dovecot/ssl/
               readOnly: true
             - name: mailbox
-              mountPath: /var/mailbox/
+              mountPath: /var/mail/
               readOnly: false
 
       volumes:
