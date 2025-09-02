@@ -3,17 +3,16 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: mailbox
-  # NOTA: Los PersistentVolumes son recursos a nivel cluster, no deben tener namespace
 spec:
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
-  persistentVolumeReclaimPolicy: Retain  # Evita borrado accidental
-  storageClassName: do-block-storage      # Aquí la clave: debe coincidir con PVC
+  persistentVolumeReclaimPolicy: Retain
+  # No se usa storageClassName para hostPath, o puedes poner "" (vacío)
   hostPath:
-    path: /var/mailbox # Ruta en el nodo donde se almacenarán los datos
+    path: /var/mailbox
     type: DirectoryOrCreate
 ---
 apiVersion: v1
@@ -27,5 +26,6 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: do-block-storage
+  # Debe coincidir con PV: si PV no tiene storageClassName, PVC tampoco
+  storageClassName: ""
   volumeName: mailbox
