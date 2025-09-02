@@ -15,13 +15,20 @@ spec:
       labels:
         app: postfix
     spec:
+      hostNetwork: true                 # Usa red del nodo para bindear puerto 25 real
+      dnsPolicy: ClusterFirstWithHostNet
+
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
           ports:
             - containerPort: 25
+              hostPort: 25             # Bind puerto 25 del nodo al contenedor
+              name: smtp
             - containerPort: 465
+              name: smtps
             - containerPort: 587
+              name: submission
           env:
             - name: DOMAIN
               valueFrom:
@@ -118,8 +125,8 @@ spec:
             - name: mail-certificates
               mountPath: /etc/ssl
               readOnly: true
-            - name: dovecot-mailbox
-              mountPath: /var/mail/
+            - name: mailbox
+              mountPath: /var/mailbox/
             - name: postfix-config-volume
               mountPath: /etc/postfix/sql  # Ruta donde Postfix buscará los archivos .cf
               readOnly: true
@@ -135,9 +142,9 @@ spec:
                       path: tls.crt
                     - key: tls.key
                       path: tls.key
-        - name: dovecot-mailbox
+        - name: mailbox
           persistentVolumeClaim:
-            claimName: dovecot-mailbox-pvc
+            claimName: mailbox-pvc
         - name: postfix-config-volume
           configMap:
             name: postfix-config
