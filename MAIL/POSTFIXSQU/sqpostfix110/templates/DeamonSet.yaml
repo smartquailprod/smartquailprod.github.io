@@ -25,6 +25,20 @@ spec:
         runAsUser: 0
         runAsGroup: 0
 
+      initContainers:
+        - name: fix-permissions
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /var/mailbox/vhosts/smartquail.io/support/Maildir/{cur,new,tmp}
+              chown -R 1002:1002 /var/mailbox
+              chmod -R 700 /var/mailbox
+          volumeMounts:
+            - name: mailbox
+              mountPath: /var/mailbox
+
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
@@ -164,6 +178,10 @@ spec:
             - name: postfix-config-volume
               mountPath: /etc/postfix/sql
               readOnly: true
+            - name: run-dovecot
+              mountPath: /var/run/dovecot
+            - name: spool-postfix
+              mountPath: /var/spool/postfix
 
       volumes:
         - name: mailbox
@@ -182,3 +200,7 @@ spec:
         - name: postfix-config-volume
           configMap:
             name: postfix-config
+        - name: run-dovecot
+          emptyDir: {}
+        - name: spool-postfix
+          emptyDir: {}
