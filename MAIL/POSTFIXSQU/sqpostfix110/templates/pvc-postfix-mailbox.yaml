@@ -12,7 +12,7 @@ spec:
   persistentVolumeReclaimPolicy: Retain
   # No se usa storageClassName para hostPath, o puedes poner "" (vacío)
   hostPath:
-    path: /var/mailbox
+    path: /var/mail
     type: DirectoryOrCreate
 ---
 apiVersion: v1
