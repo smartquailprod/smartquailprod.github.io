@@ -14,9 +14,9 @@ spec:
       protocol: TCP
       port: 465
       targetPort: 465
-      nodePort: 32613   # Fijado: SMTPS
+      # nodePort eliminado para asignación automática
     - name: submission
       protocol: TCP
       port: 587
       targetPort: 587
-      nodePort: 31193   # Fijado: Submission (STARTTLS)
+      # nodePort eliminado para asignación automática
