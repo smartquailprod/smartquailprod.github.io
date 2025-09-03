@@ -18,6 +18,10 @@ spec:
       hostNetwork: true                 # Usa red del nodo para bindear puerto 25 real
       dnsPolicy: ClusterFirstWithHostNet
 
+      securityContext:
+        runAsUser: 1001       # (opcional, el UID de postfix si querés controlar)
+        fsGroup: 1002         # 💥💥 esto le da permisos sobre /var/mail (grupo vmail)
+
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
