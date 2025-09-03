@@ -129,7 +129,7 @@ spec:
               mountPath: /var/mail/
             - name: postfix-config-volume
               mountPath: /etc/postfix/sql  # Ruta donde Postfix buscará los archivos .cf
-              readOnly: true
+              readOnly: false
 
       volumes:
         - name: mail-certificates
