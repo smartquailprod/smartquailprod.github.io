@@ -18,13 +18,14 @@ spec:
       hostNetwork: true                 # Usa red del nodo para bindear puerto 25 real
       dnsPolicy: ClusterFirstWithHostNet
 
-      securityContext:
-        runAsUser: 0
+
 
 
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
+          securityContext:
+            runAsUser: 0
           ports:
             - containerPort: 25
               hostPort: 25             # Bind puerto 25 del nodo al contenedor
