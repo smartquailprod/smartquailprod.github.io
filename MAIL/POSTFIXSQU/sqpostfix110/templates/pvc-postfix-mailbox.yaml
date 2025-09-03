@@ -1,0 +1,32 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mailbox
+spec:
+  storageClassName: standard
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  volumeMode: Filesystem
+  persistentVolumeReclaimPolicy: Retain
+  # No se usa storageClassName para hostPath, o puedes poner "" (vacío)
+  hostPath:
+    path: /var/mail
+    type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mailbox-pvc
+  namespace: mail-srv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  # Debe coincidir con PV: si PV no tiene storageClassName, PVC tampoco
+  storageClassName: "standard"
+  volumeName: mailbox

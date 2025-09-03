@@ -104,25 +104,10 @@ spec:
                   name: postfix-secrets
                   key: MAILBOX_SIZE_LIMIT
           volumeMounts:
-            - name: dovecot-postfix-socket
-              mountPath: /var/run/dovecot/ 
-              readOnly: false
             - name: mail-certificates
               mountPath: /etc/ssl/  # Monta el volumen de certificados en /etc/ssl/
               readOnly: true  # Solo lectura
-            - name: postfix-config
-              mountPath: /etc/postfix/sql/virtual_alias_maps.cf
-              subPath: virtual_alias_maps.cf
-              readOnly: true
-            - name: postfix-config
-              mountPath: /etc/postfix/sql/virtual_mailbox_domains.cf
-              subPath: virtual_mailbox_domains.cf
-              readOnly: true
-            - name: postfix-config
-              mountPath: /etc/postfix/sql/virtual_mailbox_maps.cf
-              subPath: virtual_mailbox_maps.cf
-              readOnly: true
-            - name: dovecot-mailbox
+            - name: mailbox
               mountPath: /var/mail/ # Monta el volumen de buzones de correo en /var/mail
               readOnly: false
       volumes:
@@ -139,9 +124,9 @@ spec:
         - name: dovecot-postfix-socket
           persistentVolumeClaim:
             claimName: dovecot-postfix-socket-pvc
-        - name: dovecot-mailbox
+        - name: mailbox
           persistentVolumeClaim:
-            claimName: dovecot-mailbox-pvc  # Asegúrate de tener este PVC montado y disponible
+            claimName: mailbox-pvc  # Asegúrate de tener este PVC montado y disponible
         - name: postfix-config
           configMap:
             name: postfix-config

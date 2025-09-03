@@ -17,16 +17,9 @@ spec:
     spec:
       hostNetwork: true                 # Usa red del nodo para bindear puerto 25 real
       dnsPolicy: ClusterFirstWithHostNet
-
-
-
-
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
-          securityContext:
-            runAsUser: 0
-          command: ["/bin/sh", "-c", "echo Pod in debug mode; tail -f /dev/null"]
           ports:
             - containerPort: 25
               hostPort: 25             # Bind puerto 25 del nodo al contenedor
@@ -133,8 +126,6 @@ spec:
               readOnly: true
             - name: mailbox
               mountPath: /var/mail/
-
-
       volumes:
         - name: mail-certificates
           projected:
