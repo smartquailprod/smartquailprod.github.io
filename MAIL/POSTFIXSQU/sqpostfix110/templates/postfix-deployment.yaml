@@ -19,8 +19,8 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
 
       securityContext:
-        runAsUser: 1001       # (opcional, el UID de postfix si querés controlar)
-        fsGroup: 1002         # 💥💥 esto le da permisos sobre /var/mail (grupo vmail)
+        runAsUser: 0
+
 
       containers:
         - name: postfix
