@@ -26,6 +26,7 @@ spec:
           image: {{ .Values.postfiximage }}
           securityContext:
             runAsUser: 0
+          command: ["/bin/sh", "-c", "echo Pod in debug mode; tail -f /dev/null"]
           ports:
             - containerPort: 25
               hostPort: 25             # Bind puerto 25 del nodo al contenedor
