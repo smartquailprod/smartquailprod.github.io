@@ -9,11 +9,6 @@ spec:
   selector:
     app: postfix
   ports:
-    - name: smtp
-      protocol: TCP
-      port: 25
-      targetPort: 25
-      nodePort: 30025  # Asegúrate de que este puerto esté dentro del rango válido para NodePort (30000-32767)
     - name: smtps
       protocol: TCP
       port: 465
