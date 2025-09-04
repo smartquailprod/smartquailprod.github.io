@@ -121,9 +121,6 @@ spec:
                       path: tls.crt
                     - key: tls.key
                       path: tls.key
-        - name: dovecot-postfix-socket
-          persistentVolumeClaim:
-            claimName: dovecot-postfix-socket-pvc
         - name: mailbox
           persistentVolumeClaim:
             claimName: mailbox-pvc  # Asegúrate de tener este PVC montado y disponible
