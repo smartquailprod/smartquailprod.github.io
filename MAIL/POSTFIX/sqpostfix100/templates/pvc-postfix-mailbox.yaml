@@ -26,6 +26,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  # Debe coincidir con PV: si PV no tiene storageClassName, PVC tampoco
-  storageClassName: "standard"
-  volumeName: mailbox
+  storageClassName: standard
+
