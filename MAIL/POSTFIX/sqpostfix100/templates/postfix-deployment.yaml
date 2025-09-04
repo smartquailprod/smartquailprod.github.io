@@ -19,6 +19,9 @@ spec:
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: postfix
+          securityContext:
+            runAsUser: 0
+            allowPrivilegeEscalation: true
           image: {{ .Values.postfiximage }}
           ports:
             - containerPort: 25
