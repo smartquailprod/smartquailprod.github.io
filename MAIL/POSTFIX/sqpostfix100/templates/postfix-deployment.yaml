@@ -15,13 +15,19 @@ spec:
       labels:
         app: postfix
     spec:
+      hostNetwork: true                 # Usa red del nodo para bindear puerto 25 real
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: postfix
-          image: {{ .Values.postfiximage }}  # Imagen de Postfix con OpenDKIM incluido
+          image: {{ .Values.postfiximage }}
           ports:
             - containerPort: 25
+              hostPort: 25             # Bind puerto 25 del nodo al contenedor
+              name: smtp
             - containerPort: 465
+              name: smtps
             - containerPort: 587
+              name: submission
           env:
             - name: DOMAIN
               valueFrom:
