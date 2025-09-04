@@ -10,7 +10,7 @@ spec:
     - ReadWriteOnce
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
-  # No se usa storageClassName para hostPath, o puedes poner "" (vacío)
+  storageClassName: ""  # explícitamente vacío para evitar conflictos
   hostPath:
     path: /var/mail
     type: DirectoryOrCreate
@@ -26,6 +26,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  storageClassName: local-path
-
-
+  storageClassName: ""        # Debe coincidir con el PV (vacío)
+  volumeName: mailbox         # Se enlaza directamente al PV manual
