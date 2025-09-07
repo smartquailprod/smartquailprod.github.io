@@ -24,7 +24,7 @@ spec:
             - containerPort: {{ .Values.postgres_port }}
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql/data
+              mountPath: /var/lib/postgresql17/data
             - name: postgres-init
               mountPath: /docker-entrypoint-initdb.d/
               readOnly: true
