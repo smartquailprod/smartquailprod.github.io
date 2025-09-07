@@ -16,7 +16,7 @@ db_password: smartquaildev1719pass
 db_name: POSTFIXDB
 db_host: smartquaildb
 dbservicetype: ExternalName
-dbExternalName: smartquaildb.db-srv.svc.cluster.local
+dbExternalName: smartquaildb17.db-srv.svc.cluster.local
 
 # Postfix Configuration
 
