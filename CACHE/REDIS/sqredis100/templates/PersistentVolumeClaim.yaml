@@ -2,13 +2,13 @@ apiVersion: v1
 kind: PersistentVolume
 metadata:
   name: redis-pv
-  namespace: cache-srv
 spec:
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
+  storageClassName: ""  # Vacío para enlazar manualmente
   hostPath:
     path: /mnt/data/redis  # Ruta en el nodo local
     type: DirectoryOrCreate
@@ -24,3 +24,4 @@ spec:
   resources:
     requests:
       storage: 1Gi
+  storageClassName: ""  # Debe coincidir con el PV para enlazar correctamente
