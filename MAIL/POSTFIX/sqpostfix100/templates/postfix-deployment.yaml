@@ -15,8 +15,7 @@ spec:
       labels:
         app: postfix
     spec:
-      hostNetwork: true                 # Usa red del nodo para bindear puerto 25 real
-      dnsPolicy: ClusterFirstWithHostNet
+      dnsPolicy: ClusterFirst  # Ya no necesitas ClusterFirstWithHostNet
       containers:
         - name: postfix
           securityContext:
@@ -25,7 +24,7 @@ spec:
           image: {{ .Values.postfiximage }}
           ports:
             - containerPort: 25
-              hostPort: 25             # Bind puerto 25 del nodo al contenedor
+              hostPort: 1025           # Se redirige desde puerto 25 del nodo a este puerto
               name: smtp
             - containerPort: 465
               name: smtps
@@ -114,10 +113,10 @@ spec:
                   key: MAILBOX_SIZE_LIMIT
           volumeMounts:
             - name: mail-certificates
-              mountPath: /etc/ssl/  # Monta el volumen de certificados en /etc/ssl/
-              readOnly: true  # Solo lectura
+              mountPath: /etc/ssl/
+              readOnly: true
             - name: mailbox
-              mountPath: /var/mail/ # Monta el volumen de buzones de correo en /var/mail
+              mountPath: /var/mail/
               readOnly: false
       volumes:
         - name: mail-certificates
@@ -132,7 +131,7 @@ spec:
                       path: tls.key
         - name: mailbox
           persistentVolumeClaim:
-            claimName: mailbox-pvc  # Asegúrate de tener este PVC montado y disponible
+            claimName: mailbox-pvc
         - name: postfix-config
           configMap:
             name: postfix-config
