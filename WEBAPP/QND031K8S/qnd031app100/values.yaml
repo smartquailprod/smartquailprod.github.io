@@ -14,10 +14,10 @@ secret_name: meddes-smartquail-io-tls
 qnd_commonName : smartquail.io
 qnd_dns_names : meddes.smartquail.io
 #Services
-postgres_db : QND031STDB
+postgres_db : QND031DB
 qnodedatabasename: smartquaildb
 databaseservicetype: ExternalName
-databaseExternalName: smartquaildb.db-srv.svc.cluster.local
+databaseExternalName: smartquaildb17.db-srv.svc.cluster.local
 databaseport: 5432
 #redis
 #qnodecachename: redis
@@ -55,10 +55,12 @@ image:
 
 resources: 
    limits:
-     cpu: 1
+     cpu: 900m
      memory: 1Gi
    requests:
      cpu: 500m
      memory: 512Mi
+
+
 
 
