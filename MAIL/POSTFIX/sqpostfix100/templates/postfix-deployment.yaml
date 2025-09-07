@@ -15,7 +15,7 @@ spec:
       labels:
         app: postfix
     spec:
-      dnsPolicy: ClusterFirst  # Ya no necesitas ClusterFirstWithHostNet
+      dnsPolicy: ClusterFirst
       containers:
         - name: postfix
           securityContext:
@@ -23,8 +23,7 @@ spec:
             allowPrivilegeEscalation: true
           image: {{ .Values.postfiximage }}
           ports:
-            - containerPort: 25
-              hostPort: 1025           # Se redirige desde puerto 25 del nodo a este puerto
+            - containerPort: 25      # Puerto interno del contenedor
               name: smtp
             - containerPort: 465
               name: smtps
