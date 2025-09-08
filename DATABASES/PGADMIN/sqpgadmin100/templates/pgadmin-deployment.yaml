@@ -15,6 +15,18 @@ spec:
       labels:
         app: pgadmin
     spec:
+      initContainers:
+        - name: init-pgadmin-permissions
+          image: busybox
+          command:
+            - sh
+            - -c
+            - |
+              mkdir -p /var/lib/pgadmin/sessions && \
+              chown -R 5050:5050 /var/lib/pgadmin
+          volumeMounts:
+            - name: shared-pg-data
+              mountPath: /var/lib/pgadmin
       containers:
         - name: pgadmin
           image: dpage/pgadmin4:latest
@@ -36,12 +48,9 @@ spec:
               mountPath: /var/lib/pgadmin
               subPath: pgadmin
           securityContext:
-            runAsUser: 0
-          command:
-            - sh
-            - -c
-            - |
-              chown -R 5050:5050 /var/lib/pgadmin && exec /entrypoint.sh
+            runAsUser: 5050
+            runAsGroup: 5050
+            fsGroup: 5050
       volumes:
         - name: shared-pg-data
           persistentVolumeClaim:
