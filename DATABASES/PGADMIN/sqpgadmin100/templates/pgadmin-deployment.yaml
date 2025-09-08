@@ -34,7 +34,14 @@ spec:
           volumeMounts:
             - name: shared-pg-data
               mountPath: /var/lib/pgadmin
-              subPath: pgadmin  # 🟢 Evita conflictos con PostgreSQL
+              subPath: pgadmin
+          securityContext:
+            runAsUser: 0
+          command:
+            - sh
+            - -c
+            - |
+              chown -R 5050:5050 /var/lib/pgadmin && exec /entrypoint.sh
       volumes:
         - name: shared-pg-data
           persistentVolumeClaim:
