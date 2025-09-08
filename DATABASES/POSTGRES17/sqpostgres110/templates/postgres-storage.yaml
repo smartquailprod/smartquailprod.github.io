@@ -1,24 +1,4 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: {{ .Values.postgres_name }}-pv-volume
-  namespace: {{ .Values.postgres_namespace }}
-  labels:
-    type: local
-    app: {{ .Values.postgres_name }}
-spec:
-  storageClassName: standard
-  capacity:
-    storage: {{ .Values.postgres_storage | default "1Gi" }}
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/mnt/data/{{ .Values.postgres_name }}/data"  # Directorio independiente
-    type: DirectoryOrCreate
-
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.postgres_name }}-pv-claim
@@ -26,12 +6,9 @@ metadata:
   labels:
     app: {{ .Values.postgres_name }}
 spec:
-  storageClassName: do-block-storage  # StorageClass del CSI de DigitalOcean
+  storageClassName: do-block-storage
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: {{ .Values.postgres_storage | default "1Gi" }}
-
-
-

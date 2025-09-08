@@ -1,23 +1,4 @@
 apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: {{ .Values.postgres_name }}-pv-volume
-  namespace: {{ .Values.postgres_namespace }}
-  labels:
-    type: local
-    app: {{ .Values.postgres_name }}
-spec:
-  storageClassName: standard
-  capacity:
-    storage: 1Gi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  hostPath:
-    path: "/mnt/data/postgres/data"  # Ruta personalizada para evitar conflictos
-    type: DirectoryOrCreate
----
-apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: {{ .Values.postgres_name }}-pv-claim
@@ -25,9 +6,10 @@ metadata:
   labels:
     app: {{ .Values.postgres_name }}
 spec:
-  storageClassName: standard
+  storageClassName: do-block-storage
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
+
