@@ -14,7 +14,7 @@ secret_name: smartquail-io-tls
 qnd_commonName : smartquail.io
 qnd_dns_names : ec.smartquail.io
 #Services
-postgres_db : QND041STDB
+postgres_db : QND041DB
 qnodedatabasename: smartquaildb
 databaseservicetype: ExternalName
 databaseExternalName: smartquaildb17.db-srv.svc.cluster.local
