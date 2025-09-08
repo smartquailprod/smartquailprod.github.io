@@ -31,4 +31,11 @@ spec:
                 secretKeyRef:
                   name: pgadmin-secrets
                   key: PGADMIN_DEFAULT_PASSWORD
-
+          volumeMounts:
+            - name: shared-pg-data
+              mountPath: /var/lib/pgadmin
+              subPath: pgadmin  # 🟢 Evita conflictos con PostgreSQL
+      volumes:
+        - name: shared-pg-data
+          persistentVolumeClaim:
+            claimName: {{ .Values.postgres_name }}-pv-claim
