@@ -31,11 +31,19 @@ brokerExternalName: rabbitmq.brk-srv.svc.cluster.local
 brokerport: 5672
 
 
+
+
 qnodecachename: redis
 cacheservicetype: ExternalName
 cacheserviceExternalName: redis.cache-srv.svc.cluster.local
 cacheport: 6379
 
+
+
+qnodemailname: postfix
+mailservicetype: ExternalName
+mailExternalName: postfix-service.mail-srv.svc.cluster.local
+mailport: 25
 
 image:
   repository: smartquail/qnd041app

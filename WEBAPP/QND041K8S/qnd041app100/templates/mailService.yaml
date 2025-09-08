@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.qnodemailname }}
+  namespace: {{ .Values.qnodenamespace }}
+  labels:
+    app: {{ .Values.qnodemailname }}
+spec:
+  type: {{ .Values.mailservicetype }}
+  externalName: {{ .Values.mailExternalName }}
+  ports:
+  - port: {{ .Values.mailport }}
+    protocol: TCP
