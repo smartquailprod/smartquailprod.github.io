@@ -33,6 +33,8 @@ spec:
               mountPath: /var/log/qnd041app/
             - name: uwsgi-logs
               mountPath: /var/log/uwsgi/
+            
+            
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}

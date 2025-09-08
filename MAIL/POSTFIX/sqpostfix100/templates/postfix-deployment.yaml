@@ -117,6 +117,9 @@ spec:
             - name: mailbox
               mountPath: /var/mail/
               readOnly: false
+            - name: dkim-keys
+              mountPath: /etc/opendkim/keys
+              readOnly: true
       volumes:
         - name: mail-certificates
           projected:
@@ -134,3 +137,8 @@ spec:
         - name: postfix-config
           configMap:
             name: postfix-config
+        - name: dkim-keys
+          secret:
+            secretName: opendkim-keys
+            defaultMode: 0400
+
