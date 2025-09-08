@@ -38,4 +38,4 @@ spec:
       volumes:
         - name: shared-pg-data
           persistentVolumeClaim:
-            claimName: {{ .Values.postgres_name }}-pv-claim
+            claimName: smartquaildb-pv-claim
