@@ -43,7 +43,7 @@ spec:
               memory: "512Mi"
               cpu: "100m"
             limits:
-              memory: "1Gi"
+              memory: "900M1"
               cpu: "500m"
           volumeMounts:
             - name: elasticsearch-data
