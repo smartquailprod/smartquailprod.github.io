@@ -15,9 +15,10 @@ spec:
       labels:
         app: elasticsearch
     spec:
+      # Ejecutar contenedor como root (UID 0)
       securityContext:
-        fsGroup: 999
-        runAsUser: 999
+        fsGroup: 999         # mantiene grupo para permisos en volúmenes
+        runAsUser: 0         # ejecuta como root para evitar problemas de permisos
       containers:
         - name: elasticsearch
           image: docker.elastic.co/elasticsearch/elasticsearch:8.7.1
@@ -43,7 +44,7 @@ spec:
               memory: "512Mi"
               cpu: "100m"
             limits:
-              memory: "900M1"
+              memory: "1Gi"
               cpu: "500m"
           volumeMounts:
             - name: elasticsearch-data
