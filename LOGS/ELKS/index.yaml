@@ -3,12 +3,12 @@ entries:
   sqelk100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-09-12T13:19:49.260572-05:00"
+    created: "2025-09-12T13:27:40.913158-05:00"
     description: A Helm chart for Kubernetes
-    digest: 7b96e7a9e048177455614312379b0df8d3a1ade3c79f459da959adccce277e48
+    digest: 5d6771459bfbbc98718d72eca023b3e79a440bcd5b4db150e7f94702c4be3d99
     name: sqelk100
     type: application
     urls:
     - sqelk100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-12T13:19:49.255533-05:00"
+generated: "2025-09-12T13:27:40.91051-05:00"
