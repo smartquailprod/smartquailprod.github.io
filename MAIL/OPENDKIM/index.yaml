@@ -3,12 +3,12 @@ entries:
   sqopendkim100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2025-09-13T17:55:01.351979-05:00"
+    created: "2025-09-13T18:04:10.388373-05:00"
     description: SmartQuailMailServers® - ArchVersion V1.0.0
-    digest: 4fffad5396780ba6c2eb887258923f6a65b8b7232e6ca9be6b7cf2308ee8ea2f
+    digest: 299d910566dd93c84ba4a881365030aa46b70fe33729824c6c40a423302784ea
     name: sqopendkim100
     type: application
     urls:
     - sqopendkim100-1.0.0.tgz
     version: 1.0.0
-generated: "2025-09-13T17:55:01.348866-05:00"
+generated: "2025-09-13T18:04:10.387387-05:00"
