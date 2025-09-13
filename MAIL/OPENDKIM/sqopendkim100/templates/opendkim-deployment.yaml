@@ -14,13 +14,6 @@ spec:
       labels:
         app: opendkim
     spec:
-      initContainers:
-      - name: opendkim-init
-        image: instrumentisto/opendkim:latest
-        command: ["/bin/sh", "-c", "opendkim-genkey --subdomains --domain=smartquail.io --selector=default --output=/etc/opendkim/keys/"]
-        volumeMounts:
-        - name: opendkim-keys
-          mountPath: /etc/opendkim/keys
       containers:
       - name: opendkim
         image: instrumentisto/opendkim:latest
@@ -45,6 +38,6 @@ spec:
       volumes:
       - name: opendkim-config-volume
         configMap:
-          name: opendkim-config
+          name: opendkim-config  # Este ConfigMap ya debe estar creado
       - name: opendkim-keys
-        emptyDir: {}
+        emptyDir: {}  # Volumen vacío para generar las claves dentro del contenedor
