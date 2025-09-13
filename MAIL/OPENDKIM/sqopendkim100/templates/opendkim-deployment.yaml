@@ -15,18 +15,12 @@ spec:
         app: opendkim
     spec:
       initContainers:
-      - name: generate-dkim-keys
+      - name: opendkim-init
         image: instrumentisto/opendkim:latest
-        command:
-          - /bin/sh
-          - -c
-          - |
-            mkdir -p /keys
-            opendkim-genkey --subdomains --domain=smartquail.io --selector=default
-            mv default.private default.txt /keys/
+        command: ["/bin/sh", "-c", "opendkim-genkey --subdomains --domain=smartquail.io --selector=default --output=/etc/opendkim/keys/"]
         volumeMounts:
         - name: opendkim-keys
-          mountPath: /keys
+          mountPath: /etc/opendkim/keys
       containers:
       - name: opendkim
         image: instrumentisto/opendkim:latest
