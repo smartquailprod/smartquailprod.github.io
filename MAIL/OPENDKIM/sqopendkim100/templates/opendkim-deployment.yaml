@@ -34,10 +34,11 @@ spec:
           mountPath: /etc/opendkim/TrustedHosts
           subPath: TrustedHosts
         - name: opendkim-keys
-          mountPath: /etc/opendkim/keys
+          mountPath: /etc/opendkim/keys  # Montamos el PVC aquí
       volumes:
       - name: opendkim-config-volume
         configMap:
           name: opendkim-config  # Este ConfigMap ya debe estar creado
       - name: opendkim-keys
-        emptyDir: {}  # Volumen vacío para generar las claves dentro del contenedor
+        persistentVolumeClaim:
+          claimName: opendkim-keys-pvc  # Usamos el PVC aquí
