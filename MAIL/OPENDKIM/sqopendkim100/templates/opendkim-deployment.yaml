@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: opendkim
+  labels:
+    app: opendkim
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: opendkim
+  template:
+    metadata:
+      labels:
+        app: opendkim
+    spec:
+      initContainers:
+      - name: generate-dkim-keys
+        image: instrumentisto/opendkim:latest
+        command:
+          - /bin/sh
+          - -c
+          - |
+            mkdir -p /keys
+            opendkim-genkey --subdomains --domain=smartquail.io --selector=default
+            mv default.private default.txt /keys/
+        volumeMounts:
+        - name: opendkim-keys
+          mountPath: /keys
+      containers:
+      - name: opendkim
+        image: instrumentisto/opendkim:latest
+        ports:
+        - containerPort: 8891
+          name: milter
+        volumeMounts:
+        - name: opendkim-config-volume
+          mountPath: /etc/opendkim/opendkim.conf
+          subPath: opendkim.conf
+        - name: opendkim-config-volume
+          mountPath: /etc/opendkim/KeyTable
+          subPath: KeyTable
+        - name: opendkim-config-volume
+          mountPath: /etc/opendkim/SigningTable
+          subPath: SigningTable
+        - name: opendkim-config-volume
+          mountPath: /etc/opendkim/TrustedHosts
+          subPath: TrustedHosts
+        - name: opendkim-keys
+          mountPath: /etc/opendkim/keys
+      volumes:
+      - name: opendkim-config-volume
+        configMap:
+          name: opendkim-config
+      - name: opendkim-keys
+        emptyDir: {}

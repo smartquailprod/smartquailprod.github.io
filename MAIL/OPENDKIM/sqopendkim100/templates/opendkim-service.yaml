@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: opendkim-service
+  labels:
+    app: opendkim
+spec:
+  selector:
+    app: opendkim
+  ports:
+    - protocol: TCP
+      port: 8891
+      targetPort: 8891

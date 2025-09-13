@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: opendkim-config
+data:
+  opendkim.conf: |
+    # Ejemplo simplificado de configuración opendkim.conf
+    Syslog          yes
+    LogWhy          yes
+    UMask           002
+    Socket          inet:8891@0.0.0.0
+    UserID          opendkim:opendkim
+
+    # Path a KeyTable y SigningTable (ya montados)
+    KeyTable        /etc/opendkim/KeyTable
+    SigningTable    /etc/opendkim/SigningTable
+    ExternalIgnoreList   /etc/opendkim/TrustedHosts
+    InternalHosts        /etc/opendkim/TrustedHosts
+
+  KeyTable: |
+    default._domainkey.smartquail.io smartquail.io:default:/etc/opendkim/keys/default.private
+
+  SigningTable: |
+    *@smartquail.io default._domainkey.smartquail.io
+
+  TrustedHosts: |
+    127.0.0.1
+    ::1
+    localhost
+    10.0.0.0/8
+    192.168.0.0/16

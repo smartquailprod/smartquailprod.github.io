@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  sqopendkim100:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-09-13T17:41:00.790615-05:00"
+    description: SmartQuailMailServers® - ArchVersion V1.0.0
+    digest: bfef4ffde02f9da77a9fd5f2d698ab1101476097549ac4d03401dd1b62bdaa9d
+    name: sqopendkim100
+    type: application
+    urls:
+    - sqopendkim100-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-09-13T17:41:00.787906-05:00"
