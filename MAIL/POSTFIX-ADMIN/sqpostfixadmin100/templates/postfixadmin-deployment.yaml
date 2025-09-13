@@ -15,10 +15,10 @@ spec:
     spec:
       containers:
         - name: postfixadmin
-          image: postfixadmin:fpm-alpine
+          image: smartquail/qndpostfixadmin200:latest
           ports:
             - name: postfixadmin
-              containerPort: 8080
+              containerPort: 8000
               protocol: TCP
           env:
             - name: POSTFIXADMIN_DB_HOST
