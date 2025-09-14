@@ -16,29 +16,14 @@ spec:
     spec:
       containers:
       - name: opendkim
-        image: instrumentisto/opendkim:latest
+        image: smartquail/qndopendkim100:latest
         ports:
         - containerPort: 8891
           name: milter
         volumeMounts:
-        - name: opendkim-config-volume
-          mountPath: /etc/opendkim/opendkim.conf
-          subPath: opendkim.conf
-        - name: opendkim-config-volume
-          mountPath: /etc/opendkim/KeyTable
-          subPath: KeyTable
-        - name: opendkim-config-volume
-          mountPath: /etc/opendkim/SigningTable
-          subPath: SigningTable
-        - name: opendkim-config-volume
-          mountPath: /etc/opendkim/TrustedHosts
-          subPath: TrustedHosts
         - name: opendkim-keys
           mountPath: /etc/opendkim/keys  # Montamos el PVC aquí
       volumes:
-      - name: opendkim-config-volume
-        configMap:
-          name: opendkim-config  # Este ConfigMap ya debe estar creado
       - name: opendkim-keys
         persistentVolumeClaim:
           claimName: opendkim-keys-pvc  # Usamos el PVC aquí

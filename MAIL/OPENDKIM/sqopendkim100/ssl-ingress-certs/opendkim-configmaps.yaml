@@ -12,8 +12,8 @@ data:
     UserID          opendkim:opendkim
 
     # Path a KeyTable y SigningTable (ya montados)
-    KeyTable        /etc/opendkim/KeyTable
-    SigningTable    /etc/opendkim/SigningTable
+    KeyTable              /etc/opendkim/KeyTable
+    SigningTable         /etc/opendkim/SigningTable
     ExternalIgnoreList   /etc/opendkim/TrustedHosts
     InternalHosts        /etc/opendkim/TrustedHosts
 
