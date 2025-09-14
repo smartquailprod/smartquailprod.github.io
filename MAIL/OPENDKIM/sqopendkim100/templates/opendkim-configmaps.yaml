@@ -21,7 +21,8 @@ data:
     default._domainkey.smartquail.io smartquail.io:default:/etc/opendkim/keys/default.private
 
   SigningTable: |
-    *@smartquail.io default._domainkey.smartquail.io
+    *@smartquail.io          default._domainkey.smartquail.io
+    support@smartquail.io    default._domainkey.smartquail.io
 
   TrustedHosts: |
     127.0.0.1
@@ -29,3 +30,4 @@ data:
     localhost
     10.0.0.0/8
     192.168.0.0/16
+    143.198.65.253
