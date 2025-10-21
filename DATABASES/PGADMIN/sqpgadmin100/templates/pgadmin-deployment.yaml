@@ -49,7 +49,6 @@ spec:
               subPath: pgadmin
             - name: shared-pg-data
               mountPath: /var/lib/pgadmin/storage/admin_smartquail.io/
-              readOnly: true
 
           securityContext:
             runAsUser: 5050
