@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  n8n100:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2025-11-02T01:39:13.717255-05:00"
+    description: A Helm chart for Kubernetes
+    digest: cbcbb651d55872ff0b8ff37ab307865a3351bbfbe6863058e476e5363f36aff3
+    name: n8n100
+    type: application
+    urls:
+    - n8n100-1.0.0.tgz
+    version: 1.0.0
+generated: "2025-11-02T01:39:13.715854-05:00"

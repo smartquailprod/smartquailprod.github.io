@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: n8n-smartquail-io-tls
+  namespace: auto-srv
+spec:
+  secretName: n8n-smartquail-io-tls
+  duration: 2160h    # 90 días
+  renewBefore: 360h  # 15 días antes de expirar
+  isCA: false
+  commonName: n8n.smartquail.io
+  dnsNames:
+    - n8n.smartquail.io
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer
