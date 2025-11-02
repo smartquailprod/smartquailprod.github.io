@@ -42,7 +42,7 @@ spec:
             - name: WHATSAPP_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
-                  name: chatbot-secrets
+                  name: n8n-secrets
                   key: WHATSAPP_ACCESS_TOKEN
           volumeMounts:
             - name: n8n-data
