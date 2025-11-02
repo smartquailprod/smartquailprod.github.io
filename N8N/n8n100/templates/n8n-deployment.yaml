@@ -13,12 +13,15 @@ spec:
       labels:
         app: n8n
     spec:
+      securityContext:
+        fsGroup: 1000   # Permite al usuario 'node' escribir en el volumen
       containers:
         - name: n8n
           image: n8nio/n8n:latest
           ports:
             - containerPort: 5678
           env:
+            # === Autenticación básica ===
             - name: N8N_BASIC_AUTH_ACTIVE
               value: "true"
             - name: N8N_BASIC_AUTH_USER
@@ -31,6 +34,8 @@ spec:
                 secretKeyRef:
                   name: n8n-secrets
                   key: N8N_BASIC_AUTH_PASSWORD
+
+            # === Configuración general ===
             - name: WEBHOOK_URL
               value: "https://n8n.smartquail.io/"
             - name: N8N_HOST
@@ -39,16 +44,24 @@ spec:
               value: "https"
             - name: DJANGO_URL
               value: "http://qnd041app.www-apps.svc.cluster.local"
+
+            # === Variables sensibles ===
             - name: WHATSAPP_ACCESS_TOKEN
               valueFrom:
                 secretKeyRef:
                   name: n8n-secrets
                   key: WHATSAPP_ACCESS_TOKEN
+            - name: N8N_ENCRYPTION_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: N8N_ENCRYPTION_KEY
+
           volumeMounts:
             - name: n8n-data
               mountPath: /home/node/.n8n
+
       volumes:
         - name: n8n-data
           persistentVolumeClaim:
             claimName: n8n-data
-
