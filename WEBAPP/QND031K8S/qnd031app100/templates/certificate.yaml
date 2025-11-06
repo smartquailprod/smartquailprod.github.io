@@ -1,17 +1,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: meddes-smartquail-io-tls
+  name: meddes-io-tls
   namespace: www-apps
 spec:
-  secretName: meddes-smartquail-io-tls
+  secretName: meddes-io-tls
   duration: 2160h # Duración del certificado en horas
   renewBefore: 360h # Renovar el certificado 360 horas antes de la expiración
   isCA: false
-  commonName: qnd03101.smartquail.io
+  commonName: app.meddes.com.ec
   dnsNames:
-    - qnd03101.smartquail.io
-    - smartquail.io  # Agregar smartquail.io como dnsName adicional
+    - app.meddes.com.ec
   issuerRef:
     name: letsencrypt-cluster-issuer # Nombre del Issuer a utilizar
     kind: ClusterIssuer

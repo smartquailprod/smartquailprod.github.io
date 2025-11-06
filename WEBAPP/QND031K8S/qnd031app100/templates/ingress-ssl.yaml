@@ -23,7 +23,7 @@ metadata:
 spec:
   ingressClassName: nginx
   rules:
-    - host: qnd03101.smartquail.io
+    - host: app.meddes.com.ec
       http:
         paths:
           - path: /
@@ -36,4 +36,4 @@ spec:
   tls:
     - secretName: {{ .Values.secret_name }}
       hosts:
-        -  qnd03101.smartquail.io
+        -  app.meddes.com.ec
