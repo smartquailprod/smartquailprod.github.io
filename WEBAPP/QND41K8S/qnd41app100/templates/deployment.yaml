@@ -298,3 +298,15 @@ spec:
                 name: {{ .Values.qnodename }}-app-secrets
                 key: EMAIL_HOST_PASSWORD
 
+          - name: N8N_WEBHOOK_URL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-app-secrets
+                key: N8N_WEBHOOK_URL
+
+          - name: N8N_SECRET
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-app-secrets
+                key: N8N_SECRET
+
