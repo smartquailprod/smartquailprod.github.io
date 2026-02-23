@@ -354,6 +354,18 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: BRAINTREE_PRIVATE_KEY
+                  
+            - name: N8N_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: N8N_WEBHOOK_URL
+
+            - name: N8N_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: N8N_SECRET
 
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
