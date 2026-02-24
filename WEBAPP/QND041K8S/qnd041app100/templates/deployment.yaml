@@ -373,6 +373,11 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_GEMINI_SECRET
 
+            - name: N8N_META_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: N8N_META_WEBHOOK_URL
 
 
         - name: fluent-bit
