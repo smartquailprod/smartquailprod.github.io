@@ -92,7 +92,12 @@ spec:
                 secretKeyRef:
                   name: n8n-secrets
                   key: DB_POSTGRESDB_PASSWORD
-
+                  
+            - name: N8N_PROXY_HOPS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: N8N_PROXY_HOPS
 
 
           volumeMounts:

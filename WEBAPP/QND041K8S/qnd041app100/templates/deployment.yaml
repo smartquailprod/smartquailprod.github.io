@@ -398,6 +398,7 @@ spec:
                   key: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
 
 
+
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
           securityContext:

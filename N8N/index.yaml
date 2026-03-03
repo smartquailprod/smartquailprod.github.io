@@ -3,12 +3,12 @@ entries:
   n8n100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-03-03T14:55:59.706232-05:00"
+    created: "2026-03-03T18:53:19.750981-05:00"
     description: A Helm chart for Kubernetes
-    digest: 39e68622728fc43c496232f56ae8735043f3afb0a95e34fc3a9efb5002680996
+    digest: 1ddd993f6b0be37e7a3c0d758ed2f3a124b469c7a04d7ad08e3a349cb73c9d10
     name: n8n100
     type: application
     urls:
     - n8n100-1.0.0.tgz
     version: 1.0.0
-generated: "2026-03-03T14:55:59.705684-05:00"
+generated: "2026-03-03T18:53:19.750383-05:00"
