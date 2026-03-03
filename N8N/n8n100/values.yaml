@@ -1,7 +1,5 @@
-postgres_name: smartquaildb
-postgres_namespace: db-srv
-postgres_image: postgres
-postgres_app_name: postgres
-
-replicaCount: 1
-nodeRole: app
+postgres_db : N8NDB
+qnodedatabasename: smartquaildb
+databaseservicetype: ExternalName
+databaseExternalName: smartquaildb17.db-srv.svc.cluster.local
+databaseport: 5432

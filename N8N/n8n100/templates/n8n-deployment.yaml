@@ -57,6 +57,44 @@ spec:
                   name: n8n-secrets
                   key: N8N_ENCRYPTION_KEY
 
+            - name: DB_TYPE
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: DB_TYPE
+
+            - name: DB_POSTGRESDB_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: DB_POSTGRESDB_DATABASE
+
+            - name: DB_POSTGRESDB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: DB_POSTGRESDB_HOST
+
+            - name: DB_POSTGRESDB_PORT
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: DB_POSTGRESDB_PORT
+
+            - name: DB_POSTGRESDB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: DB_POSTGRESDB_USER
+
+            - name: DB_POSTGRESDB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: n8n-secrets
+                  key: DB_POSTGRESDB_PASSWORD
+
+
+
           volumeMounts:
             - name: n8n-data
               mountPath: /home/node/.n8n
