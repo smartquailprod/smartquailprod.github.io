@@ -99,6 +99,14 @@ spec:
                   name: n8n-secrets
                   key: N8N_PROXY_HOPS
 
+          # 🔹 Recursos para evitar evictions
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"
 
           volumeMounts:
             - name: n8n-data
@@ -108,3 +116,9 @@ spec:
         - name: n8n-data
           persistentVolumeClaim:
             claimName: n8n-data
+
+      # 🔹 Toleración para memory-pressure (opcional)
+      tolerations:
+        - key: "node.kubernetes.io/memory-pressure"
+          operator: "Exists"
+          effect: "NoSchedule"
