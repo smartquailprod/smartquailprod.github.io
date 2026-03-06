@@ -403,6 +403,11 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_VIDEO_WEBHOOK_URL
 
+            - name: GEMINI_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: GEMINI_API_KEY
 
 
         - name: fluent-bit
