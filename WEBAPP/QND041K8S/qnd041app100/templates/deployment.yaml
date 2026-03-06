@@ -409,6 +409,12 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GEMINI_API_KEY
 
+            - name: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
+
 
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
