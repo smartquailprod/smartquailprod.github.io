@@ -61,6 +61,14 @@ spec:
           volumeMounts:
             - name: postgres-logs
               mountPath: /var/log/postgresql
+              # 🔐 TLS CERTIFICATES (ADDED)
+            - name: postgres-tls
+              mountPath: /etc/ssl/certs
+              readOnly: true
+            - name: postgres-tls
+              mountPath: /etc/ssl/private
+              readOnly: true
+
 
       volumes:
         - name: postgres-data
@@ -71,3 +79,6 @@ spec:
             name: postgres17-init-config
         - name: postgres-logs
           emptyDir: {}
+        - name: postgres-tls
+          secret:
+          secretName: postgres-tls

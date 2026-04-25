@@ -39,10 +39,10 @@ data:
     client_encoding = 'UTF8'
 
     # Si deseas llamar al microservicio desde un servidor local
-    # ssl = on
-    # ssl_cert_file = '/etc/ssl/certs/postgresql.crt'
-    # ssl_key_file = '/etc/ssl/private/postgresql.key'
-    # ssl_ca_file = '/etc/ssl/certs/ca-certificates.crt'
+    ssl = on
+    ssl_cert_file = '/etc/ssl/certs/tls.crt'
+    ssl_key_file  = '/etc/ssl/private/tls.key'
+    ssl_ca_file   = '/etc/ssl/certs/ca.crt'
 
   init: |
     -- Crear la tabla virtual_domains si no existe

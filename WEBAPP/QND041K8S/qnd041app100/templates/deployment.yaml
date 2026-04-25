@@ -415,6 +415,12 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
 
+            - name: N8N_AI_INSTAGRAM_POST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: N8N_AI_INSTAGRAM_POST
+
 
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
