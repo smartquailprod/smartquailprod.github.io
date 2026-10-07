@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: {{ .Values.postgres_name }}-pv-claim
+  name: {{ .Values.postgres_name }}-pv-claim-2
   namespace: {{ .Values.postgres_namespace }}
   labels:
     app: {{ .Values.postgres_name }}
