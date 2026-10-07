@@ -5,12 +5,13 @@ metadata:
   namespace: db-srv 
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: "/"
-    nginx.ingress.kubernetes.io/router.entrypoints: websecure
-    nginx.ingress.kubernetes.io/router.tls: "true"
     cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer  
-
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - pgadmin.smartquail.io 
+      secretName: pgadmin-smartquail-io-tls  # <--- Corregido al nombre exacto del Secret de Cert-Manager
   rules:
     - host: pgadmin.smartquail.io 
       http:
@@ -21,8 +22,4 @@ spec:
               service:
                 name: pgadmin-service
                 port:
-                  number: 80 
-  tls:
-    - secretName: pgadmin-cert
-      hosts:
-        - pgadmin.smartquail.io 
+                  number: 80
