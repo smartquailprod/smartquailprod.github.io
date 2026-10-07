@@ -11,7 +11,7 @@ spec:
   tls:
     - hosts:
         - pgadmin.smartquail.io 
-      secretName: pgadmin-cert  # <--- Corregido al nombre exacto del Secret de Cert-Manager
+      secretName: pgadmin-smartquail-io-tls  # <--- Cambiado al nombre correcto del Secret
   rules:
     - host: pgadmin.smartquail.io 
       http:
