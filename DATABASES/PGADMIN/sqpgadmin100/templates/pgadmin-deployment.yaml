@@ -57,4 +57,4 @@ spec:
       volumes:
         - name: shared-pg-data
           persistentVolumeClaim:
-            claimName: postgres17-pv-claim
+            claimName: postgres17-pv-claim-2
