@@ -1,3 +1,24 @@
+{{- if .Values.postgres_existing_volume_id }}
+# ==========================================
+# MODO ESTÁTICO: Enlaza a un volumen existente usando su ID
+# ==========================================
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: {{ .Values.postgres_name }}-pv
+  labels:
+    app: {{ .Values.postgres_name }}
+spec:
+  capacity:
+    storage: {{ .Values.postgres_storage | default "1Gi" }}
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: do-block-storage
+  csi:
+    driver: dobs.csi.digitalocean.com
+    volumeHandle: {{ .Values.postgres_existing_volume_id }}
+---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
@@ -12,3 +33,24 @@ spec:
   resources:
     requests:
       storage: {{ .Values.postgres_storage | default "1Gi" }}
+  volumeName: {{ .Values.postgres_name }}-pv
+
+{{- else }}
+# ==========================================
+# MODO DINÁMICO: Deja que DigitalOcean cree uno nuevo automáticamente
+# ==========================================
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.postgres_name }}-pv-claim
+  namespace: {{ .Values.postgres_namespace }}
+  labels:
+    app: {{ .Values.postgres_name }}
+spec:
+  storageClassName: do-block-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.postgres_storage | default "1Gi" }}
+{{- end }}

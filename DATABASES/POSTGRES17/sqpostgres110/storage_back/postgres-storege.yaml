@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.postgres_name }}-pv-claim
+  namespace: {{ .Values.postgres_namespace }}
+  labels:
+    app: {{ .Values.postgres_name }}
+spec:
+  storageClassName: do-block-storage
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: {{ .Values.postgres_storage | default "1Gi" }}
+
+
