@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: camenduru/ltx-video-i2v-comfyui:fp16 # O la imagen optimizada que prefieras para pipelines de video
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8188
+
+persistence:
+  enabled: true
+  storageClass: do-block-storage
+  size: 150Gi # Los modelos de video consumen bastante más espacio de almacenamiento local para checkpoints y frames temporales
+
+resources:
+  requests:
+    cpu: "4"
+    memory: "16Gi"
+  limits:
+    cpu: "12"
+    memory: "64Gi"
+    gpu: "1" # Asignación de la GPU NVIDIA en el nodo
+
+env:
+  - name: CLI_ARGS
+    value: "--highvram --listen 0.0.0.0"
