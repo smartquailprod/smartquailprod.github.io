@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: postfix-service
-  namespace: {{ .Values.NamespaceCluster }}  # Asegúrate de tener esta variable correctamente en values.yaml
+  namespace: mail-srv  # Namespace correspondiente para los servicios de correo
   labels:
     app: postfix
 spec:
@@ -14,14 +14,14 @@ spec:
       protocol: TCP
       port: 25
       targetPort: 25
-      nodePort: 31225  # Este será el puerto al que se redirige el tráfico externo desde el nodo (vía iptables)
+      nodePort: 25  # Puerto forzado en el nodo (requiere el parámetro --service-node-port-range en K3s)
     - name: smtps
       protocol: TCP
       port: 465
       targetPort: 465
-      nodePort: 30465  # Dentro del rango NodePort (30000-32767)
+      nodePort: 465  # Puerto forzado en el nodo
     - name: submission
       protocol: TCP
       port: 587
       targetPort: 587
-      nodePort: 30587  # Dentro del rango NodePort
+      nodePort: 587  # Puerto forzado en el nodo
