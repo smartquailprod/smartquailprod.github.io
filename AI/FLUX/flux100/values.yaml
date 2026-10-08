@@ -1,0 +1,28 @@
+replicaCount: 1
+
+image:
+  repository: yanwk/comfyui-boot
+  pullPolicy: IfNotPresent
+  tag: latest
+
+service:
+  type: ClusterIP
+  port: 8188
+
+persistence:
+  enabled: true
+  storageClass: do-block-storage
+  size: 100Gi # FLUX requiere bastante espacio para los modelos safetensors (UNET, CLIP, VAE)
+
+resources:
+  requests:
+    cpu: "4"
+    memory: "16Gi"
+  limits:
+    cpu: "12"
+    memory: "64Gi"
+    gpu: "1" # Asignación de la GPU NVIDIA en el nodo
+
+env:
+  - name: CLI_ARGS
+    value: "--highvram --listen 0.0.0.0"

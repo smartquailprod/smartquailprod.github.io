@@ -3,12 +3,12 @@ entries:
   ollama100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-10-07T22:54:04.715243-05:00"
+    created: "2026-10-07T23:23:47.175357-05:00"
     description: SmartQuailAIServers® - ArchVersion V1.0.0
-    digest: ad84a091d690f54fe97e69a4a275246343820f73efbd7c68a801a747a953c6d1
+    digest: 6d1a0aab70d76981004bc30326d4f4c262b8770b6235d379413c3f369adc8d5f
     name: ollama100
     type: application
     urls:
     - ollama100-1.0.0.tgz
     version: 1.0.0
-generated: "2026-10-07T22:54:04.711561-05:00"
+generated: "2026-10-07T23:23:47.174293-05:00"
