@@ -1,0 +1,37 @@
+# ==============================================
+# Configuración general de réplicas e imagen
+# ==============================================
+replicaCount: 1
+
+image:
+  repository: ollama/ollama
+  pullPolicy: IfNotPresent
+  tag: latest
+
+# ==============================================
+# Configuración del Servicio (ClusterIP interno)
+# ==============================================
+service:
+  type: ClusterIP
+  port: 11434
+
+# ==============================================
+# Almacenamiento persistente para los modelos
+# ==============================================
+persistence:
+  enabled: true
+  storageClass: do-block-storage # Utiliza el CSI Driver de DigitalOcean
+  size: 100Gi
+
+# ==============================================
+# Recursos del Pod y asignación de la GPU
+# ==============================================
+resources:
+  requests:
+    cpu: "2"
+    memory: "4Gi"
+  limits:
+    cpu: "8"
+    memory: "140Gi" # Ajusta según la RAM de tu instancia (ej: GPU con 141GB)
+    gpu: "1"        # Mapea 1 tarjeta gráfica NVIDIA al contenedor
+
