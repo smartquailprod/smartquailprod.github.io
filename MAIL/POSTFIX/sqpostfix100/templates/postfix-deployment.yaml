@@ -114,12 +114,14 @@ spec:
             - name: mail-certificates
               mountPath: /etc/ssl/
               readOnly: true
-            - name: mailbox
+            - name: shared-storage
               mountPath: /var/mail/
+              subPath: mail          # Guarda los correos en una subcarpeta dentro del mismo disco
               readOnly: false
-            - name: dkim-keys
+            - name: shared-storage
               mountPath: /etc/opendkim/keys
-              readOnly: true
+              subPath: dkim-keys     # Guarda las llaves en otra subcarpeta del mismo disco
+              readOnly: false
       volumes:
         - name: mail-certificates
           projected:
@@ -131,14 +133,9 @@ spec:
                       path: tls.crt
                     - key: tls.key
                       path: tls.key
-        - name: mailbox
-          persistentVolumeClaim:
-            claimName: mailbox-pvc
         - name: postfix-config
           configMap:
             name: postfix-config
-        - name: dkim-keys
-          secret:
-            secretName: opendkim-keys
-            defaultMode: 0400
-
+        - name: shared-storage
+          persistentVolumeClaim:
+            claimName: opendkim-keys-pvc   # <--- El único PVC que existe y se usa para todo
