@@ -18,7 +18,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mailbox-pvc
+  name: mailbox-pvc-2
   namespace: mail-srv
 spec:
   accessModes:
