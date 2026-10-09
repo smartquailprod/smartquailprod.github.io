@@ -73,7 +73,7 @@ spec:
       volumes:
         - name: postgres-data
           persistentVolumeClaim:
-            claimName: {{ .Values.postgres_name }}-pv-claim-2
+            claimName: {{ .Values.postgres_name }}-pv-claim-clean
         - name: postgres-init
           configMap:
             name: postgres17-init-config
