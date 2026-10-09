@@ -1,8 +1,7 @@
----
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: mailbox
+  name: mailbox-pv-{{ .Release.Name }}
 spec:
   capacity:
     storage: 1Gi
@@ -10,7 +9,7 @@ spec:
     - ReadWriteOnce
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
-  storageClassName: ""  # explícitamente vacío para evitar conflictos
+  storageClassName: ""
   hostPath:
     path: /var/mail
     type: DirectoryOrCreate
@@ -18,13 +17,13 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mailbox-pvc-2
-  namespace: mail-srv
+  name: mailbox-pvc
+  namespace: {{ .Values.NameSpaceCluster }}
 spec:
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
       storage: 1Gi
-  storageClassName: ""        # Debe coincidir con el PV (vacío)
-  volumeName: mailbox         # Se enlaza directamente al PV manual
+  storageClassName: ""
+  volumeName: mailbox-pv-{{ .Release.Name }}
