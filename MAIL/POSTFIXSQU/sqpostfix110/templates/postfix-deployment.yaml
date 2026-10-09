@@ -15,14 +15,14 @@ spec:
       labels:
         app: postfix
     spec:
-      hostNetwork: true                 # Usa red del nodo para bindear puerto 25 real
+      hostNetwork: true
       dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
           ports:
             - containerPort: 25
-              hostPort: 25             # Bind puerto 25 del nodo al contenedor
+              hostPort: 25
               name: smtp
             - containerPort: 465
               name: smtps
@@ -119,7 +119,6 @@ spec:
                 secretKeyRef:
                   name: postfix-secrets
                   key: SASL_TCP_PORT
-
           volumeMounts:
             - name: mail-certificates
               mountPath: /etc/ssl

@@ -4,14 +4,13 @@ kind: PersistentVolume
 metadata:
   name: mailbox
 spec:
-  storageClassName: standard
+  storageClassName: ""          # <-- Debe ser vacío para hostPath
   capacity:
     storage: 1Gi
   accessModes:
     - ReadWriteOnce
   volumeMode: Filesystem
   persistentVolumeReclaimPolicy: Retain
-  # No se usa storageClassName para hostPath, o puedes poner "" (vacío)
   hostPath:
     path: /var/mail
     type: DirectoryOrCreate
@@ -27,6 +26,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  # Debe coincidir con PV: si PV no tiene storageClassName, PVC tampoco
-  storageClassName: "standard"
+  storageClassName: ""          # <-- Debe coincidir exactamente con el PV (vacío)
   volumeName: mailbox
