@@ -133,7 +133,7 @@ spec:
                       path: tls.key
         - name: mailbox
           persistentVolumeClaim:
-            claimName: mailbox-pvc-2
+            claimName: mailbox-pvc
         - name: postfix-config
           configMap:
             name: postfix-config
