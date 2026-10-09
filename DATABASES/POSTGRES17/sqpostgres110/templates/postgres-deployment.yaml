@@ -24,7 +24,7 @@ spec:
             - containerPort: {{ .Values.postgres_port }}
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql17/data
+              mountPath: /var/lib/postgresql/data   # <-- CORREGIDO: Ruta estándar donde Postgres guarda los datos
             - name: postgres-init
               mountPath: /docker-entrypoint-initdb.d/
               readOnly: true
@@ -61,14 +61,12 @@ spec:
           volumeMounts:
             - name: postgres-logs
               mountPath: /var/log/postgresql
-              # 🔐 TLS CERTIFICATES (ADDED)
             - name: postgres-tls
               mountPath: /etc/ssl/certs
               readOnly: true
             - name: postgres-tls
               mountPath: /etc/ssl/private
               readOnly: true
-
 
       volumes:
         - name: postgres-data
@@ -81,4 +79,4 @@ spec:
           emptyDir: {}
         - name: postgres-tls
           secret:
-          secretName: postgres-tls
+            secretName: postgres-tls
