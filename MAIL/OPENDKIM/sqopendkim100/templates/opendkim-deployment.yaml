@@ -26,4 +26,4 @@ spec:
       volumes:
       - name: opendkim-keys
         persistentVolumeClaim:
-          claimName: opendkim-keys-pvc  # Usamos el PVC aquí
+          claimName: mailbox-pvc  # Usamos el PVC aquí

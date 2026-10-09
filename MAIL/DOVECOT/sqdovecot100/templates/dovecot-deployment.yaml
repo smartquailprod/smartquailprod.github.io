@@ -75,7 +75,7 @@ spec:
       volumes:
         - name: mailbox
           persistentVolumeClaim:
-            claimName: mailbox-pvc-2
+            claimName: mailbox-pvc
         - name: imap-certificates
           projected:
             sources:

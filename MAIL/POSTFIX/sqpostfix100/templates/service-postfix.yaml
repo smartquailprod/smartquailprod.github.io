@@ -14,7 +14,7 @@ spec:
       protocol: TCP
       port: 25
       targetPort: 25
-      nodePort: 25  # Puerto forzado en el nodo (requiere el parámetro --service-node-port-range en K3s)
+      nodePort: 25  # Puerto forzado en el nodo
     - name: smtps
       protocol: TCP
       port: 465

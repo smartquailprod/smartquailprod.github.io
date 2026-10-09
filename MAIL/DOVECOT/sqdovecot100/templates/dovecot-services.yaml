@@ -14,20 +14,19 @@ spec:
       protocol: TCP
       port: 143          # IMAP sin cifrado
       targetPort: 143
-      nodePort: 30143
+      nodePort: 143
     - name: imaps
       protocol: TCP
       port: 993          # IMAP con SSL/TLS
       targetPort: 993
-      nodePort: 30993
+      nodePort: 993
     - name: pop3
       protocol: TCP
       port: 110          # POP3 sin cifrado
       targetPort: 110
-      nodePort: 30110
+      nodePort: 110
     - name: pop3s
       protocol: TCP
       port: 995          # POP3 con SSL/TLS
       targetPort: 995
-      nodePort: 30995
-
+      nodePort: 995
