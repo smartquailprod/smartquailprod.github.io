@@ -13,7 +13,7 @@ data:
 
     [INPUT]
         Name          tail
-        Path          /var/log/postgresql/postgresql.log
+        Path          /var/log/postgresql/*.log
         Tag           postgres.log
         DB            /var/log/postgresql/flb_postgres.db
         Refresh_Interval 10
@@ -27,7 +27,6 @@ data:
         Host              elasticsearch
         Port              9200
         Index             postgresql-logs
-        Type              _doc
         Logstash_Format   On
         Logstash_Prefix   postgresql
         HTTP_User         ${FLUENT_ELASTICSEARCH_USER}
@@ -41,3 +40,5 @@ data:
         Time_Key    time
         Time_Format %Y-%m-%dT%H:%M:%S
         Time_Keep   On
+        # Ignora errores si alguna línea no es JSON válido
+        Decode_Field_As escape_utf8 log

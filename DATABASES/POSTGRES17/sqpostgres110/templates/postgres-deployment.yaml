@@ -24,11 +24,13 @@ spec:
             - containerPort: {{ .Values.postgres_port }}
           volumeMounts:
             - name: postgres-data
-              mountPath: /var/lib/postgresql/data   # <-- CORREGIDO: Ruta estándar donde Postgres guarda los datos
+              mountPath: /var/lib/postgresql/data
             - name: postgres-init
               mountPath: /docker-entrypoint-initdb.d/
               readOnly: true
           env:
+            - name: PGDATA
+              value: /var/lib/postgresql/data/pgdata
             - name: POSTGRES_USER
               valueFrom:
                 secretKeyRef:

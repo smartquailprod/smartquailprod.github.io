@@ -30,19 +30,18 @@ data:
     max_wal_senders = 5
     hot_standby = on
     log_checkpoints = on
-    log_temp_files = 0  # Registra todos los archivos temporales
+    log_temp_files = 0
     pg_stat_statements.track = all
-    log_directory = '/var/log/postgresql'  # Directorio de los logs
-    log_filename = 'postgresql.log'        # Nombre del archivo de log
+    log_directory = '/var/log/postgresql'
+    log_filename = 'postgresql.log'
     log_statement = 'ddl' 
     log_duration = on
     client_encoding = 'UTF8'
 
-    # Si deseas llamar al microservicio desde un servidor local
+    # SSL Configuración
     ssl = on
     ssl_cert_file = '/etc/ssl/certs/tls.crt'
     ssl_key_file  = '/etc/ssl/private/tls.key'
-    ssl_ca_file   = '/etc/ssl/certs/ca.crt'
 
   init: |
     -- Crear la tabla virtual_domains si no existe
@@ -58,8 +57,7 @@ data:
         source VARCHAR(255) NOT NULL,
         destination VARCHAR(255) NOT NULL,
         FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE,
-        -- Se podría agregar un índice en 'source' para mejorar la búsqueda
-        CONSTRAINT unique_source UNIQUE (source, domain_id)  -- Esto garantiza que no haya alias duplicados por dominio
+        CONSTRAINT unique_source UNIQUE (source, domain_id)
     );
 
     -- Crear la tabla virtual_users si no existe
@@ -69,6 +67,5 @@ data:
         password VARCHAR(106) NOT NULL,
         email VARCHAR(255) NOT NULL UNIQUE,
         FOREIGN KEY (domain_id) REFERENCES virtual_domains(id) ON DELETE CASCADE,
-        -- Se puede agregar un índice para mejorar la búsqueda en la columna 'email'
-        CONSTRAINT valid_email CHECK (email ~* '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')  -- Validación básica para correos
+        CONSTRAINT valid_email CHECK (email ~* '^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$')
     );
