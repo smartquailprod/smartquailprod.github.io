@@ -148,4 +148,4 @@ spec:
             claimName: mailbox-pvc
         - name: opendkim-keys
           persistentVolumeClaim:
-            claimName: opendkim-keys-pvc # O el nombre del PVC donde almacenas las llaves DKIM compartidas
+            claimName: mailbox-pvc # O el nombre del PVC donde almacenas las llaves DKIM compartidas
