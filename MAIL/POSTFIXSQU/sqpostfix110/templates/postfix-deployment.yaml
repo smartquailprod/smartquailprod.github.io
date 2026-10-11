@@ -19,6 +19,15 @@ spec:
         fsGroup: 1001 # Asegura que el PVC compartido pertenezca al grupo postfix (1001)
         runAsUser: 1001
         runAsGroup: 1001
+      initContainers:
+        - name: fix-opendkim-permissions
+          image: alpine:3.16
+          command: ["sh", "-c", "chown -R 90:90 /etc/opendkim/keys && chmod 700 /etc/opendkim/keys && find /etc/opendkim/keys -type d -exec chmod 700 {} \\; && find /etc/opendkim/keys -type f -name '*.private' -exec chmod 600 {} \\;"]
+          securityContext:
+            runAsUser: 0 # Root temporal solo para ajustar los permisos del volumen compartido
+          volumeMounts:
+            - name: opendkim-keys
+              mountPath: /etc/opendkim/keys
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
