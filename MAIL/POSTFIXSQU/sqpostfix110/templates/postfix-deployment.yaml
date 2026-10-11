@@ -15,11 +15,16 @@ spec:
       labels:
         app: postfix
     spec:
-      hostNetwork: true
-      dnsPolicy: ClusterFirstWithHostNet
+      securityContext:
+        fsGroup: 1001 # Asegura que el PVC compartido pertenezca al grupo postfix (1001)
+        runAsUser: 1001
+        runAsGroup: 1001
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
           ports:
             - containerPort: 25
               hostPort: 25
@@ -125,6 +130,8 @@ spec:
               readOnly: true
             - name: mailbox
               mountPath: /var/mail/
+            - name: opendkim-keys
+              mountPath: /etc/opendkim/keys
       volumes:
         - name: mail-certificates
           projected:
@@ -139,3 +146,6 @@ spec:
         - name: mailbox
           persistentVolumeClaim:
             claimName: mailbox-pvc
+        - name: opendkim-keys
+          persistentVolumeClaim:
+            claimName: opendkim-keys-pvc # O el nombre del PVC donde almacenas las llaves DKIM compartidas
