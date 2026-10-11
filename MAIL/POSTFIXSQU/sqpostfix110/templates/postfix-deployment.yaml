@@ -34,9 +34,11 @@ spec:
           securityContext:
             allowPrivilegeEscalation: false
             readOnlyRootFilesystem: false
+            capabilities:
+              add:
+                - NET_BIND_SERVICE # Permite al usuario 1001 abrir puertos < 1024
           ports:
             - containerPort: 25
-              hostPort: 25
               name: smtp
             - containerPort: 465
               name: smtps
