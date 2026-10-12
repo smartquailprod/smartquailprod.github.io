@@ -15,6 +15,22 @@ spec:
       labels:
         app: dovecot
     spec:
+      initContainers:
+      - name: init-dovecot-permissions
+        image: alpine:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            chown -R 1000:1000 /var/mail
+            chmod 755 /var/mail
+            mkdir -p /var/mail/vhosts/smartquail.io/support/Maildir/cur /var/mail/vhosts/smartquail.io/support/Maildir/new /var/mail/vhosts/smartquail.io/support/Maildir/tmp
+            chown -R 1000:1000 /var/mail/vhosts
+            chmod 755 /var/mail/vhosts /var/mail/vhosts/smartquail.io /var/mail/vhosts/smartquail.io/support
+            chmod -R 700 /var/mail/vhosts/smartquail.io/support/Maildir
+        volumeMounts:
+        - name: mailbox 
+          mountPath: /var/mail
+
       containers:
         - name: dovecot
           image: {{ .Values.dovecot_image }}
