@@ -15,10 +15,6 @@ spec:
       labels:
         app: postfix
     spec:
-      securityContext:
-        fsGroup: 1000 # Asegura que el PVC compartido pertenezca al grupo postfix (1001)
-        runAsUser: 1000
-        runAsGroup: 1000
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
