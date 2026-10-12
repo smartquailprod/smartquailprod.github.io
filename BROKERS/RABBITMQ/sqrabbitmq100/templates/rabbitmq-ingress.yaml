@@ -22,6 +22,6 @@ spec:
                 port:
                   name: management  
   tls:
-    - secretName: rabbitmq-smartquail-io-tls 
+    - secretName: rabbitmq-io-tls 
       hosts:
         - rabbitmq.smartquail.io  
