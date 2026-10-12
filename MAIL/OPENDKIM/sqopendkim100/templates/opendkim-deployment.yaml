@@ -14,6 +14,23 @@ spec:
       labels:
         app: opendkim
     spec:
+      initContainers:
+      - name: init-opendkim-permissions
+        image: alpine:latest
+        command: ["/bin/sh", "-c"]
+        args:
+          - |
+            mkdir -p /etc/opendkim/keys/smartquail.io
+            chown -R 90:91 /etc/opendkim/keys
+            chmod 700 /etc/opendkim/keys
+            chmod 700 /etc/opendkim/keys/smartquail.io
+            if [ -f /etc/opendkim/keys/smartquail.io/default.private ]; then
+              chmod 600 /etc/opendkim/keys/smartquail.io/default.private
+            fi
+        volumeMounts:
+        - name: opendkim-keys # Usa el nombre real de tu volumen montado
+          mountPath: /etc/opendkim/keys
+
       containers:
       - name: opendkim
         image: smartquail/qndopendkim100:latest
