@@ -55,7 +55,7 @@ image:
 resources:
   requests:
     cpu: "250m"
-    memory: "450Mi"
+    memory: "400Mi"
   limits:
     cpu: "900m"
     memory: "800Mi"
