@@ -15,15 +15,15 @@ spec:
       labels:
         app: postfix
     spec:
+      hostNetwork: true
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}
           securityContext:
-            allowPrivilegeEscalation: false
+            allowPrivilegeEscalation: true
             readOnlyRootFilesystem: false
           ports:
             - containerPort: 25
-              hostPort: 25
               name: smtp
             - containerPort: 465
               name: smtps
@@ -129,7 +129,6 @@ spec:
             - name: opendkim-keys
               mountPath: /etc/opendkim/keys
 
-      
       volumes:
         - name: mail-certificates
           projected:
@@ -146,4 +145,4 @@ spec:
             claimName: mailbox-pvc
         - name: opendkim-keys
           persistentVolumeClaim:
-            claimName: opendkim-keys-pvc  # O el nombre del PVC donde almacenas las llaves DKIM compartidas
+            claimName: opendkim-keys-pvc
