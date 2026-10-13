@@ -16,6 +16,7 @@ spec:
         app: postfix
     spec:
       hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
       containers:
         - name: postfix
           image: {{ .Values.postfiximage }}

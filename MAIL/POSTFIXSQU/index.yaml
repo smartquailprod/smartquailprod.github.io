@@ -3,12 +3,12 @@ entries:
   sqpostfix110:
   - apiVersion: v2
     appVersion: 1.1.0
-    created: "2026-10-13T18:12:40.868201-05:00"
+    created: "2026-10-13T18:40:56.853631-05:00"
     description: SmartQuailMailServers® - ArchVersion V1.0.0
-    digest: f321330c55a7d27075a5938eff8ef22b71228f552c574ae11ae5c65b1731418e
+    digest: f108285dbfd2809996a1e91f391671e83f1cec7038e0afe2051b9225bb867fc9
     name: sqpostfix110
     type: application
     urls:
     - sqpostfix110-1.1.0.tgz
     version: 1.1.0
-generated: "2026-10-13T18:12:40.867325-05:00"
+generated: "2026-10-13T18:40:56.852424-05:00"
