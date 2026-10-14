@@ -4,5 +4,7 @@ metadata:
   name: openclaw-config
   namespace: jarvis-srv
 data:
-  # Puedes añadir variables de configuración generales que no sean sensibles aquí
   OPENCLAW_ENV: "production"
+  OPENCLAW_GATEWAY_MODE: "local"
+  OPENCLAW_GATEWAY_BIND: "0.0.0.0"
+  OPENCLAW_NO_RESPAWN: "1"

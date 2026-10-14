@@ -15,6 +15,18 @@ spec:
       labels:
         app: openclaw
     spec:
+      initContainers:
+        - name: openclaw-configurator
+          image: ghcr.io/openclaw/openclaw:latest
+          command: ["sh", "-c"]
+          args:
+            - |
+              echo "Configurando OpenClaw en modo local..."
+              openclaw onboard --mode local --non-interactive || true
+              openclaw config set gateway.mode local || true
+          volumeMounts:
+            - name: openclaw-storage
+              mountPath: /root/.openclaw
       containers:
         - name: openclaw
           image: ghcr.io/openclaw/openclaw:latest
@@ -25,12 +37,8 @@ spec:
           envFrom:
             - configMapRef:
                 name: openclaw-config
-          envFrom:
-            - configMapRef:
-                name: openclaw-config
             - secretRef:
                 name: openclaw-secrets
-
           volumeMounts:
             - name: openclaw-storage
               mountPath: /root/.openclaw
@@ -45,6 +53,3 @@ spec:
         - name: openclaw-storage
           persistentVolumeClaim:
             claimName: openclaw-pvc
-
-
-
