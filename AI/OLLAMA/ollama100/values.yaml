@@ -21,7 +21,7 @@ service:
 persistence:
   enabled: true
   storageClass: do-block-storage # Utiliza el CSI Driver de DigitalOcean
-  size: 1Gi
+  size: 4Gi
 
 # ==============================================
 # Recursos del Pod y asignación de la GPU
