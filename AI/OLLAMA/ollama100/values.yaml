@@ -28,9 +28,9 @@ persistence:
 # ==============================================
 resources:
   requests:
-    cpu: "250m"
-    memory: "1Gi"
-  limits:
-    cpu: "1000m"
+    cpu: "500m"
     memory: "2Gi"
+  limits:
+    cpu: "2000m"
+    memory: "4Gi"
 
