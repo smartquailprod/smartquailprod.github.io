@@ -30,18 +30,21 @@ spec:
                 name: openclaw-config
             - secretRef:
                 name: openclaw-secrets
-                
+
           volumeMounts:
             - name: openclaw-storage
               mountPath: /root/.openclaw
           resources:
             limits:
-              cpu: "1000m"
-              memory: "1Gi"
+              cpu: "500m"
+              memory: "800Mi"
             requests:
               cpu: "250m"
-              memory: "256Mi"
+              memory: "400Mi"
       volumes:
         - name: openclaw-storage
           persistentVolumeClaim:
             claimName: openclaw-pvc
+
+
+
