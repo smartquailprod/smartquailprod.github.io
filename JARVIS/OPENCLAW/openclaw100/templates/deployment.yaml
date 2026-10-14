@@ -15,30 +15,12 @@ spec:
       labels:
         app: openclaw
     spec:
-      initContainers:
-        - name: init-openclaw-config
-          image: busybox:latest
-          command: ["sh", "-c"]
-          args:
-            - |
-              echo "Creando directorio y configuración inicial para OpenClaw..."
-              mkdir -p /home/node/.openclaw
-              cat << 'EOF' > /home/node/.openclaw/openclaw.json
-              {
-                "gateway": {
-                  "mode": "local",
-                  "bind": "lan"
-                }
-              }
-              EOF
-              echo "Configuración escrita con éxito."
-          volumeMounts:
-            - name: openclaw-storage
-              mountPath: /home/node/.openclaw
       containers:
         - name: openclaw
           image: ghcr.io/openclaw/openclaw:latest
           imagePullPolicy: Always
+          # Forzamos los parámetros directamente en el comando de arranque del contenedor
+          args: ["gateway", "--mode", "local", "--bind", "lan", "--allow-unconfigured"]
           ports:
             - containerPort: 18789
               name: gateway
