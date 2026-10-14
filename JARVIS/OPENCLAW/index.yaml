@@ -3,12 +3,12 @@ entries:
   openclaw100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-10-13T23:19:22.604228-05:00"
+    created: "2026-10-13T23:23:41.878472-05:00"
     description: SmartQuailAIServers® - ArchVersion V1.0.0
-    digest: c1adf793a23c4b56979a4dbb697520f6ab940b5945a86a989512ad045da7f754
+    digest: 284205fd2caada24faced4f80cbc66f6d55dbf330537197c49bd5b37201fb490
     name: openclaw100
     type: application
     urls:
     - openclaw100-1.0.0.tgz
     version: 1.0.0
-generated: "2026-10-13T23:19:22.603228-05:00"
+generated: "2026-10-13T23:23:41.87767-05:00"

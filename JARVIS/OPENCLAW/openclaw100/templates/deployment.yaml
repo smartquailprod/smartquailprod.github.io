@@ -6,7 +6,7 @@ metadata:
   labels:
     app: openclaw
 spec:
-  replicas: 1 # OpenClaw requiere una sola réplica por el estado de las conexiones websocket
+  replicas: 1
   selector:
     matchLabels:
       app: openclaw
@@ -21,7 +21,7 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              echo "Configurando OpenClaw en modo local con aceptación de riesgo..."
+              echo "Configurando OpenClaw en modo local..."
               openclaw onboard --mode local --non-interactive --accept-risk || true
               openclaw config set gateway.mode local || true
           volumeMounts:
@@ -31,7 +31,6 @@ spec:
         - name: openclaw
           image: ghcr.io/openclaw/openclaw:latest
           imagePullPolicy: Always
-          args: ["gateway", "--allow-unconfigured", "--mode", "local"]
           ports:
             - containerPort: 18789
               name: gateway
