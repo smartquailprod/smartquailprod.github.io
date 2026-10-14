@@ -4,7 +4,10 @@ metadata:
   name: openclaw-config
   namespace: jarvis-srv
 data:
-  OPENCLAW_ENV: "production"
-  OPENCLAW_GATEWAY_MODE: "local"
-  OPENCLAW_GATEWAY_BIND: "0.0.0.0"
-  OPENCLAW_NO_RESPAWN: "1"
+  openclaw.json: |
+    {
+      "gateway": {
+        "mode": "local",
+        "bind": "lan"
+      }
+    }

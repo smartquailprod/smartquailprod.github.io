@@ -15,30 +15,6 @@ spec:
       labels:
         app: openclaw
     spec:
-      initContainers:
-        - name: openclaw-bootstrap
-          image: ghcr.io/openclaw/openclaw:latest
-          command: ["sh", "-c"]
-          args:
-            - |
-              echo "Creando estructura de configuración para evitar bloqueos..."
-              mkdir -p /home/node/.openclaw
-              
-              # Escribimos el openclaw.json con el modo local y el bind requeridos directamente,
-              # evitando que el asistente interactivo o el doctor bloqueen el arranque.
-              cat << 'EOF' > /home/node/.openclaw/openclaw.json
-              {
-                "gateway": {
-                  "mode": "local",
-                  "bind": "lan"
-                }
-              }
-              EOF
-              
-              echo "Configuración base escrita correctamente."
-          volumeMounts:
-            - name: openclaw-storage
-              mountPath: /home/node/.openclaw
       containers:
         - name: openclaw
           image: ghcr.io/openclaw/openclaw:latest
@@ -54,6 +30,7 @@ spec:
           volumeMounts:
             - name: openclaw-storage
               mountPath: /home/node/.openclaw
+              # Opcional: Montar el openclaw.json del ConfigMap directamente si prefieres
           resources:
             limits:
               cpu: "500m"
