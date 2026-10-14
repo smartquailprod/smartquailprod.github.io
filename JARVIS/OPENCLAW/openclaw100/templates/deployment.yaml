@@ -21,27 +21,35 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              echo "Configurando OpenClaw en modo local..."
+              echo "Inicializando configuración en /home/node/.openclaw..."
+              mkdir -p /home/node/.openclaw
               openclaw onboard --mode local --non-interactive --accept-risk || true
               openclaw config set gateway.mode local || true
           volumeMounts:
             - name: openclaw-storage
-              mountPath: /root/.openclaw
+              mountPath: /home/node/.openclaw
       containers:
         - name: openclaw
           image: ghcr.io/openclaw/openclaw:latest
           imagePullPolicy: Always
-          ports:
-            - containerPort: 18789
-              name: gateway
+          env:
+            - name: OPENCLAW_GATEWAY_MODE
+              value: "local"
+            - name: OPENCLAW_GATEWAY_BIND
+              value: "0.0.0.0"
+            - name: OPENCLAW_NO_RESPAWN
+              value: "1"
           envFrom:
             - configMapRef:
                 name: openclaw-config
             - secretRef:
                 name: openclaw-secrets
+          ports:
+            - containerPort: 18789
+              name: gateway
           volumeMounts:
             - name: openclaw-storage
-              mountPath: /root/.openclaw
+              mountPath: /home/node/.openclaw
           resources:
             limits:
               cpu: "500m"
