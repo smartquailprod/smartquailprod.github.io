@@ -21,17 +21,16 @@ service:
 persistence:
   enabled: true
   storageClass: do-block-storage # Utiliza el CSI Driver de DigitalOcean
-  size: 100Gi
+  size: 1Gi
 
 # ==============================================
 # Recursos del Pod y asignación de la GPU
 # ==============================================
 resources:
   requests:
-    cpu: "2"
-    memory: "4Gi"
+    cpu: "250m"
+    memory: "1Gi"
   limits:
-    cpu: "8"
-    memory: "140Gi" # Ajusta según la RAM de tu instancia (ej: GPU con 141GB)
-    gpu: "1"        # Mapea 1 tarjeta gráfica NVIDIA al contenedor
+    cpu: "1000m"
+    memory: "2Gi"
 

@@ -1,0 +1,32 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: openclaw-ingress
+  namespace: jarvis-srv
+  annotations:
+    # Controlador de Ingress (ajusta si usas Traefik, HAProxy, etc.)
+    kubernetes.io/ingress.class: "nginx"
+    
+    # Anotaciones para cert-manager (opcional si usas la anotación automática en el Ingress, pero con el recurso Certificate de arriba ya se gestiona el secret)
+    cert-manager.io/cluster-issuer: "letsencrypt-cluster-issuer"
+
+    # Configuraciones específicas para WebSockets (vital para OpenClaw)
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+    nginx.ingress.kubernetes.io/websocket-services: "openclaw-service"
+spec:
+  tls:
+    - hosts:
+        - openclaw.smartquail.io
+      secretName: openclaw-tls-secret
+  rules:
+    - host: openclaw.smartquail.io
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: openclaw-service
+                port:
+                  number: 18789

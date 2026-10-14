@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: openclaw
+  namespace: jarvis-srv
+  labels:
+    app: openclaw
+spec:
+  replicas: 1 # OpenClaw requiere una sola réplica por el estado de las conexiones websocket
+  selector:
+    matchLabels:
+      app: openclaw
+  template:
+    metadata:
+      labels:
+        app: openclaw
+    spec:
+      containers:
+        - name: openclaw
+          image: ghcr.io/openclaw/openclaw:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 18789
+              name: gateway
+          envFrom:
+            - configMapRef:
+                name: openclaw-config
+          envFrom:
+            - configMapRef:
+                name: openclaw-config
+            - secretRef:
+                name: openclaw-secrets
+                
+          volumeMounts:
+            - name: openclaw-storage
+              mountPath: /root/.openclaw
+          resources:
+            limits:
+              cpu: "1000m"
+              memory: "1Gi"
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+      volumes:
+        - name: openclaw-storage
+          persistentVolumeClaim:
+            claimName: openclaw-pvc

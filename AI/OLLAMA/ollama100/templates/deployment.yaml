@@ -17,6 +17,43 @@ spec:
         app.kubernetes.io/name: {{ .Chart.Name }}
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
+      # =========================================================================
+      # INIT CONTAINER: Descarga dinámica basada en el modelo configurado
+      # =========================================================================
+      initContainers:
+        - name: ollama-model-puller
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command: ["sh", "-c"]
+          args:
+            - |
+              MODEL_NAME="${OLLAMA_MODEL:-qwen2.5}"
+              echo "Verificando si el modelo '${MODEL_NAME}' ya existe en el volumen..."
+              
+              # Iniciamos un servidor temporal para consultar los modelos existentes
+              ollama serve &
+              until ollama list > /dev/null 2>&1; do
+                sleep 2
+              done
+              
+              if ollama list | grep -q "${MODEL_NAME}"; then
+                echo "El modelo '${MODEL_NAME}' ya está descargado. Omitiendo descarga."
+              else
+                echo "Descargando el modelo '${MODEL_NAME}'..."
+                ollama pull ${MODEL_NAME}
+                echo "Modelo descargado con éxito."
+              fi
+              
+              echo "Deteniendo servidor temporal..."
+              pkill ollama
+              sleep 2
+          env:
+            - name: OLLAMA_MODEL
+              value: "{{ .Values.ollamaModel | default "qwen2.5" }}"
+          volumeMounts:
+            - mountPath: /root/.ollama
+              name: ollama-storage
+      # =========================================================================
       containers:
         - name: ollama
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"

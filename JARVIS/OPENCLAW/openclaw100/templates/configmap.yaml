@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: openclaw-config
+  namespace: jarvis-srv
+data:
+  # Puedes añadir variables de configuración generales que no sean sensibles aquí
+  OPENCLAW_ENV: "production"

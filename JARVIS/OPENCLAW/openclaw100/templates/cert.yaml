@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: openclaw-tls
+  namespace: jarvis-srv
+spec:
+  secretName: openclaw-tls-secret
+  duration: 2160h    # 90 días
+  renewBefore: 360h  # 15 días antes de expirar
+  isCA: false
+  commonName: openclaw.smartquail.io
+  dnsNames:
+    - openclaw.smartquail.io
+  issuerRef:
+    name: letsencrypt-cluster-issuer
+    kind: ClusterIssuer

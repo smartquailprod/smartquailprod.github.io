@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: openclaw-pvc
+  namespace: jarvis-srv
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+  # Opcional: Descomenta y ajusta si tu clúster requiere una clase de almacenamiento específica (ej: 'longhorn', 'gp2', 'local-path')
+  # storageClassName: "standard"

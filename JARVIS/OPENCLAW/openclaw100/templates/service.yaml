@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: openclaw-service
+  namespace: jarvis-srv
+spec:
+  type: ClusterIP # Cambia a LoadBalancer o NodePort si deseas acceso externo directo
+  ports:
+    - port: 18789
+      targetPort: 18789
+      protocol: TCP
+      name: gateway
+  selector:
+    app: openclaw
