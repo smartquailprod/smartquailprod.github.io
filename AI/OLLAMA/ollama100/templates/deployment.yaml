@@ -18,7 +18,7 @@ spec:
         app.kubernetes.io/instance: {{ .Release.Name }}
     spec:
       # =========================================================================
-      # INIT CONTAINER: Descarga dinámica basada en el modelo configurado
+      # INIT CONTAINER: Descarga segura al PV si el modelo no existe
       # =========================================================================
       initContainers:
         - name: ollama-model-puller
@@ -27,29 +27,47 @@ spec:
           command: ["sh", "-c"]
           args:
             - |
-              MODEL_NAME="${OLLAMA_MODEL:-qwen2.5}"
-              echo "Verificando si el modelo '${MODEL_NAME}' ya existe en el volumen..."
+              MODEL_NAME="${OLLAMA_MODEL:-qwen2.5:0.5b}"
+              echo "Iniciando servidor temporal para verificar el modelo '${MODEL_NAME}' en el PV..."
               
-              # Iniciamos un servidor temporal para consultar los modelos existentes
+              # Arrancamos ollama en segundo plano apuntando al PV montado
               ollama serve &
+              SERVER_PID=$!
+              
+              # Esperamos a que la API esté lista (máximo 30 segundos)
+              counter=0
               until ollama list > /dev/null 2>&1; do
                 sleep 2
+                counter=$((counter+1))
+                if [ $counter -gt 15 ]; then
+                  echo "Error: El servidor temporal de Ollama no respondió a tiempo."
+                  exit 1
+                fi
               done
               
-              if ollama list | grep -q "${MODEL_NAME}"; then
-                echo "El modelo '${MODEL_NAME}' ya está descargado. Omitiendo descarga."
+              # Verificamos si el modelo ya se encuentra en el volumen
+              if ollama list | grep -qE "${MODEL_NAME%%:*}"; then
+                echo "El modelo '${MODEL_NAME}' ya existe en el volumen persistente. Omitiendo descarga."
               else
-                echo "Descargando el modelo '${MODEL_NAME}'..."
+                echo "Descargando el modelo '${MODEL_NAME}' al volumen persistente..."
                 ollama pull ${MODEL_NAME}
-                echo "Modelo descargado con éxito."
+                echo "Modelo descargado y persistido con éxito."
               fi
               
-              echo "Deteniendo servidor temporal..."
-              pkill ollama
-              sleep 2
+              echo "Apagando servidor temporal..."
+              kill $SERVER_PID
+              wait $SERVER_PID 2>/dev/null || true
+              exit 0
           env:
             - name: OLLAMA_MODEL
-              value: "{{ .Values.ollamaModel | default "qwen2.5" }}"
+              value: "{{ .Values.ollamaModel | default "qwen2.5:0.5b" }}"
+          resources:
+            requests:
+              memory: "1Gi"
+              cpu: "250m"
+            limits:
+              memory: "2Gi"
+              cpu: "1000m"
           volumeMounts:
             - mountPath: /root/.ollama
               name: ollama-storage
