@@ -142,11 +142,11 @@ ingress:
 # Resource requests and limits for main OpenClaw container
 resources:
   requests:
-    cpu: 100m
+    cpu: 250m
     memory: 512Mi
   limits:
-    cpu: 2000m
-    memory: 2Gi
+    cpu: 1000m
+    memory: 1Gi
 
 # Security context for the pod
 podSecurityContext:
