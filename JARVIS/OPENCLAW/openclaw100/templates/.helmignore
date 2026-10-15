@@ -21,3 +21,7 @@
 .idea/
 *.tmproj
 .vscode/
+# CI directory
+ci/
+# Test files
+tests/

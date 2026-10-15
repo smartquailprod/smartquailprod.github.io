@@ -1,32 +1,49 @@
+{{- if .Values.ingress.enabled }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: openclaw-ingress
+  name: {{ include "openclaw.fullname" . }}
   namespace: jarvis-srv
+  labels:
+    {{- include "openclaw.labels" . | nindent 4 }}
   annotations:
-    # Controlador de Ingress (ajusta si usas Traefik, HAProxy, etc.)
-    kubernetes.io/ingress.class: "nginx"
-    
-    # Anotaciones para cert-manager (opcional si usas la anotación automática en el Ingress, pero con el recurso Certificate de arriba ya se gestiona el secret)
-    cert-manager.io/cluster-issuer: "letsencrypt-cluster-issuer"
-
-    # Configuraciones específicas para WebSockets (vital para OpenClaw)
+    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    nginx.ingress.kubernetes.io/websocket-services: "openclaw"
+    {{- with .Values.ingress.annotations }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
 spec:
+  {{- if .Values.ingress.className }}
+  ingressClassName: {{ .Values.ingress.className }}
+  {{- end }}
+  {{- if .Values.ingress.tls }}
   tls:
+    {{- range .Values.ingress.tls }}
     - hosts:
-        - openclaw.smartquail.io
-      secretName: openclaw-tls-secret
+        {{- range .hosts }}
+        - {{ . | quote }}
+        {{- end }}
+      secretName: {{ .secretName }}
+    {{- end }}
+  {{- end }}
   rules:
-    - host: openclaw.smartquail.io
+    {{- range .Values.ingress.hosts }}
+    - host: {{ .host | quote }}
       http:
         paths:
-          - path: /
-            pathType: Prefix
+          {{- range .paths }}
+          - path: {{ .path }}
+            pathType: {{ .pathType }}
             backend:
               service:
-                name: openclaw
+                name: {{ include "openclaw.fullname" $ }}
                 port:
-                  number: 18789
+                  {{- if eq .servicePort "canvas" }}
+                  name: canvas
+                  {{- else }}
+                  name: gateway
+                  {{- end }}
+          {{- end }}
+    {{- end }}
+{{- end }}
