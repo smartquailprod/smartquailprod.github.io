@@ -20,8 +20,8 @@ imagePullSecrets: []
 
 # OpenClaw application settings
 openclaw:
-  # -- Bind mode: "lan" for network access, "localhost" for local only
-  bind: "lan"
+  # -- Bind mode: "local" (requerido por el validador del esquema)
+  bind: "local"
   # -- Timezone environment variable
   timezone: "UTC"
   # -- Config file mode: "merge" keeps existing config and merges helm values (helm wins conflicts),
@@ -40,20 +40,15 @@ openclaw:
       # -- Thinking mode: "low", "high", or "off"
       thinkingDefault: "low"
 
-  # -- Raw JSON overrides merged into openclaw.json
-  # Configurado para aceptar tu dominio en la UI de control y la URL base de Ollama local
+  # -- Raw JSON overrides compliant with schema (sin la llave 'providers')
   configOverrides:
     gateway:
-      mode: "lan"
+      mode: "local"
       controlUi:
         allowedOrigins:
           - "https://openclaw.smartquail.io"
           - "http://localhost:18789"
           - "http://127.0.0.1:18789"
-    providers:
-      openai:
-        baseUrl: "http://ollama.ai-models.svc.cluster.local:11434/v1"
-        apiKey: "ollama-local"
 
 # Credentials for LLM providers and channels
 credentials:
@@ -63,8 +58,9 @@ credentials:
   openaiApiKey: "ollama-local"
   # -- Gateway authentication token (auto-generated if empty)
   gatewayToken: ""
-  # -- Extra secrets to add to the secret.yaml file as key-value pairs.
-  extraSecrets: {}
+  # -- Extra secrets to configure Ollama base URL locally inside the cluster
+  extraSecrets:
+    OPENAI_BASE_URL: "http://ollama.ai-models.svc.cluster.local:11434/v1"
   # -- Use an existing secret instead of creating one
   existingSecret: ""
 
@@ -85,7 +81,7 @@ chromium:
       cpu: 100m
       memory: 256Mi
     limits:
-      cpu: 1000m
+      cpu: 500m
       memory: 1Gi
   # -- Security context for Chromium container
   securityContext:
@@ -99,14 +95,14 @@ chromium:
     seccompProfile:
       type: RuntimeDefault
 
-# Persistence configuration
+# Persistence configuration (Usando disco local del Droplet mediante PVC/hostPath)
 persistence:
   # -- Enable persistent storage for OpenClaw data
   enabled: true
   # -- Storage size
   size: 5Gi
-  # -- Storage class (usando el block storage local del Droplet o por defecto)
-  storageClass: "do-block-storage"
+  # -- Storage class local para apuntar al hostPath del Droplet
+  storageClass: "local-storage"
   # -- Access mode
   accessMode: ReadWriteOnce
   # -- Annotations for the PVC
