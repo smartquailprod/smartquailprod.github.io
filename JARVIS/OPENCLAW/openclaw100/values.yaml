@@ -97,18 +97,10 @@ chromium:
 
 # Persistence configuration (Usando disco local del Droplet mediante PVC/hostPath)
 persistence:
-  # -- Enable persistent storage for OpenClaw data
   enabled: true
-  # -- Storage size
   size: 5Gi
-  # -- Storage class local para apuntar al hostPath del Droplet
-  storageClass: "local-storage"
-  # -- Access mode
+  storageClass: "local-path"
   accessMode: ReadWriteOnce
-  # -- Annotations for the PVC
-  annotations: {}
-  # -- Use an existing PVC instead of creating one
-  existingClaim: ""
 
 # Service configuration
 service:
