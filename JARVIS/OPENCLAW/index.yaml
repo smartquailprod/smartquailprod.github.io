@@ -3,10 +3,10 @@ entries:
   openclaw100:
   - apiVersion: v2
     appVersion: 2026.3.13-1
-    created: "2026-10-17T07:35:28.502747-05:00"
+    created: "2026-10-17T07:44:29.486108-05:00"
     description: A Helm chart for deploying OpenClaw - an open-source AI personal
       assistant
-    digest: 6442c94664adf717e2ea08e93e1474e1c1451c65883b77a4e46789a67587895e
+    digest: 307d21af14e4a0be503d8ab6699850db6f78213c849b610aa9686cd34df6ca95
     home: https://openclaw.ai
     keywords:
     - openclaw
@@ -22,4 +22,4 @@ entries:
     urls:
     - openclaw100-0.1.15.tgz
     version: 0.1.15
-generated: "2026-10-17T07:35:28.493984-05:00"
+generated: "2026-10-17T07:44:29.48131-05:00"

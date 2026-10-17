@@ -81,8 +81,8 @@ chromium:
       cpu: 100m
       memory: 256Mi
     limits:
-      cpu: 500m
-      memory: 800Mi
+      cpu: 250m
+      memory: 500Mi
   # -- Security context for Chromium container
   securityContext:
     runAsUser: 1000
