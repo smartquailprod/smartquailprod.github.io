@@ -264,6 +264,25 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_USER_INFO
 
+            - name: EMAIL_HOST_USER_LICENCIAS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: EMAIL_HOST_USER_LICENCIAS
+
+            
+            - name: EMAIL_HOST_USER_ACTIVOS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: EMAIL_HOST_USER_ACTIVOS
+
+            - name: EMAIL_HOST_USER_CTO
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: EMAIL_HOST_USER_CTO
+
             
             - name: EMAIL_HOST_PASSWORD
               valueFrom:
@@ -276,11 +295,30 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL
 
+            - name: DEFAULT_FROM_EMAIL_LICENCIAS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: DEFAULT_FROM_EMAIL_LICENCIAS
+
             - name: DEFAULT_FROM_EMAIL_INFO
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL_INFO
+
+
+            - name: DEFAULT_FROM_EMAIL_ACTIVOS
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: DEFAULT_FROM_EMAIL_ACTIVOS
+
+            - name: DEFAULT_FROM_EMAIL_CTO
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: DEFAULT_FROM_EMAIL_CTO
 
             #  WhatsApp
             - name: TWILIO_ACCOUNT_SID
