@@ -257,6 +257,14 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_USER
+
+            - name: EMAIL_HOST_USER_INFO
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: EMAIL_HOST_USER_INFO
+
+            
             - name: EMAIL_HOST_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -267,6 +275,13 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL
+
+            - name: DEFAULT_FROM_EMAIL_INFO
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: DEFAULT_FROM_EMAIL_INFO
+
             #  WhatsApp
             - name: TWILIO_ACCOUNT_SID
               valueFrom:
@@ -402,6 +417,14 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_VIDEO_WEBHOOK_URL
+
+            - name: OPENCLAW_WEBHOOK_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: OPENCLAW_WEBHOOK_SECRET
+
+    
 
             - name: GEMINI_API_KEY
               valueFrom:
