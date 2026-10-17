@@ -483,6 +483,13 @@ spec:
                   key: N8N_AI_INSTAGRAM_POST
 
 
+            - name: N8N_A_INSTAGRAM_POST
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: N8N_A_INSTAGRAM_POST
+
+
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
           securityContext:
