@@ -489,6 +489,32 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_A_INSTAGRAM_POST
 
+            - name: FACEBOOK_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: FACEBOOK_CLIENT_ID
+
+            - name: FACEBOOK_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: FACEBOOK_SECRET_KEY
+
+            - name: GOOGLE_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: GOOGLE_CLIENT_ID
+
+            - name: GOOGLE_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: GOOGLE_SECRET_KEY
+
+            
+
 
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
