@@ -495,6 +495,8 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: FACEBOOK_CLIENT_ID
 
+            
+
             - name: FACEBOOK_SECRET_KEY
               valueFrom:
                 secretKeyRef:
@@ -512,6 +514,18 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GOOGLE_SECRET_KEY
+
+            - name: GITHUB_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: GITHUB_CLIENT_ID
+
+            - name: GITHUB_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: GITHUB_SECRET_KEY
 
             
 
