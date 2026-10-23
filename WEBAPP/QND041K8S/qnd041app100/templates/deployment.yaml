@@ -527,6 +527,19 @@ spec:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GITHUB_SECRET_KEY
 
+            - name: GA4_MEASUREMENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: GA4_MEASUREMENT_ID
+
+            - name: GA4_API_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: GA4_API_SECRET                  
+  
+
             
 
 
