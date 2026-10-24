@@ -74,6 +74,22 @@ spec:
             - name: config
               mountPath: /config
               readOnly: true
+        - name: init-migration
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          command:
+            - /bin/sh
+            - -c
+            - |
+              echo "Running session store migration..."
+              openclaw doctor --fix || true
+              chown -R 1000:1000 /home/openclaw/.openclaw
+          securityContext:
+            runAsUser: 0
+            runAsNonRoot: false
+          volumeMounts:
+            - name: data
+              mountPath: /home/openclaw/.openclaw
         {{- if .Values.openclaw.skills }}
         - name: init-skills
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
