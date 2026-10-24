@@ -29,9 +29,6 @@ data:
     {{- /* Set gateway mode to lan, add trustedProxies and permit your domain in Control UI */ -}}
     {{- $gatewayConfig := dict "mode" "lan" "port" 18789 "trustedProxies" (list "10.42.0.0/16" "10.43.0.0/16" "127.0.0.1" "::1") "controlUi" (dict "allowedOrigins" (list "https://openclaw.smartquail.io" "http://localhost:18789" "http://127.0.0.1:18789")) -}}
     {{- $_ := set $config "gateway" $gatewayConfig -}}
-    {{- /* Configure Ollama provider natively */ -}}
-    {{- $ollamaProvider := dict "baseUrl" "http://ollama100-service.ia-models.svc.cluster.local:11434" "apiKey" "ollama" -}}
-    {{- $_ := set $config "providers" (dict "ollama" $ollamaProvider) -}}
     {{- /* Merge any user-provided overrides */ -}}
     {{- if .Values.openclaw.configOverrides }}
     {{- $config = mergeOverwrite $config .Values.openclaw.configOverrides }}
