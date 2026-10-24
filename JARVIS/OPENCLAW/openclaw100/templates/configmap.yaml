@@ -26,8 +26,8 @@ data:
     {{- if .Values.chromium.enabled }}
     {{- $_ := set $config "browser" (dict "cdpUrl" "http://localhost:9222") }}
     {{- end }}
-    {{- /* Set gateway mode to lan and permit your domain in Control UI */ -}}
-    {{- $gatewayConfig := dict "mode" "lan" "port" 18789 "controlUi" (dict "allowedOrigins" (list "https://openclaw.smartquail.io" "http://localhost:18789" "http://127.0.0.1:18789")) -}}
+    {{- /* Set gateway mode to lan, add trustedProxies and permit your domain in Control UI */ -}}
+    {{- $gatewayConfig := dict "mode" "lan" "port" 18789 "trustedProxies" (list "10.42.0.0/16" "10.43.0.0/16" "127.0.0.1" "::1") "controlUi" (dict "allowedOrigins" (list "https://openclaw.smartquail.io" "http://localhost:18789" "http://127.0.0.1:18789")) -}}
     {{- $_ := set $config "gateway" $gatewayConfig -}}
     {{- /* Merge any user-provided overrides */ -}}
     {{- if .Values.openclaw.configOverrides }}
