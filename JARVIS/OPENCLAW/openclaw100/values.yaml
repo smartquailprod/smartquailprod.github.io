@@ -148,7 +148,6 @@ resources:
     cpu: "1"
     memory: 2Gi
 
-
 # Security context for the pod
 podSecurityContext:
   runAsUser: 1000
@@ -206,7 +205,7 @@ probes:
   # Liveness probe
   liveness:
     enabled: true
-    initialDelaySeconds: 30
+    initialDelaySeconds: 60
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
@@ -214,16 +213,16 @@ probes:
   # Readiness probe
   readiness:
     enabled: true
-    initialDelaySeconds: 10
+    initialDelaySeconds: 30
     periodSeconds: 10
     timeoutSeconds: 5
     failureThreshold: 3
     successThreshold: 1
-  # Startup probe
+  # Startup probe (Ampliado para dar margen holgado en la CPU al arrancar)
   startup:
     enabled: true
-    initialDelaySeconds: 5
-    periodSeconds: 5
+    initialDelaySeconds: 10
+    periodSeconds: 10
     timeoutSeconds: 5
-    failureThreshold: 30
+    failureThreshold: 60
     successThreshold: 1
