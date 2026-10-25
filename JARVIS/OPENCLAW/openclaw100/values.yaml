@@ -40,7 +40,7 @@ openclaw:
       # -- Thinking mode: "low", "high", or "off"
       thinkingDefault: "low"
 
-  # -- Raw JSON overrides compliant with schema (sin la llave 'providers')
+  # -- Raw JSON overrides compliant with schema
   configOverrides:
     gateway:
       mode: "local"
@@ -49,6 +49,12 @@ openclaw:
           - "https://openclaw.smartquail.io"
           - "http://localhost:18789"
           - "http://127.0.0.1:18789"
+    # Bloque para fijar el contexto y estabilizar la caché de Ollama
+    models:
+      providers:
+        ollama:
+          options:
+            num_ctx: 32768
 
 # Credentials for LLM providers and channels
 credentials:
