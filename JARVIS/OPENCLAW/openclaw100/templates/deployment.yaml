@@ -159,7 +159,7 @@ spec:
           {{- if .Values.probes.readiness.enabled }}
           readinessProbe:
             tcpSocket:
-              port: readiness
+              port: gateway
             initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
