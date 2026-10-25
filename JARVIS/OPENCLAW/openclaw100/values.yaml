@@ -60,7 +60,7 @@ credentials:
   gatewayToken: ""
   # -- Extra secrets to configure Ollama base URL locally inside the cluster
   extraSecrets:
-    OPENAI_BASE_URL: "http://ollama.ai-models.svc.cluster.local:11434/v1"
+    OPENAI_BASE_URL: "http://ollama100-service.ai-models.svc.cluster.local:11434/v1"
   # -- Use an existing secret instead of creating one
   existingSecret: ""
 
