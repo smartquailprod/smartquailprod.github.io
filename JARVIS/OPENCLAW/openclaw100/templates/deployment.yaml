@@ -32,7 +32,12 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "openclaw.serviceAccountName" . }}
       securityContext:
-        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        {{- with .Values.podSecurityContext }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
       initContainers:
         - name: init-config
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -41,7 +46,7 @@ spec:
             - /bin/sh
             - -c
             - |
-              mkdir -p /home/openclaw/.openclaw
+              mkdir -p /home/openclaw/.openclaw /home/openclaw/.cache
               if [ "{{ .Values.openclaw.configMode }}" = "merge" ] && [ -f /home/openclaw/.openclaw/openclaw.json ]; then
                 node -e "
                   const fs = require('fs');
@@ -64,7 +69,7 @@ spec:
               else
                 cp /config/openclaw.json /home/openclaw/.openclaw/openclaw.json
               fi
-              chown -R 1000:1000 /home/openclaw/.openclaw
+              chown -R 1000:1000 /home/openclaw/.openclaw /home/openclaw/.cache
           securityContext:
             runAsUser: 0
             runAsNonRoot: false
@@ -82,8 +87,9 @@ spec:
             - -c
             - |
               echo "Running session store migration..."
+              mkdir -p /home/openclaw/.cache
               openclaw doctor --fix || true
-              chown -R 1000:1000 /home/openclaw/.openclaw
+              chown -R 1000:1000 /home/openclaw/.openclaw /home/openclaw/.cache
           securityContext:
             runAsUser: 0
             runAsNonRoot: false
@@ -153,7 +159,7 @@ spec:
           {{- if .Values.probes.readiness.enabled }}
           readinessProbe:
             tcpSocket:
-              port: gateway
+              port: readiness
             initialDelaySeconds: {{ .Values.probes.readiness.initialDelaySeconds }}
             periodSeconds: {{ .Values.probes.readiness.periodSeconds }}
             timeoutSeconds: {{ .Values.probes.readiness.timeoutSeconds }}
