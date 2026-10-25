@@ -64,18 +64,13 @@ credentials:
   # -- Use an existing secret instead of creating one
   existingSecret: ""
 
-# Chromium sidecar for browser automation
+# Chromium sidecar for browser automation (Desactivado para liberar RAM)
 chromium:
-  # -- Enable Chromium sidecar container
-  enabled: true
+  enabled: false
   image:
-    # -- Chromium container image repository
     repository: zenika/alpine-chrome
-    # -- Chromium container image tag
     tag: "124"
-    # -- Chromium image pull policy
     pullPolicy: IfNotPresent
-  # -- Resource requests and limits for Chromium container
   resources:
     requests:
       cpu: 100m
@@ -83,7 +78,6 @@ chromium:
     limits:
       cpu: 250m
       memory: 500Mi
-  # -- Security context for Chromium container
   securityContext:
     runAsUser: 1000
     runAsGroup: 1000
