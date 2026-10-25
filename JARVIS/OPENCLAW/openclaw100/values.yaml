@@ -34,7 +34,7 @@ openclaw:
   agents:
     defaults:
       # -- Primary model routed to Ollama local endpoint
-      model: "ollama/qwen2.5:1.5b"
+      model: "ollama/qwen2.5:0.5b"
       # -- Timeout in seconds for agent operations
       timeoutSeconds: 600
       # -- Thinking mode: "low", "high", or "off"
