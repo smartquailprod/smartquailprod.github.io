@@ -22,6 +22,15 @@ data:
     {{- if $agentDefaults }}
     {{- $_ := set $config "agents" (dict "defaults" $agentDefaults) }}
     {{- end }}
+
+    {{- /* Configurar opciones avanzadas de proveedores LLM (como Ollama y su num_ctx) */ -}}
+    {{- $modelsConfig := dict }}
+    {{- $providersConfig := dict }}
+    {{- $ollamaOpts := dict "num_ctx" 4096 }}
+    {{- $_ := set $providersConfig "ollama" (dict "options" $ollamaOpts) }}
+    {{- $_ := set $modelsConfig "providers" $providersConfig }}
+    {{- $_ := set $config "models" $modelsConfig }}
+
     {{- /* Add browser CDP config if chromium sidecar is enabled */ -}}
     {{- if .Values.chromium.enabled }}
     {{- $_ := set $config "browser" (dict "cdpUrl" "http://localhost:9222") }}

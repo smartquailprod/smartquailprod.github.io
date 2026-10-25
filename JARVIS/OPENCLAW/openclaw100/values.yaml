@@ -35,7 +35,7 @@ openclaw:
     defaults:
       # -- Primary model routed to Ollama local endpoint
       model: "ollama/qwen2.5:0.5b"
-      # -- Timeout in seconds for agent operations
+      # -- Timeout in seconds for agent operations (Ampliado a 10 minutos para contextos grandes en CPU)
       timeoutSeconds: 600
       # -- Thinking mode: "low", "high", or "off"
       thinkingDefault: "low"
@@ -119,10 +119,11 @@ ingress:
   enabled: true
   # -- Ingress class name
   className: "nginx"
-  # -- Annotations for the ingress con soporte WebSocket y cert-manager
+  # -- Annotations for the ingress con soporte WebSocket, cert-manager y Timeouts ampliados para IA en CPU
   annotations:
     cert-manager.io/cluster-issuer: "letsencrypt-cluster-issuer"
     nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
   # -- Ingress hosts configuration
@@ -142,11 +143,11 @@ ingress:
 # Resource requests and limits for main OpenClaw container
 resources:
   requests:
-    cpu: 500m
+    cpu: 250m
     memory: 512Mi
   limits:
     cpu: "2"
-    memory: 4Gi
+    memory: 1.5Gi
 
 # Security context for the pod
 podSecurityContext:
