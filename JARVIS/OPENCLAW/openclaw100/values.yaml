@@ -79,10 +79,10 @@ chromium:
   resources:
     requests:
       cpu: 100m
-      memory: 128Mi
+      memory: 256Mi
     limits:
       cpu: 250m
-      memory: 250Mi
+      memory: 500Mi
   # -- Security context for Chromium container
   securityContext:
     runAsUser: 1000
@@ -142,11 +142,11 @@ ingress:
 # Resource requests and limits for main OpenClaw container
 resources:
   requests:
-    cpu: 250m
+    cpu: 500m
     memory: 512Mi
   limits:
-    cpu: "1"
-    memory: 1.5Gi
+    cpu: "2"
+    memory: 4Gi
 
 # Security context for the pod
 podSecurityContext:
