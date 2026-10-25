@@ -143,10 +143,10 @@ ingress:
 resources:
   requests:
     cpu: 500m
-    memory: 512Mi
+    memory: 1Gi
   limits:
-    cpu: "1"
-    memory: 2Gi
+    cpu: "2"
+    memory: 4Gi
 
 # Security context for the pod
 podSecurityContext:
