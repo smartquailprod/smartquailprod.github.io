@@ -310,3 +310,15 @@ spec:
                 name: {{ .Values.qnodename }}-app-secrets
                 key: N8N_SECRET
 
+
+          - name: OLLAMA_HOST
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-app-secrets
+                key: OLLAMA_HOST
+
+          - name: OLLAMA_MODEL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-app-secrets
+                key: OLLAMA_MODEL

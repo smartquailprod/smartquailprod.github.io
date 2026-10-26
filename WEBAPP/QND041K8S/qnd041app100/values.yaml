@@ -52,13 +52,19 @@ image:
   tag: "latest"
 
 
-resources:
-  requests:
-    cpu: "250m"
-    memory: "400Mi"
-  limits:
-    cpu: "500m"
-    memory: "800Mi"
+#resources:
+#  requests:
+#    cpu: "250m"
+#    memory: "400Mi"
+#  limits:
+#    cpu: "500m"
+#    memory: "800Mi"
 
-
+resources: 
+   limits:
+     cpu: 500m
+     memory: 512Mi
+   requests:
+     cpu: 100m
+     memory: 256Mi
 
