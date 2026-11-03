@@ -13,8 +13,19 @@ data:
     ## Configuración del plugin de management (puerto de UI) ##
     management.listener.port = 15672
 
-    ## Configuración de las colas (ver nota abajo) ##
+    ## Configuración de las colas ##
     queue_master_locator = min-masters
+
+    ## --- SALVAGUARDAS DE MEMORIA Y RECURSOS --- ##
+    
+    # 1. High Watermark de Memoria (Ej: Pausar productores si RabbitMQ supera el 70% de la RAM asignada al contenedor)
+    vm_memory_high_watermark.relative = 0.7
+
+    # 2. Límite de espacio en disco para evitar que colapse el almacenamiento persistente
+    disk_free_limit.absolute = 2GB
+
+    # 3. Control de conexiones masivas (Heartbeats para detectar clientes muertos y liberar sockets)
+    heartbeat = 60
 
     ## Otras configuraciones útiles ##
     listeners.tcp.default = 5672

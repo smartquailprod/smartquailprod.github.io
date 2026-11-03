@@ -18,75 +18,90 @@ spec:
       securityContext:
         fsGroup: 999
       containers:
-      - name: rabbitmq
-        image: rabbitmq:3-management
-        ports:
-        - containerPort: 5672
-        - containerPort: 15672
-        volumeMounts:
-        - name: rabbitmq-data
-          mountPath: /var/lib/rabbitmq
-        - name: rabbitmq-logs
-          mountPath: /var/log/rabbitmq
-        - name: rabbitmq-config
-          mountPath: /etc/rabbitmq/conf.d/rabbitmq.conf
-          subPath: rabbitmq.conf
-        env:
-        - name: RABBITMQ_DEFAULT_USER
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_DEFAULT_USER
-        - name: RABBITMQ_DEFAULT_PASS
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_DEFAULT_PASS
-        - name: RABBITMQ_DEFAULT_VHOST
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_DEFAULT_VHOST
-        - name: RABBITMQ_ERLANG_COOKIE
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: RABBITMQ_ERLANG_COOKIE
-      - name: fluent-bit
-        image: fluent/fluent-bit:1.8.3
-        env:
-        - name: ELASTICSEARCH_HOST
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: ELASTICSEARCH_HOST
-        - name: FLUENT_ELASTICSEARCH_USER
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: FLUENT_ELASTICSEARCH_USER
-        - name: FLUENT_ELASTICSEARCH_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: rabbitmq-secrets
-              key: FLUENT_ELASTICSEARCH_PASSWORD
-        volumeMounts:
-        - name: fluent-bit-config
-          mountPath: /fluent-bit/etc
-          readOnly: false
-        - name: rabbitmq-logs
-          mountPath: /var/log/rabbitmq
-          readOnly: false
+        - name: rabbitmq
+          image: rabbitmq:3-management
+          ports:
+            - containerPort: 5672
+            - containerPort: 15672
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "1Gi"
+          volumeMounts:
+            - name: rabbitmq-data
+              mountPath: /var/lib/rabbitmq
+            - name: rabbitmq-logs
+              mountPath: /var/log/rabbitmq
+            - name: rabbitmq-config
+              mountPath: /etc/rabbitmq/conf.d/rabbitmq.conf
+              subPath: rabbitmq.conf
+          env:
+            - name: RABBITMQ_DEFAULT_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: RABBITMQ_DEFAULT_USER
+            - name: RABBITMQ_DEFAULT_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: RABBITMQ_DEFAULT_PASS
+            - name: RABBITMQ_DEFAULT_VHOST
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: RABBITMQ_DEFAULT_VHOST
+            - name: RABBITMQ_ERLANG_COOKIE
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: RABBITMQ_ERLANG_COOKIE
+
+        - name: fluent-bit
+          image: fluent/fluent-bit:1.8.3
+          resources:
+            requests:
+              cpu: "50m"
+              memory: "64Mi"
+            limits:
+              cpu: "200m"
+              memory: "128Mi"
+          env:
+            - name: ELASTICSEARCH_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: ELASTICSEARCH_HOST
+            - name: FLUENT_ELASTICSEARCH_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: FLUENT_ELASTICSEARCH_USER
+            - name: FLUENT_ELASTICSEARCH_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rabbitmq-secrets
+                  key: FLUENT_ELASTICSEARCH_PASSWORD
+          volumeMounts:
+            - name: fluent-bit-config
+              mountPath: /fluent-bit/etc
+              readOnly: false
+            - name: rabbitmq-logs
+              mountPath: /var/log/rabbitmq
+              readOnly: false
 
       volumes:
-      - name: rabbitmq-data
-        persistentVolumeClaim:
-          claimName: rabbitmq-pvc
-      - name: rabbitmq-logs
-        emptyDir: {}
-      - name: rabbitmq-config
-        configMap:
-          name: rabbitmq-config
-      - name: fluent-bit-config
-        configMap:
-          name: fluent-bit-config
+        - name: rabbitmq-data
+          persistentVolumeClaim:
+            claimName: rabbitmq-pvc
+        - name: rabbitmq-logs
+          emptyDir: {}
+        - name: rabbitmq-config
+          configMap:
+            name: rabbitmq-config
+        - name: fluent-bit-config
+          configMap:
+            name: fluent-bit-config
