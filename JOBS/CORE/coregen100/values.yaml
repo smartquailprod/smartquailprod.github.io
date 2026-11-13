@@ -1,0 +1,32 @@
+# Default values for qnd100.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+qnodename: core
+qnodenamespace: gen-srv
+nodeRole: app
+
+image:
+  repository: smartquail/core
+  pullPolicy: Always
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "latest"
+
+
+#resources:
+#  requests:
+#    cpu: "250m"
+#    memory: "400Mi"
+#  limits:
+#    cpu: "500m"
+#    memory: "800Mi"
+
+resources: 
+   limits:
+     cpu: 300m
+     memory: 400Mi
+   requests:
+     cpu: 100m
+     memory: 256Mi
+
