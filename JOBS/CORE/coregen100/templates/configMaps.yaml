@@ -8,13 +8,13 @@ data:
     #!/bin/bash
     set -e
     
-    # Ruta fija definida directamente para evitar errores de variables vacías
-    PROJECT_DIR="/workdir"
+    # Ruta fija correcta basada en tu Dockerfile
+    PROJECT_DIR="/qnd15000app"
 
     echo "Cambiando al directorio de trabajo: $PROJECT_DIR"
     cd "$PROJECT_DIR"
     
-    # Verificamos que el script de despliegue exista antes de ejecutarlo
+    # Verificamos que el script exista antes de ejecutarlo
     if [ ! -f "./deploy.sh" ]; then
       echo "ERROR: No se encuentra el archivo deploy.sh en $PROJECT_DIR"
       exit 1
