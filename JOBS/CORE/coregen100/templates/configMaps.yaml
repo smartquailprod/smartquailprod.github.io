@@ -8,12 +8,16 @@ data:
     #!/bin/bash
     set -e
     
-    # Verificamos que la variable del secreto exista antes de movernos
-    if [ -z "$PROJECT_NAME" ]; then
-      echo "ERROR: La variable PROJECT_NAME no esta disponible."
+    # Ruta fija definida directamente para evitar errores de variables vacías
+    PROJECT_DIR="/workdir"
+
+    echo "Cambiando al directorio de trabajo: $PROJECT_DIR"
+    cd "$PROJECT_DIR"
+    
+    # Verificamos que el script de despliegue exista antes de ejecutarlo
+    if [ ! -f "./deploy.sh" ]; then
+      echo "ERROR: No se encuentra el archivo deploy.sh en $PROJECT_DIR"
       exit 1
     fi
 
-    echo "Cambiando al directorio de trabajo: /${PROJECT_NAME}"
-    cd /${PROJECT_NAME}
     exec ./deploy.sh
