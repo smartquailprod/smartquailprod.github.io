@@ -15,17 +15,18 @@ data:
 
     export PATH="/root/.cargo/bin:/usr/local/bin:$PATH"
     
-    echo "Ejecutando desde la raíz del contenedor"
-    cd /${PROJECT_NAME}/resources || { echo "ERROR: No se pudo cambiar al directorio /${PROJECT_NAME}"; exit 1; }
-    
-    # Verificamos la ruta donde está deploy.sh (puede estar en la raíz o en recursos)
-    DEPLOY_SCRIPT="./deploy.sh"
-    if [ ! -f "$DEPLOY_SCRIPT" ]; then
-      DEPLOY_SCRIPT="/${PROJECT_NAME}/resources/deploy.sh"
+    # Nos movemos a la carpeta resources del proyecto donde están todos los archivos
+    TARGET_DIR="/${PROJECT_NAME}/resources"
+    if [ ! -d "$TARGET_DIR" ]; then
+      TARGET_DIR="/resources"
     fi
 
+    cd "$TARGET_DIR" || { echo "ERROR: No se pudo cambiar al directorio $TARGET_DIR"; exit 1; }
+    echo "Ejecutando desde: $(pwd)"
+
+    DEPLOY_SCRIPT="./deploy.sh"
     if [ ! -f "$DEPLOY_SCRIPT" ]; then
-      echo "ERROR: No se encuentra el archivo deploy.sh"
+      echo "ERROR: No se encuentra el archivo deploy.sh en $(pwd)"
       exit 1
     fi
 
@@ -33,10 +34,9 @@ data:
     chmod +x "$DEPLOY_SCRIPT"
 
     echo "Iniciando despliegue..."
-    # Ejecutamos sin 'exec' para permitir la ejecución del bloque final
     "$DEPLOY_SCRIPT"
 
     echo "=========================================="
     echo " ¡Proceso completado para el proyecto!"
     echo " PROJECT_NAME: ${PROJECT_NAME}"
-    echo "=========================================="   
+    echo "=========================================="
