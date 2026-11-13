@@ -8,7 +8,7 @@ qnodenamespace: gen-srv
 nodeRole: app
 
 image:
-  repository: smartquail/core:latest
+  repository: smartquail/core
   pullPolicy: Always
   # Overrides the image tag whose default is the chart appVersion.
   tag: "latest"
