@@ -7,7 +7,12 @@ data:
   entrypoint.sh: |
     #!/bin/bash
     set -e
-    
+
+    echo "=========================================="
+    echo " ¡Despliegue Iniciado con éxito!"
+    echo " PROJECT_NAME: ${PROJECT_NAME}"
+    echo "=========================================="
+
     export PATH="/root/.cargo/bin:/usr/local/bin:$PATH"
     
     echo "Ejecutando desde la raíz del contenedor"
@@ -28,4 +33,10 @@ data:
     chmod +x "$DEPLOY_SCRIPT"
 
     echo "Iniciando despliegue..."
-    exec "$DEPLOY_SCRIPT"
+    # Ejecutamos sin 'exec' para permitir la ejecución del bloque final
+    "$DEPLOY_SCRIPT"
+
+    echo "=========================================="
+    echo " ¡Proceso completado para el proyecto!"
+    echo " PROJECT_NAME: ${PROJECT_NAME}"
+    echo "=========================================="   
