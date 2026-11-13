@@ -8,7 +8,9 @@ data:
     #!/bin/bash
     set -e
     
-    # Como el código se copió en la raíz '/' debido a que PROJECT_NAME estaba vacío
+    # Aseguramos que la ruta de uv esté disponible para la ejecución
+    export PATH="/root/.cargo/bin:$PATH"
+    
     echo "Ejecutando desde la raíz del contenedor"
     cd /
     
