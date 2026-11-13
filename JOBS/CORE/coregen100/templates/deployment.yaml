@@ -20,112 +20,125 @@ spec:
 
       # 1. INIT CONTAINER: Prepara los scripts copiándolos a un volumen temporal con permisos
       initContainers:
-      - name: init-permissions
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-        command: ['/bin/bash', '-c']
-        args:
-          - |
-            echo "--- Init Container: Copiando y preparando scripts ---"
-            
-            # Copiamos los scripts necesarios al directorio temporal compartido /shared-scripts
-            if [ -f "./deploy.sh" ]; then
-              cp ./deploy.sh /shared-scripts/deploy.sh
+        - name: init-permissions
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+          command: ['/bin/bash', '-c']
+          args:
+            - |
+              echo "--- Init Container: Copiando y preparando scripts ---"
+              
+              # Buscamos deploy.sh tanto en la raíz como en la ruta de recursos del proyecto
+              if [ -f "./deploy.sh" ]; then
+                cp ./deploy.sh /shared-scripts/deploy.sh
+              elif [ -f "./resources/deploy.sh" ]; then
+                cp ./resources/deploy.sh /shared-scripts/deploy.sh
+              elif [ -n "${PROJECT_NAME:-}" ] && [ -f "/${PROJECT_NAME}/resources/deploy.sh" ]; then
+                cp /${PROJECT_NAME}/resources/deploy.sh /shared-scripts/deploy.sh
+              else
+                echo "ERROR: No se encuentra deploy.sh en ninguna ruta conocida"
+                exit 1
+              fi
+
               chmod +x /shared-scripts/deploy.sh
               echo "Script deploy.sh preparado en /shared-scripts"
-            else
-              echo "ERROR: No se encuentra deploy.sh en la ruta raíz"
-              exit 1
-            fi
 
-            if [ -f "./init.sh" ]; then
-              cp ./init.sh /shared-scripts/init.sh
-              chmod +x /shared-scripts/init.sh
-            fi
+              if [ -f "./init.sh" ]; then
+                cp ./init.sh /shared-scripts/init.sh
+                chmod +x /shared-scripts/init.sh
+              elif [ -f "./resources/init.sh" ]; then
+                cp ./resources/init.sh /shared-scripts/init.sh
+                chmod +x /shared-scripts/init.sh
+              fi
 
-            echo "Inicialización completada con éxito."
-        securityContext:
-          runAsUser: 0
-          runAsGroup: 0
-        volumeMounts:
-        - name: shared-scripts-volume
-          mountPath: /shared-scripts
-        env:
-          - name: PROJECT_NAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: PROJECT_NAME
+              echo "Inicialización completada con éxito."
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+          volumeMounts:
+            - name: shared-scripts-volume
+              mountPath: /shared-scripts
+          env:
+            - name: PROJECT_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: PROJECT_NAME
 
       # 2. CONTENEDOR PRINCIPAL: Ejecuta el script ya preparado de forma segura
       containers:
-      - name: {{ .Values.qnodename }}
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
-        
-        # Apuntamos al script limpio que está en el volumen compartido o usamos el entrypoint
-        command: ["/bin/bash", "/shared-scripts/deploy.sh"]
-
-        securityContext:
-          runAsUser: 1000
-          runAsGroup: 1000
+        - name: {{ .Values.qnodename }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
           
-        resources:
-          requests:
-            cpu: {{ .Values.resources.requests.cpu }}
-            memory: {{ .Values.resources.requests.memory }}
-          limits:
-            cpu: {{ .Values.resources.limits.cpu }}
-            memory: {{ .Values.resources.limits.memory }}
-            
-        env:
-          - name: HOME
-            value: "/tmp"
-          - name: PROJECT_NAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: PROJECT_NAME
-          - name: APP_NAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: APP_NAME
-          - name: DOCKER_HUB_USERNAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: DOCKER_HUB_USERNAME
-          - name: DOCKER_HUB_ACCESS_TOKEN
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: DOCKER_HUB_ACCESS_TOKEN
-          - name: GIT_USER_NAME
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: GIT_USER_NAME
-          - name: GIT_USER_EMAIL
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: GIT_USER_EMAIL
-          - name: GH_ORG
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: GH_ORG
-          - name: REPO_VISIBILITY
-            valueFrom:
-              secretKeyRef:
-                name: {{ .Values.qnodename }}-secrets
-                key: REPO_VISIBILITY
+          # Apuntamos al script limpio que está en el volumen compartido
+          command: ["/bin/bash", "/shared-scripts/deploy.sh"]
 
-        volumeMounts:
-          - name: shared-scripts-volume
-            mountPath: /shared-scripts
+          securityContext:
+            runAsUser: 1000
+            runAsGroup: 1000
+            
+          resources:
+            requests:
+              cpu: {{ .Values.resources.requests.cpu }}
+              memory: {{ .Values.resources.requests.memory }}
+            limits:
+              cpu: {{ .Values.resources.limits.cpu }}
+              memory: {{ .Values.resources.limits.memory }}
+              
+          env:
+            - name: HOME
+              value: "/tmp"
+            - name: PROJECT_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: PROJECT_NAME
+            - name: APP_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: APP_NAME
+            - name: GH_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: GH_TOKEN
+            - name: DOCKER_HUB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: DOCKER_HUB_USERNAME
+            - name: DOCKER_HUB_ACCESS_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: DOCKER_HUB_ACCESS_TOKEN
+            - name: GIT_USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: GIT_USER_NAME
+            - name: GIT_USER_EMAIL
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: GIT_USER_EMAIL
+            - name: GH_ORG
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: GH_ORG
+            - name: REPO_VISIBILITY
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-secrets
+                  key: REPO_VISIBILITY
+
+          volumeMounts:
+            - name: shared-scripts-volume
+              mountPath: /shared-scripts
 
       volumes:
-      - name: shared-scripts-volume
-        emptyDir: {}
+        - name: shared-scripts-volume
+          emptyDir: {}
