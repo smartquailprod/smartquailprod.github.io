@@ -8,7 +8,7 @@ data:
     #!/bin/bash
     set -e
     
-    # Aseguramos que la ruta de uv esté disponible para la ejecución
+    # Agregar la ruta de uv al PATH del sistema
     export PATH="/root/.cargo/bin:$PATH"
     
     echo "Ejecutando desde la raíz del contenedor"
@@ -19,4 +19,4 @@ data:
       exit 1
     fi
 
-    exec ./deploy.sh
+    exec ./resources/deploy.sh
