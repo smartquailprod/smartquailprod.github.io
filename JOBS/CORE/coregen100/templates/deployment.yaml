@@ -17,75 +17,101 @@ spec:
     spec:
       securityContext:
         fsGroup: 1000
+
+      # 1. INIT CONTAINER: Se ejecuta primero como root (UID 0) para preparar permisos
+      initContainers:
+      - name: init-permissions
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        command: ['/bin/bash', '-c']
+        args:
+          - |
+            echo "--- Init Container: Verificando entorno y permisos ---"
+            if [ -f "./deploy.sh" ]; then
+              chmod +x ./deploy.sh
+              echo "Permisos otorgados a ./deploy.sh"
+            fi
+            echo "Inicialización completada con éxito."
+        securityContext:
+          runAsUser: 0
+          runAsGroup: 0
+        # Opcional: Si el init container necesita leer alguna variable de secretos
+        env:
+          - name: PROJECT_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: PROJECT_NAME
+
+      # 2. CONTENEDOR PRINCIPAL: Tu aplicación con los secretos y el entrypoint
       containers:
-        - name: {{ .Values.qnodename }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+      - name: {{ .Values.qnodename }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        
+        # Ejecuta el script montado desde el ConfigMap
+        command: ["/bin/bash", "/scripts/entrypoint.sh"]
+
+        securityContext:
+          runAsUser: 1000
+          runAsGroup: 1000
           
-          # Ejecuta el script montado desde el ConfigMap
-          command: ["/bin/bash", "/scripts/entrypoint.sh"]
-
-          securityContext:
-            runAsUser: 1000
-            runAsGroup: 1000
+        resources:
+          requests:
+            cpu: {{ .Values.resources.requests.cpu }}
+            memory: {{ .Values.resources.requests.memory }}
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
             
-          resources:
-            requests:
-              cpu: {{ .Values.resources.requests.cpu }}
-              memory: {{ .Values.resources.requests.memory }}
-            limits:
-              cpu: {{ .Values.resources.limits.cpu }}
-              memory: {{ .Values.resources.limits.memory }}
-              
-          env:
-            - name: PROJECT_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: PROJECT_NAME
-            - name: APP_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: APP_NAME
-            - name: DOCKER_HUB_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: DOCKER_HUB_USERNAME
-            - name: DOCKER_HUB_ACCESS_TOKEN
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: DOCKER_HUB_ACCESS_TOKEN
-            - name: GIT_USER_NAME
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: GIT_USER_NAME
-            - name: GIT_USER_EMAIL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: GIT_USER_EMAIL
-            - name: GH_ORG
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: GH_ORG
-            - name: REPO_VISIBILITY
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-secrets
-                  key: REPO_VISIBILITY
+        env:
+          - name: PROJECT_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: PROJECT_NAME
+          - name: APP_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: APP_NAME
+          - name: DOCKER_HUB_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: DOCKER_HUB_USERNAME
+          - name: DOCKER_HUB_ACCESS_TOKEN
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: DOCKER_HUB_ACCESS_TOKEN
+          - name: GIT_USER_NAME
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: GIT_USER_NAME
+          - name: GIT_USER_EMAIL
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: GIT_USER_EMAIL
+          - name: GH_ORG
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: GH_ORG
+          - name: REPO_VISIBILITY
+            valueFrom:
+              secretKeyRef:
+                name: {{ .Values.qnodename }}-secrets
+                key: REPO_VISIBILITY
 
-          volumeMounts:
-            # Único volumen necesario: el script de configuración
-            - name: script-volume
-              mountPath: /scripts
+        volumeMounts:
+          - name: script-volume
+            mountPath: /scripts
 
       volumes:
-        - name: script-volume
-          configMap:
-            name: {{ .Values.qnodename }}-script-config
-            defaultMode: 0755  # Otorga permisos de ejecución automáticamente
+      - name: script-volume
+        configMap:
+          name: {{ .Values.qnodename }}-script-config
+          defaultMode: 0755
