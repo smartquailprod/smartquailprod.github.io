@@ -7,6 +7,13 @@ data:
   entrypoint.sh: |
     #!/bin/bash
     set -e
+    
+    # Verificamos que la variable del secreto exista antes de movernos
+    if [ -z "$PROJECT_NAME" ]; then
+      echo "ERROR: La variable PROJECT_NAME no esta disponible."
+      exit 1
+    fi
+
     echo "Cambiando al directorio de trabajo: /${PROJECT_NAME}"
     cd /${PROJECT_NAME}
     exec ./deploy.sh
