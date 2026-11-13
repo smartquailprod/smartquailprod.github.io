@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Values.qnodename }}-script-config
+  namespace: {{ .Values.qnodenamespace }}
+data:
+  entrypoint.sh: |
+    #!/bin/bash
+    set -e
+    echo "Cambiando al directorio de trabajo: /${PROJECT_NAME}"
+    cd /${PROJECT_NAME}
+    exec ./deploy.sh
