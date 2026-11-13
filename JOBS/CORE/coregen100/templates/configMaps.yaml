@@ -8,15 +8,12 @@ data:
     #!/bin/bash
     set -e
     
-    # Ruta fija correcta basada en tu Dockerfile
-    PROJECT_DIR="/qnd15000app"
-
-    echo "Cambiando al directorio de trabajo: $PROJECT_DIR"
-    cd "$PROJECT_DIR"
+    # Como el código se copió en la raíz '/' debido a que PROJECT_NAME estaba vacío
+    echo "Ejecutando desde la raíz del contenedor"
+    cd /
     
-    # Verificamos que el script exista antes de ejecutarlo
     if [ ! -f "./deploy.sh" ]; then
-      echo "ERROR: No se encuentra el archivo deploy.sh en $PROJECT_DIR"
+      echo "ERROR: No se encuentra el archivo deploy.sh en /"
       exit 1
     fi
 
