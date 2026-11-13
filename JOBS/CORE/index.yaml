@@ -3,12 +3,12 @@ entries:
   coregen100:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2026-11-13T15:46:27.105561-05:00"
+    created: "2026-11-13T15:50:09.435479-05:00"
     description: A Helm chart for Kubernetes
-    digest: 524f72979fb0a45e61327ec37c74dcd05781c413d7b90e69f7457879c249368d
+    digest: cee4c27fdce6095c9f0ba0882bbc05563ccb52f690ef69f7772ee4a0e570f396
     name: coregen100
     type: application
     urls:
     - coregen100-1.0.0.tgz
     version: 1.0.0
-generated: "2026-11-13T15:46:27.102538-05:00"
+generated: "2026-11-13T15:50:09.43485-05:00"

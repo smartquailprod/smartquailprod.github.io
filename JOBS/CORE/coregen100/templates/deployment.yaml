@@ -18,7 +18,7 @@ spec:
       securityContext:
         fsGroup: 1000
 
-      # 1. INIT CONTAINER: Se ejecuta primero como root (UID 0) para preparar permisos
+      # 1. INIT CONTAINER: Prepara los scripts copiándolos a un volumen temporal con permisos
       initContainers:
       - name: init-permissions
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -26,16 +26,30 @@ spec:
         command: ['/bin/bash', '-c']
         args:
           - |
-            echo "--- Init Container: Verificando entorno y permisos ---"
+            echo "--- Init Container: Copiando y preparando scripts ---"
+            
+            # Copiamos los scripts necesarios al directorio temporal compartido /shared-scripts
             if [ -f "./deploy.sh" ]; then
-              chmod +x ./deploy.sh
-              echo "Permisos otorgados a ./deploy.sh"
+              cp ./deploy.sh /shared-scripts/deploy.sh
+              chmod +x /shared-scripts/deploy.sh
+              echo "Script deploy.sh preparado en /shared-scripts"
+            else
+              echo "ERROR: No se encuentra deploy.sh en la ruta raíz"
+              exit 1
             fi
+
+            if [ -f "./init.sh" ]; then
+              cp ./init.sh /shared-scripts/init.sh
+              chmod +x /shared-scripts/init.sh
+            fi
+
             echo "Inicialización completada con éxito."
         securityContext:
           runAsUser: 0
           runAsGroup: 0
-        # Opcional: Si el init container necesita leer alguna variable de secretos
+        volumeMounts:
+        - name: shared-scripts-volume
+          mountPath: /shared-scripts
         env:
           - name: PROJECT_NAME
             valueFrom:
@@ -43,14 +57,14 @@ spec:
                 name: {{ .Values.qnodename }}-secrets
                 key: PROJECT_NAME
 
-      # 2. CONTENEDOR PRINCIPAL: Tu aplicación con los secretos y el entrypoint
+      # 2. CONTENEDOR PRINCIPAL: Ejecuta el script ya preparado de forma segura
       containers:
       - name: {{ .Values.qnodename }}
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: "{{ .Values.image.pullPolicy }}"
         
-        # Ejecuta el script montado desde el ConfigMap
-        command: ["/bin/bash", "/scripts/entrypoint.sh"]
+        # Apuntamos al script limpio que está en el volumen compartido o usamos el entrypoint
+        command: ["/bin/bash", "/shared-scripts/deploy.sh"]
 
         securityContext:
           runAsUser: 1000
@@ -107,11 +121,9 @@ spec:
                 key: REPO_VISIBILITY
 
         volumeMounts:
-          - name: script-volume
-            mountPath: /scripts
+          - name: shared-scripts-volume
+            mountPath: /shared-scripts
 
       volumes:
-      - name: script-volume
-        configMap:
-          name: {{ .Values.qnodename }}-script-config
-          defaultMode: 0755
+      - name: shared-scripts-volume
+        emptyDir: {}
