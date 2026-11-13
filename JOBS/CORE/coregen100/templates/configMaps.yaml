@@ -11,12 +11,12 @@ data:
     export PATH="/root/.cargo/bin:/usr/local/bin:$PATH"
     
     echo "Ejecutando desde la raíz del contenedor"
-    cd /
+    cd /${PROJECT_NAME}/resources || { echo "ERROR: No se pudo cambiar al directorio /${PROJECT_NAME}"; exit 1; }
     
     # Verificamos la ruta donde está deploy.sh (puede estar en la raíz o en recursos)
     DEPLOY_SCRIPT="./deploy.sh"
     if [ ! -f "$DEPLOY_SCRIPT" ]; then
-      DEPLOY_SCRIPT="/resources/deploy.sh"
+      DEPLOY_SCRIPT="/${PROJECT_NAME}/resources/deploy.sh"
     fi
 
     if [ ! -f "$DEPLOY_SCRIPT" ]; then
