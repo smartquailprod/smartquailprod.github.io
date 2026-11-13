@@ -18,7 +18,7 @@ data:
     # Nos movemos a la carpeta resources del proyecto donde están todos los archivos
     TARGET_DIR="/${PROJECT_NAME}/resources"
     if [ ! -d "$TARGET_DIR" ]; then
-      TARGET_DIR="/resources"
+      TARGET_DIR="/workdir/resources"
     fi
 
     cd "$TARGET_DIR" || { echo "ERROR: No se pudo cambiar al directorio $TARGET_DIR"; exit 1; }

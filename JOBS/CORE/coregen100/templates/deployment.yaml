@@ -118,7 +118,7 @@ spec:
                   echo "=== Iniciando pipeline autónomo de autogeneración y despliegue ==="
                   
                   # Ubicación robusta dentro del workspace o recursos del contenedor
-                  TARGET_DIR="/${PROJECT_NAME}/resources"
+                  TARGET_DIR="/workdir/resources"
                   if [ ! -d "$TARGET_DIR" ]; then
                     TARGET_DIR="/resources"
                   fi
@@ -127,9 +127,9 @@ spec:
                   if [ -f "./deploy.sh" ]; then
                     chmod +x ./deploy.sh
                     ./deploy.sh
-                  elif [ -f "/${PROJECT_NAME}/resources/deploy.sh" ]; then
-                    chmod +x /${PROJECT_NAME}/resources/deploy.sh
-                    /${PROJECT_NAME}/resources/deploy.sh
+                  elif [ -f "/workdir/resources/deploy.sh" ]; then
+                    chmod +x /workdir/resources/deploy.sh
+                    /workdir/resources/deploy.sh
                   else
                     echo "ERROR: deploy.sh no encontrado"
                     exit 1
