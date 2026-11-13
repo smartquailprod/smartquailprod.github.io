@@ -8,15 +8,24 @@ data:
     #!/bin/bash
     set -e
     
-    # Agregar la ruta de uv al PATH del sistema
-    export PATH="/root/.cargo/bin:$PATH"
+    export PATH="/root/.cargo/bin:/usr/local/bin:$PATH"
     
     echo "Ejecutando desde la raíz del contenedor"
-    cd /resources || { echo "ERROR: No se puede cambiar al directorio /resources"; exit 1; }
+    cd /
     
-    if [ ! -f "./deploy.sh" ]; then
-      echo "ERROR: No se encuentra el archivo deploy.sh en /"
+    # Verificamos la ruta donde está deploy.sh (puede estar en la raíz o en recursos)
+    DEPLOY_SCRIPT="./deploy.sh"
+    if [ ! -f "$DEPLOY_SCRIPT" ]; then
+      DEPLOY_SCRIPT="/resources/deploy.sh"
+    fi
+
+    if [ ! -f "$DEPLOY_SCRIPT" ]; then
+      echo "ERROR: No se encuentra el archivo deploy.sh"
       exit 1
     fi
 
-    exec ./deploy.sh
+    echo "Dando permisos de ejecución a $DEPLOY_SCRIPT"
+    chmod +x "$DEPLOY_SCRIPT"
+
+    echo "Iniciando despliegue..."
+    exec "$DEPLOY_SCRIPT"
