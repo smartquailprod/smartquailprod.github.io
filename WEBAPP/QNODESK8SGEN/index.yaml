@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  qndappdeploy100:
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2026-11-13T20:19:57.648502-05:00"
+    description: A Helm chart for Kubernetes
+    digest: 56590761994f5be0755ed7a9b767bb8d9409d88cf5561a825c277fb5e1108936
+    name: qndappdeploy100
+    type: application
+    urls:
+    - qndappdeploy100-1.0.0.tgz
+    version: 1.0.0
+generated: "2026-11-13T20:19:57.647509-05:00"
