@@ -6,7 +6,7 @@ replicaCount: 1
 qnodename: qnd15000app
 qnodenamespace: www-apps
 ingress_name: qnd15000-app-ingress
-domainname: qnd15000app
+domainName: qnd15000app
 nodeRole: app
 
 
