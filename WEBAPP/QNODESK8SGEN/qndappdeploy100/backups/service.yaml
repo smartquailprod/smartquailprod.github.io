@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: qnd41-pro
+  namespace: qnd41-app
+  labels:
+    app: qnd41-app
+spec:
+  type: LoadBalancer
+  selector:
+    app: qnd41-app
+  ports:
+     - name: http
+       port: 80
+       targetPort: 9000
+       protocol: TCP

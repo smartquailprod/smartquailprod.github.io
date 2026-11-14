@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Values.qnodename }}-app-ingress
+  namespace: {{ .Values.qnodenamespace }}
+  annotations:
+    # --- ANOTACIONES DE TAMAÑO Y TIMEOUT PARA NGINX-STABLE (F5) ---
+    nginx.org/client-max-body-size: "0"         # "0" = Sin límite (o "1024m" para 1GB)
+    nginx.org/proxy-connect-timeout: "600s"
+    nginx.org/proxy-read-timeout: "600s"
+    nginx.org/proxy-send-timeout: "600s"
+    cert-manager.io/cluster-issuer: letsencrypt-cluster-issuer    
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: {{ .Values.host }}
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ .Values.qnodename }}
+                port:
+                  number: 80
+  tls:
+    - secretName: {{ .Values.secret_name }}
+      hosts:
+        -  {{ .Values.host }}

@@ -1,0 +1,14 @@
+
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: smartquail-io-certificate
+  namespace: {{ .Values.qnodenamespace }}
+spec:
+  secretName: {{ .Values.secret_name }}
+  issuerRef:
+    name: letsencrypt-digitalocean-issuer
+    kind: ClusterIssuer
+  commonName: {{ .Values.qnd_commonName }}
+  dnsNames:
+    - {{ .Values.qnd_dns_names }}
