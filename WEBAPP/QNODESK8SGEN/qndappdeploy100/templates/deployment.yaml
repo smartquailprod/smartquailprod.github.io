@@ -16,7 +16,7 @@ spec:
         app: {{ .Values.qnodename }}
     spec:
       securityContext:
-        fsGroup: 1000  #  Ubicado correctamente en nivel de Pod
+        fsGroup: 1000  # Ubicado correctamente en nivel de Pod
       containers:
         - name: {{ .Values.qnodename }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -26,15 +26,13 @@ spec:
             runAsGroup: 1000
           ports:
             - name: http
-              containerPort: 8000  #  Puerto corregido
+              containerPort: 8000
               protocol: TCP
           volumeMounts:
             - name: app-logs
               mountPath: /var/log/{{ .Values.qnodename }}/
             - name: gurnicon-logs
               mountPath: /var/log/gurnicon/
-            
-            
           resources:
             requests:
               cpu: {{ .Values.resources.requests.cpu }}
@@ -45,7 +43,7 @@ spec:
           env:
             - name: PORT
               value: "8000"
-            #  Django & App Environment
+            # Django & App Environment
             - name: DJANGO_LOG_FILE
               valueFrom:
                 secretKeyRef:
@@ -111,7 +109,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DJANGO_SUPERUSER_KEY
-            #  Infra
+            # Infra
             - name: IP
               valueFrom:
                 secretKeyRef:
@@ -127,7 +125,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: HOSTNAME
-            #  PostgreSQL
+            # PostgreSQL
             - name: POSTGRES_DB
               valueFrom:
                 secretKeyRef:
@@ -158,7 +156,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: POSTGRES_ENGINE
-            #  Redis & RabbitMQ
+            # Redis & RabbitMQ
             - name: REDIS_HOST
               valueFrom:
                 secretKeyRef:
@@ -184,7 +182,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: RABBITMQ_DEFAULT_PASS
-            #  AWS
+            # AWS
             - name: AWS_ACCESS_KEY_ID
               valueFrom:
                 secretKeyRef:
@@ -210,7 +208,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: AWS_LOCATION
-            #  Celery
+            # Celery
             - name: CELERY_BROKER_URL
               valueFrom:
                 secretKeyRef:
@@ -226,7 +224,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: CELERY_TIMEZONE
-            #  Email
+            # Email
             - name: EMAIL_BACKEND
               valueFrom:
                 secretKeyRef:
@@ -257,33 +255,26 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_USER
-
             - name: EMAIL_HOST_USER_INFO
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_USER_INFO
-
             - name: EMAIL_HOST_USER_LICENCIAS
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_USER_LICENCIAS
-
-            
             - name: EMAIL_HOST_USER_ACTIVOS
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_USER_ACTIVOS
-
             - name: EMAIL_HOST_USER_CTO
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: EMAIL_HOST_USER_CTO
-
-            
             - name: EMAIL_HOST_PASSWORD
               valueFrom:
                 secretKeyRef:
@@ -294,33 +285,27 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL
-
             - name: DEFAULT_FROM_EMAIL_LICENCIAS
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL_LICENCIAS
-
             - name: DEFAULT_FROM_EMAIL_INFO
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL_INFO
-
-
             - name: DEFAULT_FROM_EMAIL_ACTIVOS
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL_ACTIVOS
-
             - name: DEFAULT_FROM_EMAIL_CTO
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: DEFAULT_FROM_EMAIL_CTO
-
-            #  WhatsApp
+            # WhatsApp
             - name: TWILIO_ACCOUNT_SID
               valueFrom:
                 secretKeyRef:
@@ -336,7 +321,7 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: TWILIO_WHATSAPP_FROM
-            #  Otros
+            # Otros
             - name: LANG
               valueFrom:
                 secretKeyRef:
@@ -407,142 +392,108 @@ spec:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: BRAINTREE_PRIVATE_KEY
-
             - name: N8N_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_WEBHOOK_URL
-
             - name: N8N_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_SECRET
-
             - name: N8N_GEMINI_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_GEMINI_SECRET
-
             - name: N8N_META_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_META_WEBHOOK_URL
-
             - name: N8N_EDIT_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_EDIT_WEBHOOK_URL
-
             - name: N8N_POST_INSTAGRAM_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_POST_INSTAGRAM_WEBHOOK_URL
-
             - name: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
-
             - name: N8N_VIDEO_WEBHOOK_URL
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_VIDEO_WEBHOOK_URL
-
             - name: OPENCLAW_WEBHOOK_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: OPENCLAW_WEBHOOK_SECRET
-
-    
-
             - name: GEMINI_API_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GEMINI_API_KEY
-
-            - name: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
-              valueFrom:
-                secretKeyRef:
-                  name: {{ .Values.qnodename }}-app-secrets
-                  key: N8N_INSTAGRAM_CAROUSELL_WEBHOOK_URL
-
             - name: N8N_AI_INSTAGRAM_POST
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_AI_INSTAGRAM_POST
-
-
             - name: N8N_A_INSTAGRAM_POST
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: N8N_A_INSTAGRAM_POST
-
             - name: FACEBOOK_CLIENT_ID
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: FACEBOOK_CLIENT_ID
-
-            
-
             - name: FACEBOOK_SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: FACEBOOK_SECRET_KEY
-
             - name: GOOGLE_CLIENT_ID
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GOOGLE_CLIENT_ID
-
             - name: GOOGLE_SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GOOGLE_SECRET_KEY
-
             - name: GITHUB_CLIENT_ID
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GITHUB_CLIENT_ID
-
             - name: GITHUB_SECRET_KEY
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GITHUB_SECRET_KEY
-
             - name: GA4_MEASUREMENT_ID
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GA4_MEASUREMENT_ID
-
             - name: GA4_API_SECRET
               valueFrom:
                 secretKeyRef:
                   name: {{ .Values.qnodename }}-app-secrets
                   key: GA4_API_SECRET                  
-  
 
-            
-
-
+        # Segundo Contenedor: Fluent Bit
         - name: fluent-bit
           image: fluent/fluent-bit:2.1.8
           securityContext:
@@ -575,6 +526,7 @@ spec:
               mountPath: /var/log/gurnicon
             - name: fluent-bit-config-{{ .Values.qnodename }}
               mountPath: /fluent-bit/etc/
+
       volumes:
         - name: app-logs
           emptyDir: {}
