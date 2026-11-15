@@ -26,7 +26,7 @@ spec:
             runAsGroup: 1000
           ports:
             - name: http
-              containerPort: 8000
+              containerPort: 9000
               protocol: TCP
           volumeMounts:
             - name: app-logs
@@ -42,8 +42,20 @@ spec:
               memory: {{ .Values.resources.limits.memory }}
           env:
             - name: PORT
-              value: "8000"
+              value: "9000"
             # Django & App Environment
+            - name: PROJECT_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: PROJECT_NAME
+
+            - name: APP_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.qnodename }}-app-secrets
+                  key: APP_NAME
+
             - name: DJANGO_LOG_FILE
               valueFrom:
                 secretKeyRef:
