@@ -13,28 +13,19 @@ data:
 
     [INPUT]
         Name               tail
-        Path               /var/log/qnd041app/qnd041app.log
-        Tag                app.qnd041app
-        DB                 /var/log/qnd041app/qnd041app.db
-        Parser             qnd041app
-        Refresh_Interval   5
-        Mem_Buf_Limit      50MB
-
-    [INPUT]
-        Name               tail
-        Path               /var/log/uwsgi/uwsgi.log
-        Tag                app.uwsgi
-        DB                 /var/log/uwsgi/uwsgi.db
-        Parser             uwsgi
+        Path               /var/log/{{ .Values.qnodename }}/{{ .Values.qnodename }}.log
+        Tag                app.{{ .Values.qnodename }}
+        DB                 /tmp/{{ .Values.qnodename }}.db
+        Parser             {{ .Values.qnodename }}
         Refresh_Interval   5
         Mem_Buf_Limit      50MB
 
     [OUTPUT]
         Name               es
-        Match              app.qnd041app
+        Match              app.{{ .Values.qnodename }}
         Host               elasticsearch
         Port               9200
-        Index              qnd041app-logs
+        Index              {{ .Values.qnodename }}-logs
         Time_Key           @timestamp
         Replace_Dots       On
         Retry_Limit        False
@@ -57,7 +48,7 @@ data:
 
   parsers.conf: |
     [PARSER]
-        Name             qnd041app
+        Name             {{ .Values.qnodename }}
         Format           json
         Time_Key         time
         Time_Format      %Y-%m-%dT%H:%M:%S.%f
